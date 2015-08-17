@@ -150,35 +150,30 @@ void render( void )//printing walls and renders
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };//dark blue, army green, turquoise, blood red, purple, poop, epilepsy green, cyan, cherry red, pink, yellow, white
-	for (int i = 0; i < 12; ++i)//colour test
-	{
-		gotoXY(g_cConsoleSize.X/2+i,g_cConsoleSize.Y/2);
-		colour(colors[i]);
-		std::cout << " ";
-	}
+	char wall = ' ';
 	for (int i = 1; i < 70; ++i)//top bounding
 	{
 		gotoXY(i,1);
 		colour(colors[11]);
-		std::cout << " ";
+		std::cout << wall;
 	}
 	for (int i = 1; i < 70; ++i)//bottom bounding
 	{
 		gotoXY(i,27);
 		colour(colors[11]);
-		std::cout << " ";
+		std::cout << wall;
 	}
 	for (int i = 1; i < 28; ++i)//left bounding
 	{
 		gotoXY(1,i);
 		colour(colors[11]);
-		std::cout << " ";
+		std::cout << wall;
 	}
 	for (int i = 1; i < 28; ++i)//right bounding
 	{
 		gotoXY(69,i);
 		colour(colors[11]);
-		std::cout << " ";
+		std::cout << wall;
 	}
 
     // render time taken to calculate this frame
