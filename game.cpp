@@ -12,34 +12,86 @@ bool	g_abKeyPressed[K_COUNT];
 COORD	g_cCharLocation;
 COORD	g_cCharLocation2;
 COORD	g_cConsoleSize;
+void level1();
+void level2();
+int next=1;
+char level[26][71];
 
-char level1[26][71]={
-	{" #####################################################################"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #                        #                 #                        #"}
-,	{" #           ##############                 ##############           #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #                                                                   #"}
-,	{" #####################################################################"}};
- 
+void level1()
+{
+	char level1[26][71]={
+		{" #####################################################################"}
+	,	{" #                        #        @        #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #                        #                 #                        #"}
+	,	{" #           ##############                 ##############           #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #####################################################################"}};
+
+	for(int i=0;i<26;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level1[i][c];
+		}
+	}
+}
+
+void level2()
+{
+	char level2[26][71]={
+		{" #####################################################################"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #           ###################           ##################        #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #####################         #           #       ###################"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #           #                         #"}
+	,	{" #                             #     @     #                         #"}
+	,	{" #####################################################################"}};
+
+	for(int i=0;i<26;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level2[i][c];
+		}
+	}
+}
 
 //--------------------------------------------------------------
 // Purpose	: Initialisation function
@@ -64,8 +116,6 @@ void init( void )
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
     g_cConsoleSize.X = csbi.srWindow.Right + 1;
     g_cConsoleSize.Y = csbi.srWindow.Bottom + 1;
-	std::cout<<g_cConsoleSize.X;
-	std::cout<<g_cConsoleSize.Y;
 
     // set the character to be in the TOP LEFT OF BOUNDING BOX.
     g_cCharLocation.X = 2;
@@ -115,19 +165,25 @@ void update(double dt)
 	int Y = g_cCharLocation.Y-1;
 	int a = g_cCharLocation2.X;
 	int b = g_cCharLocation2.Y-1;
+	switch(next)
+	{
+	case 1:level1();break;
+	case 2:level2();break;
+	}
+
     // Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
     if (g_abKeyPressed[K_UP] && g_cCharLocation.Y > 0)
     {
-		if(level1[Y-1][X]!='#')
+		if(level[Y-1][X]!='#')
 		{
 			Beep(1440, 30);
-			g_cCharLocation.Y--; 
+			g_cCharLocation.Y--;
 		}
     }
     else if (g_abKeyPressed[K_LEFT] && g_cCharLocation.X > 0)
     {
-		if(level1[Y][X-1]!='#')
+		if(level[Y][X-1]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation.X--; 
@@ -135,7 +191,7 @@ void update(double dt)
     }
     else if (g_abKeyPressed[K_DOWN] && g_cCharLocation.Y < g_cConsoleSize.Y - 1)
     {
-		if(level1[Y+1][X]!='#')
+		if(level[Y+1][X]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation.Y++; 
@@ -143,7 +199,7 @@ void update(double dt)
     }
     else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation.X < g_cConsoleSize.X - 1)
     {
-		if(level1[Y][X+1]!='#')
+		if(level[Y][X+1]!='#')
 		{
         Beep(1440, 30);
         g_cCharLocation.X++; 
@@ -153,7 +209,7 @@ void update(double dt)
 	//2nd Character, LR reversed.
 	if (g_abKeyPressed[K_UP] && g_cCharLocation2.Y > 0)
     {
-		if(level1[b-1][a]!='#')
+		if(level[b-1][a]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation2.Y--;
@@ -161,7 +217,7 @@ void update(double dt)
     }
     else if (g_abKeyPressed[K_LEFT] && g_cCharLocation2.X < g_cConsoleSize.X - 1)
     {
-		if(level1[b][a+1]!='#')
+		if(level[b][a+1]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation2.X++;
@@ -169,7 +225,7 @@ void update(double dt)
     }
     else if (g_abKeyPressed[K_DOWN] && g_cCharLocation2.Y < g_cConsoleSize.Y - 1)
     {
-		if(level1[b+1][a]!='#')
+		if(level[b+1][a]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation2.Y++;
@@ -177,7 +233,7 @@ void update(double dt)
     }
     else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation2.X > 0)
     {
-		if(level1[b][a-1]!='#')
+		if(level[b][a-1]!='#')
 		{
 			Beep(1440, 30);
 			g_cCharLocation2.X--;
@@ -186,7 +242,12 @@ void update(double dt)
 
     // quits the game if player hits the escape key
     if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true;    
+        g_bQuitGame = true;
+	if (level[b][a]=='@' && level[Y][X]=='@')
+	{
+		next++;
+		//changes spawn after touch
+	}
 }
 
 //--------------------------------------------------------------
@@ -200,6 +261,11 @@ void render( void )//printing walls and renders
     colour(0x0F);
 	system("CLS");
     //render the game
+	switch(next)
+	{
+	case 1:level1();break;
+	case 2:level2();break;
+	}
 
     //render test screen code (not efficient at all)
     const WORD colors[] =   {
@@ -211,14 +277,14 @@ void render( void )//printing walls and renders
 	{
 		for(int c=0;c<71;++c)
 		{
-			std::cout<<level1[i][c];
+				std::cout<<level[i][c];
 		}
 		std::cout<<"  \n";
 	}
     // render time taken to calculate this frame
     gotoXY(62, 0);
     colour(0xF6);
-    std::cout << 1.0 / g_dDeltaTime << "fps" << std::endl;
+    std::cout << 1.0 / g_dDeltaTime << "FPS" << std::endl;
   
     gotoXY(1, 0);
     colour(0xF6);
