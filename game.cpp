@@ -154,25 +154,25 @@ void render( void )//printing walls and renders
 	for (int i = 1; i < 70; ++i)//top bounding
 	{
 		gotoXY(i,1);
-		colour(colors[11]);
+		colour(0xF6);
 		std::cout << wall;
 	}
 	for (int i = 1; i < 70; ++i)//bottom bounding
 	{
 		gotoXY(i,27);
-		colour(colors[11]);
+		colour(0xF6);
 		std::cout << wall;
 	}
 	for (int i = 1; i < 28; ++i)//left bounding
 	{
 		gotoXY(1,i);
-		colour(colors[11]);
+		colour(0xF6);
 		std::cout << wall;
 	}
 	for (int i = 1; i < 28; ++i)//right bounding
 	{
 		gotoXY(69,i);
-		colour(colors[11]);
+		colour(0xF6);
 		std::cout << wall;
 	}
 
