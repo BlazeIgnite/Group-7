@@ -177,7 +177,7 @@ void render( void )//printing walls and renders
 	}
 
     // render time taken to calculate this frame
-    gotoXY(62, 0);
+    gotoXY(63, 0);
     colour(0xF6);
     std::cout << 1.0 / g_dDeltaTime << "fps" << std::endl;
   
