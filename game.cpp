@@ -13,6 +13,34 @@ COORD	g_cCharLocation;
 COORD	g_cCharLocation2;
 COORD	g_cConsoleSize;
 
+char level1[26][71]={
+	{" #####################################################################"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #                        #                 #                        #"}
+,	{" #           ##############                 ##############           #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #                                                                   #"}
+,	{" #####################################################################"}};
+ 
+
 //--------------------------------------------------------------
 // Purpose	: Initialisation function
 // Input	: Void
@@ -36,6 +64,8 @@ void init( void )
     GetConsoleScreenBufferInfo( GetStdHandle( STD_OUTPUT_HANDLE ), &csbi );
     g_cConsoleSize.X = csbi.srWindow.Right + 1;
     g_cConsoleSize.Y = csbi.srWindow.Bottom + 1;
+	std::cout<<g_cConsoleSize.X;
+	std::cout<<g_cConsoleSize.Y;
 
     // set the character to be in the TOP LEFT OF BOUNDING BOX.
     g_cCharLocation.X = 2;
@@ -81,50 +111,77 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
+	int X = g_cCharLocation.X;
+	int Y = g_cCharLocation.Y-1;
+	int a = g_cCharLocation2.X;
+	int b = g_cCharLocation2.Y-1;
     // Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
     if (g_abKeyPressed[K_UP] && g_cCharLocation.Y > 0)
     {
-        Beep(1440, 30);
-        g_cCharLocation.Y--; 
+		if(level1[Y-1][X]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation.Y--; 
+		}
     }
     else if (g_abKeyPressed[K_LEFT] && g_cCharLocation.X > 0)
     {
-        Beep(1440, 30);
-        g_cCharLocation.X--; 
+		if(level1[Y][X-1]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation.X--; 
+		}
     }
     else if (g_abKeyPressed[K_DOWN] && g_cCharLocation.Y < g_cConsoleSize.Y - 1)
     {
-        Beep(1440, 30);
-        g_cCharLocation.Y++; 
+		if(level1[Y+1][X]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation.Y++; 
+		}
     }
     else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation.X < g_cConsoleSize.X - 1)
     {
+		if(level1[Y][X+1]!='#')
+		{
         Beep(1440, 30);
         g_cCharLocation.X++; 
+		}
     }
 
 	//2nd Character, LR reversed.
 	if (g_abKeyPressed[K_UP] && g_cCharLocation2.Y > 0)
     {
-        Beep(1440, 30);
-        g_cCharLocation2.Y--; 
+		if(level1[b-1][a]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation2.Y--;
+		}
     }
     else if (g_abKeyPressed[K_LEFT] && g_cCharLocation2.X < g_cConsoleSize.X - 1)
     {
-        Beep(1440, 30);
-        g_cCharLocation2.X++; 
+		if(level1[b][a+1]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation2.X++;
+		}
     }
     else if (g_abKeyPressed[K_DOWN] && g_cCharLocation2.Y < g_cConsoleSize.Y - 1)
     {
-        Beep(1440, 30);
-        g_cCharLocation2.Y++; 
+		if(level1[b+1][a]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation2.Y++;
+		}
     }
-    else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation2.X > 0)//add wall code
+    else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation2.X > 0)
     {
-        Beep(1440, 30);
-        g_cCharLocation2.X--; 
+		if(level1[b][a-1]!='#')
+		{
+			Beep(1440, 30);
+			g_cCharLocation2.X--;
+		}
     }
 
     // quits the game if player hits the escape key
@@ -141,8 +198,7 @@ void render( void )//printing walls and renders
 {
     // clear previous screen
     colour(0x0F);
-    cls();
-
+	system("CLS");
     //render the game
 
     //render test screen code (not efficient at all)
@@ -150,34 +206,17 @@ void render( void )//printing walls and renders
 	                        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 	                        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	                        };//dark blue, army green, turquoise, blood red, purple, poop, epilepsy green, cyan, cherry red, pink, yellow, white
-	char wall = ' ';
-	for (int i = 1; i < 70; ++i)//top bounding
+	gotoXY(0,1);
+	for(int i=0;i<26;++i)
 	{
-		gotoXY(i,1);
-		colour(0xF6);
-		std::cout << wall;
+		for(int c=0;c<71;++c)
+		{
+			std::cout<<level1[i][c];
+		}
+		std::cout<<"  \n";
 	}
-	for (int i = 1; i < 70; ++i)//bottom bounding
-	{
-		gotoXY(i,27);
-		colour(0xF6);
-		std::cout << wall;
-	}
-	for (int i = 1; i < 28; ++i)//left bounding
-	{
-		gotoXY(1,i);
-		colour(0xF6);
-		std::cout << wall;
-	}
-	for (int i = 1; i < 28; ++i)//right bounding
-	{
-		gotoXY(69,i);
-		colour(0xF6);
-		std::cout << wall;
-	}
-
     // render time taken to calculate this frame
-    gotoXY(63, 0);
+    gotoXY(62, 0);
     colour(0xF6);
     std::cout << 1.0 / g_dDeltaTime << "fps" << std::endl;
   
