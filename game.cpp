@@ -69,19 +69,19 @@ void level2()
 	,	{" #                                                                   #"}
 	,	{" #                                                                   #"}
 	,	{" #                                                                   #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #           ###################           ##################        #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #####################         #           #       ###################"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #           #                         #"}
-	,	{" #                             #     @     #                         #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #         ###################           ##################          #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #####################       #           #         ###################"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #     @     #                           #"}
 	,	{" #####################################################################"}};
 
 	for(int i=0;i<26;++i)
@@ -93,6 +93,43 @@ void level2()
 	}
 }
 
+void level3()
+{
+	char level3[26][71]={
+		{" #####################################################################"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #         ###################           ##################          #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #####################       #           #         ###################"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #           #                           #"}
+	,	{" #                           #     @     #                           #"}
+	,	{" #####################################################################"}};
+
+	for(int i=0;i<26;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level3[i][c];
+		}
+	}
+}
 //--------------------------------------------------------------
 // Purpose	: Initialisation function
 // Input	: Void
@@ -118,7 +155,7 @@ void init( void )
     g_cConsoleSize.Y = csbi.srWindow.Bottom + 1;
 
     // set the character to be in the TOP LEFT OF BOUNDING BOX.
-    g_cCharLocation.X = 2;
+	g_cCharLocation.X = 2;
     g_cCharLocation.Y = 2;
 	g_cCharLocation2.X = 68;
 	g_cCharLocation2.Y = 2;
@@ -177,6 +214,8 @@ void update(double dt)
     {
 		if(level[Y-1][X]!='#')
 		{
+			gotoXY(g_cCharLocation.X,g_cCharLocation.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
 			g_cCharLocation.Y--;
 		}
@@ -185,24 +224,30 @@ void update(double dt)
     {
 		if(level[Y][X-1]!='#')
 		{
+			gotoXY(g_cCharLocation.X,g_cCharLocation.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
-			g_cCharLocation.X--; 
+			g_cCharLocation.X--;
 		}
     }
     else if (g_abKeyPressed[K_DOWN] && g_cCharLocation.Y < g_cConsoleSize.Y - 1)
     {
 		if(level[Y+1][X]!='#')
 		{
+			gotoXY(g_cCharLocation.X,g_cCharLocation.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
-			g_cCharLocation.Y++; 
+			g_cCharLocation.Y++;
 		}
     }
     else if (g_abKeyPressed[K_RIGHT] && g_cCharLocation.X < g_cConsoleSize.X - 1)
     {
 		if(level[Y][X+1]!='#')
 		{
-        Beep(1440, 30);
-        g_cCharLocation.X++; 
+			gotoXY(g_cCharLocation.X,g_cCharLocation.Y);
+			std::cout<<" ";
+			Beep(1440, 30);
+			g_cCharLocation.X++;
 		}
     }
 
@@ -211,7 +256,9 @@ void update(double dt)
     {
 		if(level[b-1][a]!='#')
 		{
-			Beep(1440, 30);
+			gotoXY(g_cCharLocation2.X,g_cCharLocation2.Y);
+			std::cout<<" ";
+			Beep(1440, 30);		
 			g_cCharLocation2.Y--;
 		}
     }
@@ -219,6 +266,8 @@ void update(double dt)
     {
 		if(level[b][a+1]!='#')
 		{
+			gotoXY(g_cCharLocation2.X,g_cCharLocation2.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
 			g_cCharLocation2.X++;
 		}
@@ -227,6 +276,8 @@ void update(double dt)
     {
 		if(level[b+1][a]!='#')
 		{
+			gotoXY(g_cCharLocation2.X,g_cCharLocation2.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
 			g_cCharLocation2.Y++;
 		}
@@ -235,6 +286,8 @@ void update(double dt)
     {
 		if(level[b][a-1]!='#')
 		{
+			gotoXY(g_cCharLocation2.X,g_cCharLocation2.Y);
+			std::cout<<" ";
 			Beep(1440, 30);
 			g_cCharLocation2.X--;
 		}
@@ -246,7 +299,10 @@ void update(double dt)
 	if (level[b][a]=='@' && level[Y][X]=='@')
 	{
 		next++;
-		//changes spawn after touch
+		switch(next)
+		{
+			case 2: g_cCharLocation.X = 2; g_cCharLocation.Y = 24; g_cCharLocation2.X = 68; g_cCharLocation2.Y = 24;break;
+		}
 	}
 }
 
@@ -259,7 +315,6 @@ void render( void )//printing walls and renders
 {
     // clear previous screen
     colour(0x0F);
-	system("CLS");
     //render the game
 	switch(next)
 	{
@@ -294,6 +349,7 @@ void render( void )//printing walls and renders
     gotoXY(g_cCharLocation);
     colour(0x0C);
     std::cout << (char)153;
+
 
 	// render character
     gotoXY(g_cCharLocation2);
