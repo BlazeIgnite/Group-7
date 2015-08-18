@@ -14,8 +14,10 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 char level[26][71];
+char side[24][10];
 int next=0;
 void menu();
+void sidemenu();
 void level1();
 void level2();
 void level3();
@@ -36,9 +38,9 @@ void init()
     elapsedTime = 0.0;
 
     charLocation.X = 24;
-    charLocation.Y = 10;
+    charLocation.Y = 9;
 	charLocation2.X = 24;
-	charLocation2.Y = 10;
+	charLocation2.Y = 9;
     // sets the width, height and the font name to use in the console
     console.setConsoleFont(0, 28, L"Consolas");
 }
@@ -85,7 +87,8 @@ void update(double dt)
     deltaTime = dt;
 	switch(next)
 	{
-	case 0:menu();break;
+	case 0:menu();sidemenu();
+		break;
 	case 1:level1();break;
 	case 2:level2();break;
 	case 3:level3();break;
@@ -199,7 +202,7 @@ void moveCharacter()
 			case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
 		}
 	}
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
     {
 		Beep(1440, 30);
         next++;
@@ -235,7 +238,7 @@ void renderMap()
         {
                 if(level[i][c] == '#')
                 {
-                        char a = 219;
+                        unsigned char a = 219;
                         console.writeToBuffer(c,i+1,a,0x23);
                 }
                 else
@@ -244,6 +247,21 @@ void renderMap()
                         console.writeToBuffer(c,i+1,level[i][c]);
                 }
         }
+	}
+	for (unsigned int i=0;i<24;++i)
+	{
+		for(unsigned int c=70;c<80;++c)
+		{
+			if(side[i][c] == '#')
+            {
+                unsigned char a = 219;
+				console.writeToBuffer(c,i+7,a,0x23);
+			}
+			else
+			{
+				console.writeToBuffer(c,i+10,side[i][c]);
+			}
+		}
 	}
 }
 void renderCharacter()
@@ -280,11 +298,10 @@ void menu()
 {
         char menu[24][71]={
                 {" #####################################################################"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
+        ,       {" #    |\\      /| ===== |====\\ |====\\  /====\\  |====\\                 #"}
+        ,       {" #    | \\    / |   |   |____/ |____/ /      \\ |____/                 #"}
+		,       {" #    |  \\  /  |   |   |  \\   |  \\   \\      / |  \\                   #"}
+        ,       {" #    |   \\/   | ===== |   \\  |   \\   \\____/  |   \\                  #"}
         ,       {" #                                                                   #"}
         ,       {" #                                                                   #"}
         ,       {" #                     ###                                           #"}
@@ -292,10 +309,10 @@ void menu()
         ,       {" #                     # # help                                      #"}
         ,       {" #                     ###                                           #"}
         ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
+        ,       {" #    ===== |\\      /|    /\\    /===\\  |====                         #"}
+        ,       {" #      |   | \\    / |   /__\\  /       |                             #"}
+        ,       {" #      |   |  \\  /  |  /    \\ \\   ==/ |====                         #"}
+        ,       {" #    ===== |   \\/   | /      \\ \\___/  |____                         #"}
         ,       {" #                                                                   #"}
         ,       {" #                                                                   #"}
         ,       {" #                                                                   #"}
@@ -309,6 +326,42 @@ void menu()
                 for(int c=0;c<71;++c)
                 {
                         level[i][c] = menu[i][c];
+                }
+        }
+}
+void sidemenu()
+{
+	char sixonenine [24][10]={
+         {"#########"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#Time:  #"}
+        ,{"#       #"} 
+        ,{"#LVL:   #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#       #"}
+        ,{"#########"}};
+ 
+        for(int i=0;i<24;++i)
+        {
+                for(int c=0;c<10;++c)
+                {
+                        side[i][c] = sixonenine[i][c];
                 }
         }
 }
@@ -481,7 +534,7 @@ void level5()
         ,       {" ##      #   #   # #   # ## # # #  ### #         ###### ###   ####  ##"}
         ,       {" ##    #   #   #   ### #  #   #    #######       #   ## ##       #  ##"}
         ,       {" ##      #   #   # ### #  ### # #  ##      #####     ## ##  #### #  ##"}
-        ,       {" ## 3  #   #   #   #       ## # #  ## ###   ###  ###    ##  #### #3 ##"}
+        ,       {" ##    #   #   #   #       ## # #  ## ###   ###  ###    ##  #### #  ##"}
         ,       {" ##      #   #   # # ##### ##   #     ####       #####      ####    ##"}
         ,       {" #####################################################################"}
         ,       {" #####################################################################"}};
