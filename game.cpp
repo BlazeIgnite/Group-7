@@ -8,7 +8,7 @@
 #include <sstream>
 
 // Console object
-Console console(80, 40, "SP1 Framework");
+Console console(80, 25, "SP1 Framework");
 
 double elapsedTime;
 double deltaTime;
