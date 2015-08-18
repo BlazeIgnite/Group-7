@@ -14,16 +14,19 @@ double elapsedTime;
 double deltaTime;
 bool keyPressed[K_COUNT];
 char level[26][71];
-int next=1;
+int next=0;
+void menu();
 void level1();
 void level2();
-
+void level3();
+void level4();
+void level5();
+void level6();
+void level7();
 
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
-COORD mapCreate;
-
 
 // Initialize variables, allocate memory, load data from file, etc. 
 // This is called once before entering into your main loop
@@ -32,10 +35,10 @@ void init()
     // Set precision for floating point output
     elapsedTime = 0.0;
 
-    charLocation.X = 2;
-    charLocation.Y = 2;
-	charLocation2.X = 68;
-	charLocation2.Y = 2;
+    charLocation.X = 24;
+    charLocation.Y = 10;
+	charLocation2.X = 24;
+	charLocation2.Y = 10;
     // sets the width, height and the font name to use in the console
     console.setConsoleFont(0, 28, L"Consolas");
 }
@@ -64,16 +67,15 @@ void getInput()
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
 }
 
 /*
 	This is the update function
 	double dt - This is the amount of time in seconds since the previous call was made
-
 	Game logic should be done here.
 	Such as collision checks, determining the position of your game characters, status updates, etc
 	If there are any calls to write to the console here, then you are doing it wrong.
-
     If your game has multiple states, you should determine the current state, and call the relevant function here.
 */
 void update(double dt)
@@ -83,8 +85,14 @@ void update(double dt)
     deltaTime = dt;
 	switch(next)
 	{
+	case 0:menu();break;
 	case 1:level1();break;
 	case 2:level2();break;
+	case 3:level3();break;
+	case 4:level4();break;
+	case 5:level5();break;
+	case 6:level6();break;
+	case 7:level7();break;
 	}
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -184,14 +192,28 @@ void moveCharacter()
 		switch(next)
 		{
 			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 4: charLocation.X = 3; charLocation.Y = 14; charLocation2.X = 67; charLocation2.Y = 14;break;
+			case 5: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 6: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
 		}
 	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+    {
+		Beep(1440, 30);
+        next++;
+        charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
+    }
 }
+
 void processUserInput()
 {
     // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
+	{
         g_quitGame = true;
+	}
 }
 
 void clearScreen()
@@ -199,6 +221,7 @@ void clearScreen()
     // Clears the buffer with this colour attribute
     console.clearBuffer(0x0F);
 }
+
 void renderMap()
 {
     // Set up sample colours, and output shadings
@@ -214,14 +237,12 @@ void renderMap()
 		}
 	}
 }
-
 void renderCharacter()
 {
     // Draw the location of the character
     console.writeToBuffer(charLocation, (char)153, 0x0C);
 	console.writeToBuffer(charLocation2, (char)153, 0x0A);
 }
-
 void renderFramerate()
 {
     COORD c;
@@ -246,6 +267,42 @@ void renderToScreen()
     console.flushBufferToConsole();
 }
 
+void menu()
+{
+        char menu[24][71]={
+                {" #####################################################################"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                     ###                                           #"}
+        ,       {" #                     # # Start                                     #"}
+        ,       {" #                     # # help                                      #"}
+        ,       {" #                     ###                                           #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #                                                                   #"}
+        ,       {" #####################################################################"}};
+ 
+        for(int i=0;i<24;++i)
+        {
+                for(int c=0;c<71;++c)
+                {
+                        level[i][c] = menu[i][c];
+                }
+        }
+}
 void level1()
 {
 	char level1[24][71]={
@@ -282,7 +339,6 @@ void level1()
 		}
 	}
 }
-
 void level2()
 {
 	char level2[24][71]={
@@ -299,12 +355,12 @@ void level2()
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
-	,	{" #         ###################           ##################          #"}
+	,	{" #          ##################           ##################          #"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
-	,	{" #####################       #           #         ###################"}
+	,	{" ####################        #           #        ####################"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
 	,	{" #                           #           #                           #"}
@@ -319,41 +375,119 @@ void level2()
 		}
 	}
 }
-
 void level3()
 {
-	char level3[26][71]={
-		{" #####################################################################"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #         ###################           ##################          #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #####################       #           #         ###################"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #           #                           #"}
-	,	{" #                           #     @     #                           #"}
-	,	{" #####################################################################"}};
+ 
+        char level3[24][71]={
+                {" #####################################################################"}
+        ,       {" #                               #####                               #"}
+        ,       {" #                               #   #                               #"}
+        ,       {" #                               # @ #                               #"}
+        ,       {" #   #############################   #############################   #"}
+        ,       {" #   #############################   #############################   #"}
+        ,       {" #   ##                     ####        ###                     ##   #"}
+        ,       {" #   ##                     #### ###### ###                     ##   #"}
+        ,       {" #   ##                     ###  ###### ###                     ##   #"}
+        ,       {" #   ##  #################  ### ######  ###  #################  ##   #"}
+        ,       {" #   ##  #################  ### ######  ###  #################  ##   #"}
+        ,       {" #   ##  ##                 ###        ####                 ##  ##   #"}
+        ,       {" #   ##  ##                 ###        ###################  ##  ##   #"}
+        ,       {" #   ##  ##  ###################### ######################  ##  ##   #"}
+        ,       {" #   ##  ##                 ####### ########                ##  ##   #"}
+        ,       {" #   ##  #############    # ####### ########     #############  ##   #"}
+        ,       {" #   ##             ##    #   ###      ###       #              ##   #"}
+        ,       {" #   ##             ##    #   ###  #   ###       #              ##   #"}
+        ,       {" #   ##             ##    #   ###  #   ###       #              ##   #"}
+        ,       {" #   #############  ##    #   ###  #   ###       #   #############   #"}
+        ,       {" #   #############  ##    #   ###      ###       #   #############   #"}
+        ,       {" #                  ##    #   #####  #####       #                   #"}
+        ,       {" #                  ##    #                      #                   #"}
+        ,       {" #####################################################################"}};
+ 
+        for(int i=0;i<24;++i)
+        {
+                for(int c=0;c<71;++c)
+                {
+                        level[i][c] = level3[i][c];
+                }
+        }
+}
+void level4()
+{
+	char level4[24][71]={
+	            {" #####################################################################"}
+        ,       {" #####################################################################"}
+        ,       {" ##     ###   ###   ###   ### #   #   #   # ###   ###   ###   ###   ##"}
+        ,       {" ##   #  #  #  #  #  #  #  # ### ### ### ### #  #  #  #  #  #  #    ##"}
+        ,       {" ##  ###   ###   ###   ###    #   #   #   #    ###   ###   ###      ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #                 #  #  #  #  #  #  #    ##"}
+        ,       {" ##     ###   ###   ###   ### # ########### ###   ###   ###   ###   ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  #           #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##  ###   ###   ###   ###    # ######### #    ###   ###   ###      ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  # #       # #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##3    ###   ###   ###   ### # # # ### # # ###   ###   ###   ###   ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  # # #   # # #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##  ###   ###   ###   ###    # # # @ # # #    ###   ###   ###      ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  # # #   # # #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##     ###   ###   ###   ### # # ##### # # ###   ###   ###   ###   ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  # #       # #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##  ###   ###   ###   ###    # ####### # #    ###   ###   ###      ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #  #           #  #  #  #  #  #  #  #    ##"}
+        ,       {" ##     ###   ###   ###   ### ############# ###   ###   ###   ###   ##"}
+        ,       {" ##   #  #  #  #  #  #  #  #                 #  #  #  #  #  #  #    ##"}
+        ,       {" ##  ###   ###   ###   ###    #   #   #   #    ###   ###   ###      ##"}
+        ,       {" ##   #  #  #  #  #  #  #  # ### ### ### ### #  #  #  #  #  #  #    ##"}
+        ,       {" #####################################################################"}
+        ,       {" #####################################################################"}};
+	
 
-	for(int i=0;i<26;++i)
+	for(int i=0;i<24;++i)
 	{
 		for(int c=0;c<71;++c)
 		{
-			level[i][c] = level3[i][c];
+			level[i][c] = level4[i][c];
 		}
 	}
-}
+}////not yet
+void level5()
+{
+	char level5[24][71]={
+	
+	};
+
+	for(int i=0;i<24;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level5[i][c];
+		}
+	}
+}//not yet
+void level6()
+{
+	char level6[24][71]={
+	
+	};
+
+	for(int i=0;i<24;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level6[i][c];
+		}
+	}
+}//not yet
+void level7()
+{
+	char level7[24][71]={
+	
+	};
+
+	for(int i=0;i<24;++i)
+	{
+		for(int c=0;c<71;++c)
+		{
+			level[i][c] = level7[i][c];
+		}
+	}
+}//not yet
