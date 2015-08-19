@@ -306,14 +306,14 @@ void renderFramerate()
 		// displays the elapsed time
 
 		ss.str("");
-		if (10-elapsedTime>0)
+		if (1000-elapsedTime>0)
 		{
-		ss << 10 - elapsedTime << "s";
+		ss << 1000 - elapsedTime << "s";
 		}
 		else
 		{
 			ss << "0s";
-			elapsedTime=10;
+			elapsedTime=1000;
 			next = 100;
 			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
 		}
