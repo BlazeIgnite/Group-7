@@ -113,7 +113,7 @@ void update(double dt)
 void render()
 {
     clearScreen();      // clears the current screen and draw from scratch
-    renderMap();        // renders the map to the buffer first
+    renderMap();        // renders the Map to the buffer first
     renderCharacter();  // renders the character into the buffer
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -236,38 +236,44 @@ void renderMap()
     };
         for (unsigned int i=0;i<24;++i)
         {
-        for (unsigned int c=0;c<71;++c)
-        {
-                if(level[i][c] == '#')
-                {
-                        unsigned char a = 219;
-                        console.writeToBuffer(c,i+1,a,0x23);
-                }
-                else
-                {
+			for (unsigned int c=0;c<70;++c)
+			{
+				if(level[i][c] == '#')
+				{
+						unsigned char a = 219;
+						if(next>=1)
+						{
+							console.writeToBuffer(c,i+1,a,0x23);
+						}
+						else
+						{
+							console.writeToBuffer(c,i+1,a,0x00);
+						}
+				}
+				else
+				{
                                
-                        console.writeToBuffer(c,i+1,level[i][c]);
-                }
+						console.writeToBuffer(c,i+1,level[i][c]);
+				}
+			}
         }
-        }
+		
         if(next >= 1)
-        {
-                for (unsigned int i=0;i<23;++i)
+			for (unsigned int i=0;i<23;++i)
+            {
+                for(unsigned int c=0;c<10;++c)
                 {
-                        for(unsigned int c=0;c<10;++c)
-                        {
-                                if(side[i][c] == '#')
-                        {
-                            unsigned char a = 219;
-                                        console.writeToBuffer(c+70,i+1,a,0x23);
-                                }
-                                else
-                                {
-                                        console.writeToBuffer(c+70,i+1,side[i][c]);
-                                }
-                        }
+                    if(side[i][c] == '#')
+					{
+						unsigned char a = 219;
+						console.writeToBuffer(c+70,i+1,a,0x00);
+                    }
+                    else
+                    {
+                            console.writeToBuffer(c+70,i+1,side[i][c]);
+                    }
                 }
-        }
+            }
 }
 void renderCharacter()
 {
@@ -280,7 +286,7 @@ void renderFramerate()
     COORD c;
     // displays the framerate
     std::ostringstream ss;
-    ss << std::fixed << std::setprecision(2);
+    ss << std::fixed << std::setprecision(1);
     ss << 1.0 / deltaTime << "FPS";
     c.X = console.getConsoleSize().X - 8;
     c.Y = 0;
@@ -308,7 +314,7 @@ void renderFramerate()
 		}
 		c.X = 71;
 		c.Y = 10;
-		console.writeToBuffer(c, ss.str(), 0x0B);
+		console.writeToBuffer(c, ss.str());
 	}
 }
 void renderToScreen()
@@ -327,10 +333,10 @@ void menu()
         ,       {" #    |   \\/   | ===== |   \\  |   \\   \\____/  |   \\                  #"}
         ,       {" #                                                                   #"}
         ,       {" #                                                                   #"}
-        ,       {" #                     ###                                           #"}
-        ,       {" #                     # # Start                                     #"}
-        ,       {" #                     # # help                                      #"}
-        ,       {" #                     ###                                           #"}
+		,       {" #                     ###                                           #"}
+		,       {" #                     # # Start                                     #"}
+		,       {" #                     # # help                                      #"}
+		,       {" #                     ###                                           #"}
         ,       {" #                                                                   #"}
         ,       {" #    ===== |\\      /|    /\\    /===\\  |====                         #"}
         ,       {" #      |   | \\    / |   /__\\  /       |                             #"}
@@ -377,7 +383,7 @@ void sidemenu()
         ,{"#       #"}
         ,{"#       #"}
         ,{"#       #"}
-        ,{"#########"}};
+        ,{"#       #"}};
  
         for(int i=0;i<23;++i)
         {
