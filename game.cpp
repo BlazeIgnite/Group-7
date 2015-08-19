@@ -70,7 +70,8 @@ void getInput()
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
     keyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
-        keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
+	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+    keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
 }
  
 /*
@@ -90,7 +91,7 @@ void update(double dt)
     deltaTime = dt;
         switch(next)
         {
-		case 100:lose();break;
+		case 100:lose();elapsedTime=0;break;
         case 0:menu();sidemenu();
                 break;
         case 1:level1();break;
@@ -132,7 +133,7 @@ void moveCharacter()
     {
                 if(level[Y-1][X]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation.Y--;
                 }
     }
@@ -140,7 +141,7 @@ void moveCharacter()
     {
                 if(level[Y][X-1]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation.X--;
                 }
     }
@@ -148,7 +149,7 @@ void moveCharacter()
     {
                 if(level[Y+1][X]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation.Y++;
                 }
     }
@@ -156,7 +157,7 @@ void moveCharacter()
     {
                 if(level[Y][X+1]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation.X++;
                 }
     }
@@ -165,7 +166,7 @@ void moveCharacter()
     {
                 if(level[b-1][a]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation2.Y--;
                 }
     }
@@ -173,7 +174,7 @@ void moveCharacter()
     {
                 if(level[b][a+1]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation2.X++;
                 }
     }
@@ -181,7 +182,7 @@ void moveCharacter()
     {
                 if(level[b+1][a]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation2.Y++;
                 }
     }
@@ -189,7 +190,7 @@ void moveCharacter()
     {
                 if(level[b][a-1]!='#')
                 {
-                        Beep(1440, 30);
+                        //Beep(1440, 30);
                         charLocation2.X--;
                 }
     }
@@ -206,12 +207,17 @@ void moveCharacter()
                         case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
                 }
         }
-        else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
+    else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
     {
                 Beep(1440, 30);
         next++;
         charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
     }
+	else if ((keyPressed[K_SPACE]) && (next == 100))
+	{
+		next = 0;
+		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
+	}
 }
  
 void processUserInput()
@@ -259,7 +265,7 @@ void renderMap()
                 }
         }
         }
-        if(next >= 1)
+        if(next >= 1 && (next != 100))
         {
                 for (unsigned int i=0;i<23;++i)
                 {
@@ -296,7 +302,7 @@ void renderFramerate()
     console.writeToBuffer(c, ss.str());
 
 	//displays the current level
-	if (next!=0)
+	if (next!=0 && (next != 100))
 	{
 		ss.str("");
 		ss<<next;
@@ -306,14 +312,14 @@ void renderFramerate()
 		// displays the elapsed time
 
 		ss.str("");
-		if (1000-elapsedTime>0)
+		if (10-elapsedTime>0)
 		{
-		ss << 1000 - elapsedTime << "s";
+		ss << 10 - elapsedTime << "s";
 		}
 		else
 		{
 			ss << "0s";
-			elapsedTime=1000;
+			elapsedTime=10;
 			next = 100;
 			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
 		}
@@ -404,9 +410,9 @@ void level1()
                 {" #####################################################################"}
         ,       {" #                        #        @        #                        #"}
         ,       {" #                        #                 #                        #"}
-        ,       {" #                        #                 #                        #"}
-        ,       {" #                        #                 #                        #"}
-        ,       {" #                        #                 #                        #"}
+        ,       {" #                        #    this is      #                        #"}
+        ,       {" #                        #    the door     #                        #"}
+        ,       {" #   This is you          #                 #  This is your shadow   #"}
         ,       {" #                        #                 #                        #"}
         ,       {" #                        #                 #                        #"}
         ,       {" #                        #                 #                        #"}
@@ -629,7 +635,7 @@ void lose()
         ,       {" ##                               |____ \\_____/   _____/  |____     ##"}
         ,       {" ##                                                                 ##"}
         ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
+        ,       {" ##             press space to continue....                         ##"}
         ,       {" ##                                                                 ##"}
         ,       {" ##                                                                 ##"}
         ,       {" ##                                                                 ##"}
