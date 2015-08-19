@@ -25,6 +25,7 @@ void level4();
 void level5();
 void level6();
 void level7();
+void lose();
  
 // Game specific variables here
 COORD charLocation;
@@ -89,6 +90,7 @@ void update(double dt)
     deltaTime = dt;
         switch(next)
         {
+		case 100:lose();break;
         case 0:menu();sidemenu();
                 break;
         case 1:level1();break;
@@ -113,7 +115,7 @@ void update(double dt)
 void render()
 {
     clearScreen();      // clears the current screen and draw from scratch
-    renderMap();        // renders the Map to the buffer first
+    renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -236,44 +238,45 @@ void renderMap()
     };
         for (unsigned int i=0;i<24;++i)
         {
-			for (unsigned int c=0;c<70;++c)
-			{
-				if(level[i][c] == '#')
-				{
-						unsigned char a = 219;
+        for (unsigned int c=0;c<71;++c)
+        {
+                if(level[i][c] == '#')
+                {
+                        unsigned char a = 219;
 						if(next>=1)
 						{
-							console.writeToBuffer(c,i+1,a,0x23);
+                        console.writeToBuffer(c,i+1,a,0x23);
 						}
 						else
 						{
-							console.writeToBuffer(c,i+1,a,0x00);
+						 console.writeToBuffer(c,i+1,a,0x00);
 						}
-				}
-				else
-				{
-                               
-						console.writeToBuffer(c,i+1,level[i][c]);
-				}
-			}
-        }
-		
-        if(next >= 1)
-			for (unsigned int i=0;i<23;++i)
-            {
-                for(unsigned int c=0;c<10;++c)
-                {
-                    if(side[i][c] == '#')
-					{
-						unsigned char a = 219;
-						console.writeToBuffer(c+70,i+1,a,0x00);
-                    }
-                    else
-                    {
-                            console.writeToBuffer(c+70,i+1,side[i][c]);
-                    }
                 }
-            }
+                else
+                {
+                               
+                        console.writeToBuffer(c,i+1,level[i][c]);
+                }
+        }
+        }
+        if(next >= 1)
+        {
+                for (unsigned int i=0;i<23;++i)
+                {
+                        for(unsigned int c=0;c<10;++c)
+                        {
+                                if(side[i][c] == '#')
+                        {
+                            unsigned char a = 219;
+                                        console.writeToBuffer(c+70,i+1,a,0x00);//side menu
+                                }
+                                else
+                                {
+                                        console.writeToBuffer(c+70,i+1,side[i][c]);
+                                }
+                        }
+                }
+        }
 }
 void renderCharacter()
 {
@@ -286,7 +289,7 @@ void renderFramerate()
     COORD c;
     // displays the framerate
     std::ostringstream ss;
-    ss << std::fixed << std::setprecision(1);
+    ss << std::fixed << std::setprecision(2);
     ss << 1.0 / deltaTime << "FPS";
     c.X = console.getConsoleSize().X - 8;
     c.Y = 0;
@@ -303,18 +306,20 @@ void renderFramerate()
 		// displays the elapsed time
 
 		ss.str("");
-		if (1000-elapsedTime>0)
+		if (10-elapsedTime>0)
 		{
-		ss << 1000 - elapsedTime << "s";
+		ss << 10 - elapsedTime << "s";
 		}
 		else
 		{
 			ss << "0s";
-			elapsedTime=1000;
+			elapsedTime=10;
+			next = 100;
+			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
 		}
 		c.X = 71;
 		c.Y = 10;
-		console.writeToBuffer(c, ss.str());
+		console.writeToBuffer(c, ss.str(), 0x0B);
 	}
 }
 void renderToScreen()
@@ -333,10 +338,10 @@ void menu()
         ,       {" #    |   \\/   | ===== |   \\  |   \\   \\____/  |   \\                  #"}
         ,       {" #                                                                   #"}
         ,       {" #                                                                   #"}
-		,       {" #                     ###                                           #"}
-		,       {" #                     # # Start                                     #"}
-		,       {" #                     # # help                                      #"}
-		,       {" #                     ###                                           #"}
+        ,       {" #                     ###                                           #"}
+        ,       {" #                     # # Start                                     #"}
+        ,       {" #                     # # help                                      #"}
+        ,       {" #                     ###                                           #"}
         ,       {" #                                                                   #"}
         ,       {" #    ===== |\\      /|    /\\    /===\\  |====                         #"}
         ,       {" #      |   | \\    / |   /__\\  /       |                             #"}
@@ -383,7 +388,7 @@ void sidemenu()
         ,{"#       #"}
         ,{"#       #"}
         ,{"#       #"}
-        ,{"#       #"}};
+        ,{"#########"}};
  
         for(int i=0;i<23;++i)
         {
@@ -603,3 +608,43 @@ void level7()
                 }
         }
 }//not yet
+void lose()
+{
+        char lose[24][71]={
+			    {" #####################################################################"}
+        ,       {" # ################################################################# #"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+		,       {" ##                                                                 ##"}
+		,       {" ##                                                                 ##"}
+		,       {" ##            \\   //=====\\  |    |                                 ##"}
+		,       {" ##             \\ //       \\ |    |                                 ##"}
+		,       {" ##              | \\       / |    |                                 ##"}
+        ,       {" ##              |  \\_____/  \\____/                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                               |     /=====\\   /====== |====     ##"}
+        ,       {" ##                               |    /       \\ /_______ |____     ##"}
+		,       {" ##                               |    \\       /        / |         ##"}
+        ,       {" ##                               |____ \\_____/   _____/  |____     ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" #####################################################################"}
+        ,       {" #####################################################################"}
+
+
+       
+        };
+ 
+        for(int i=0;i<24;++i)
+        {
+                for(int c=0;c<71;++c)
+                {
+                        level[i][c] = lose[i][c];
+                }
+        }
+}
