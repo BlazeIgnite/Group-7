@@ -1,4 +1,4 @@
-// This is the main file for the game logic and function
+	// This is the main file for the game logic and function
 //
 //
 #include "game.h"
@@ -19,6 +19,7 @@ char side[25][10];
 int next=0;
 char checker = 0;int data[10];
 void menu();
+void help();
 void sidemenu();
 void level1();
 void level2();
@@ -90,13 +91,14 @@ void getInput()
 void update(double dt)
 {
     // get the delta time
-	if(next!=0 && next!= 21){
+	if(next!=0 && next!= 21 && next!=99){
     elapsedTime += dt;
 	}
     deltaTime = dt;
         switch(next)
         {
 		case 21:win();break;
+		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
         case 0:menu();sidemenu();
                 break;
@@ -223,10 +225,20 @@ void moveCharacter()
         next++;
         charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
     }
+		else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+    {		
+        next=99;		
+        charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;		
+    }
 	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==21)))
 	{
 		next = 0;
 		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
+	}
+	else if ((keyPressed[K_SPACE]) && (next == 99))		
+	{		
+		next = 0;		
+	    charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;		
 	}
 }
  
@@ -251,7 +263,7 @@ void renderMap()
     const WORD colors[] = {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    };
+		};
         for (unsigned int i=0;i<24;++i)
         {
         for (unsigned int c=0;c<71;++c)
@@ -259,7 +271,7 @@ void renderMap()
                 if(level[i][c] == '#')
                 {
                         unsigned char a = 219;
-						if(next>=1)
+						if(next>0 && next<99 && next!=21)
 						{
                         console.writeToBuffer(c,i+1,a,0x23);
 						}
@@ -275,7 +287,7 @@ void renderMap()
                 }
         }
         }
-        if(next >= 1 && next != 100 && next != 21)
+        if(next >0 && next != 100 && next != 21 && next!=99)
         {
                 for (unsigned int i=0;i<23;++i)
                 {
@@ -317,7 +329,7 @@ void renderFramerate()
     console.writeToBuffer(c, ss.str());
 
 	//displays the current level
-	if (next!=0 && (next != 100) && next!= 21)
+	if (next!=0 && (next != 100) && next!= 21 && next!=99)
 	{
 		ss.str("");
 		ss<<next;
@@ -391,7 +403,7 @@ void menu()
         ,       {" #                                                                   #"}
         ,       {" #                     ###                                           #"}
         ,       {" #                     # # Start                                     #"}
-        ,       {" #                     # # help                                      #"}
+        ,       {" #                     # # Instructions                              #"}
         ,       {" #                     ###                                           #"}
         ,       {" #                                                                   #"}
         ,       {" #    ===== |\\      /|    /\\    /===\\  |====                         #"}
@@ -455,9 +467,9 @@ void level1()
                 {" #####################################################################"}
         ,       {" #                        #        @        #                        #"}
         ,       {" #                        #                 #                        #"}
-        ,       {" #                        #    this is      #                        #"}
-        ,       {" #                        #    the door     #                        #"}
-        ,       {" #   This is you          #                 #  This is your shadow   #"}
+        ,       {" #                        #                 #                        #"}
+        ,       {" #                        #                 #                        #"}
+        ,       {" #                        #                 #                        #"}
         ,       {" #                        #                 #                        #"}
         ,       {" #                        #                 #                        #"}
         ,       {" #                        #                 #                        #"}
@@ -767,4 +779,41 @@ void win()
                 }
         }
 
+}
+void help() 		
+{		
+	char help[24][71]={		
+		{" #####################################################################"}		
+	,	{" #                                                                   #"}		
+	,	{" #                               Story                               #"}		
+	,	{" #                                                                   #"}		
+	,	{" #           Your shadow seems to be trolling you, and               #"}		
+	,	{" #           doesn't seem to follow you as it normally               #"}		
+	,	{" #           should. You hear there is a way to revert               #"}		
+	,	{" #           back to normal, but it involves going                   #"}		
+	,	{" #           through a ordeal of fifteen magical doors               #"}		
+	,	{" #           that only appear for a thousand seconds.                #"}		
+	,	{" #           Should you fail, you will never return to               #"}		
+	,	{" #           normal every again. Good Luck!                          #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                            How to play                            #"}		
+	,	{" #                                                                   #"}		
+	,	{" #           Use the arrow keys to move and reach the                #"}		
+	,	{" #           goal, marked by @ to advance to the next                #"}		
+	,	{" #           stage. Your shadow has it's left and                    #"}		
+	,	{" #           right control's reversed!                               #"}		
+	,	{" ##                                                                 ##"}		
+	,	{" # #             PRESS SPACE TO RETURN TO THE MENU                 # #"}		
+	,	{" #####################################################################"}};		
+		
+        for(int i=0;i<24;++i)		
+        {		
+                for(int c=0;c<71;++c)		
+                {		
+                        level[i][c] = help[i][c];		
+                }		
+        }		
+		
 }
