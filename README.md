@@ -1,3 +1,10 @@
 # Input changes here
-QP so QP
-Add date also
+-Group Members:
+
+-Qingping
+
+-Junxiang
+
+-Tristan
+
+-Teckling
