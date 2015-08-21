@@ -825,8 +825,8 @@ void help()
 	,	{" #                                                                   #"}		
 	,	{" #           Use the arrow keys to move and reach the                #"}		
 	,	{" #           goal, marked by @ to advance to the next                #"}		
-	,	{" #           stage. Your shadow has it's left and                    #"}		
-	,	{" #           right control's reversed!                               #"}		
+	,	{" #           stage. Your shadow has its left and                     #"}		
+	,	{" #           right controls reversed!                                #"}		
 	,	{" ##                                                                 ##"}		
 	,	{" # #             PRESS SPACE TO RETURN TO THE MENU                 # #"}		
 	,	{" #####################################################################"}};		
