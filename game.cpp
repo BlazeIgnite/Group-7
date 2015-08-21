@@ -29,6 +29,7 @@ void storepoints();
 void printpoints();
 short data1[10];
 void win();
+void playsound();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -93,7 +94,7 @@ void update(double dt)
     deltaTime = dt;
         switch(next)
         {
-		case 21:win();break;
+		case 21:win();playsound();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
         case 0:menu();sidemenu();
@@ -463,4 +464,8 @@ void win()
                 }
         }
 
+}
+void playsound()
+{
+		PlaySound(L"win.wav",NULL,SND_FILENAME);
 }
