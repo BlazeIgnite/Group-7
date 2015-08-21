@@ -89,13 +89,13 @@ void getInput()
 void update(double dt)
 {
     // get the delta time
-	if(next!=0 && next!= 21 && next!=99){
+	if(next!=0 && next!= 16 && next!=99){
     elapsedTime += dt;
 	}
     deltaTime = dt;
         switch(next)
         {
-		case 21:win();break;
+		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
         case 0:menu();sidemenu();
@@ -208,11 +208,11 @@ void moveCharacter()
         {
 			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-			case 4: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 21;break;
+			case 4: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 16;break;
 			case 5: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 			case 6: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53	; charLocation2.Y = 13;break;
 			case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-			case 21:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
+			case 16:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
 		}               
     }
     else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
@@ -227,7 +227,7 @@ void moveCharacter()
         next=99;		
         charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;		
     }
-	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==21)))
+	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==16)))
 	{
 		Beep(1440,30);
 		next = 0;
@@ -270,8 +270,8 @@ void renderMap()
         {
                 if(level[i][c] == '#')
                 {
-                        unsigned char a = 219;
-						if(next>0 && next<99 && next!=21)
+                        unsigned char a = 169;
+						if(next>0 && next<99 && next!=16)
 						{
                         console.writeToBuffer(c,i+1,a,0x23);
 						}
@@ -287,7 +287,7 @@ void renderMap()
                 }
         }
         }
-        if(next >0 && next != 100 && next != 21 && next!=99)
+        if(next >0 && next != 100 && next != 16 && next!=99)
         {
                 for (unsigned int i=0;i<23;++i)
                 {
@@ -295,7 +295,7 @@ void renderMap()
                         {
                                 if(side[i][c] == '#')
 								{
-									unsigned char a = 219;
+									unsigned char a = 169;
                                     console.writeToBuffer(c+70,i+1,a,0x00);//side menu
                                 }
                                 else
@@ -306,7 +306,7 @@ void renderMap()
                 }
         }
 
-	if(next == 21)
+	if(next == 16)
 	{
 	printpoints();
 	}
@@ -329,7 +329,7 @@ void renderFramerate()
     console.writeToBuffer(c, ss.str());
 
 	//displays the current level
-	if (next!=0 && (next != 100) && next!= 21 && next!=99)
+	if (next!=0 && (next != 100) && next!= 16 && next!=99)
 	{
 		ss.str("");
 		ss<<next;
