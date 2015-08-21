@@ -30,6 +30,7 @@ void printpoints();
 short data1[10];
 void win();
 void playsound();
+void stopsound();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -94,7 +95,7 @@ void update(double dt)
     deltaTime = dt;
         switch(next)
         {
-		case 21:win();playsound();break;
+		case 21:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
         case 0:menu();sidemenu();
@@ -230,6 +231,7 @@ void moveCharacter()
 	{
 		Beep(1440,30);
 		next = 0;
+		stopsound();
 		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
 	}
 	else if ((keyPressed[K_SPACE]) && (next == 99))		
@@ -362,6 +364,7 @@ void storepoints()
 {
 
 	int c=0;
+	playsound();
 	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
@@ -398,7 +401,6 @@ void storepoints()
 		}
 }
 		
-
 void printpoints()
 {
 	std::ostringstream ss;
@@ -463,9 +465,12 @@ void win()
                         level[i][c] = win[i][c];
                 }
         }
-
 }
 void playsound()
 {
-		PlaySound(L"win.wav",NULL,SND_FILENAME);
+		PlaySound(TEXT("win.wav"),NULL,SND_FILENAME|SND_ASYNC);
+}
+void stopsound()
+{
+	PlaySound(NULL,NULL,0);
 }
