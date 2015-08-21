@@ -29,8 +29,8 @@ void storepoints();
 void printpoints();
 short data1[10];
 void win();
-void playsound();
-void stopsound();
+void playwin();
+void stopwin();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -55,8 +55,7 @@ void init()
 void shutdown()
 {
     // Reset to white text on black background
-        colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
- 
+    colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
     console.clearBuffer();
 }
 /*
@@ -89,26 +88,25 @@ void getInput()
 void update(double dt)
 {
     // get the delta time
-	if(next!=0 && next!= 16 && next!=99){
-    elapsedTime += dt;
+	if(next!=0 && next!= 16 && next!=99)
+	{
+		elapsedTime += dt;
 	}
     deltaTime = dt;
-        switch(next)
-        {
+    switch(next)
+    {
 		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
-        case 0:menu();sidemenu();
-                break;
-        case 1:level1();break;
-        case 2:level2();break;
-        case 3:level3();break;
-        case 4:level4();break;
-        case 5:level5();break;
-        case 6:level6();break;
-        case 7:level7();break;
-		
-        }
+		case 0:menu();sidemenu();break;
+		case 1:level1();break;
+		case 2:level2();break;
+		case 3:level3();break;
+		case 4:level4();break;
+		case 5:level5();break;
+		case 6:level6();break;
+		case 7:level7();break;
+    }
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
     // sound can be played here too.
@@ -231,7 +229,7 @@ void moveCharacter()
 	{
 		Beep(1440,30);
 		next = 0;
-		stopsound();
+		stopwin();
 		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
 	}
 	else if ((keyPressed[K_SPACE]) && (next == 99))		
@@ -246,9 +244,13 @@ void processUserInput()
 {
     // quits the game if player hits the escape key
     if (keyPressed[K_ESCAPE])
-        {
-        g_quitGame = true;
-        }
+    {
+	    g_quitGame = true;
+    }
+	else if(keyPressed[K_LEFT] && keyPressed[K_RETURN])
+	{
+		next++;
+	}
 }
  
 void clearScreen()
@@ -267,49 +269,48 @@ void renderMap()
 		};
         for (unsigned int i=0;i<24;++i)
         {
-        for (unsigned int c=0;c<71;++c)
-        {
-                if(level[i][c] == '#')
-                {
-                        unsigned char a = 219;
-						if(next>0 && next<99 && next!=16)
-						{
-                        console.writeToBuffer(c,i+1,a,colors[next-1]);
-						}
-						else
-						{
-						 console.writeToBuffer(c,i+1,a,0x00);
-						}
-                }
-                else
-                {
-                               
-                        console.writeToBuffer(c,i+1,level[i][c]);
-                }
-        }
-        }
+			for (unsigned int c=0;c<71;++c)
+			{
+				if(level[i][c] == '#')
+				{
+					unsigned char a = 219;
+					if(next>0 && next<99 && next!=16)
+					{
+					console.writeToBuffer(c,i+1,a,colors[next-1]);
+					}
+					else
+					{
+						console.writeToBuffer(c,i+1,a,0x00);
+					}
+				}
+				else
+				{                           
+					console.writeToBuffer(c,i+1,level[i][c]);
+				}
+			}
+		}
         if(next >0 && next != 100 && next != 16 && next!=99)
         {
-                for (unsigned int i=0;i<23;++i)
+            for (unsigned int i=0;i<23;++i)
+            {
+                for(unsigned int c=0;c<10;++c)
                 {
-                        for(unsigned int c=0;c<10;++c)
-                        {
-                                if(side[i][c] == '#')
-								{
-									unsigned char a = 219;
-                                    console.writeToBuffer(c+70,i+1,a,0x00);//side menu
-                                }
-                                else
-                                {
-                                        console.writeToBuffer(c+70,i+1,side[i][c]);
-                                }
-                        }
+                    if(side[i][c] == '#')
+					{
+						unsigned char a = 219;
+                        console.writeToBuffer(c+70,i+1,a,0x00);//side menu
+                    }
+                    else
+                    {
+                        console.writeToBuffer(c+70,i+1,side[i][c]);
+                    }
                 }
+            }
         }
 
 	if(next == 16)
 	{
-	printpoints();
+		printpoints();
 	}
 }
 void renderCharacter()
@@ -365,7 +366,7 @@ void storepoints()
 {
 
 	int c=0;
-	playsound();
+	playwin();
 	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
@@ -388,12 +389,12 @@ void storepoints()
 		{
 			for(short b = a;b<999-1;b++)
 			{
-				 if(bubble[a]<bubble[b+1])
-				 {
+				if(bubble[a]<bubble[b+1])
+				{
 					temp=bubble[a];
 				    bubble[a]=bubble[b+1];
 					bubble[b+1]=temp; 
-				 }
+				}
 			}
 		}
 		for(short a = 0;a<10;a++)
@@ -453,25 +454,21 @@ void win()
         ,       {" ##                                                                 ##"}
         ,       {" ##                                                                 ##"}
         ,       {" #####################################################################"}
-        ,       {" #####################################################################"}
-
-
-       
-        };
+		,       {" #####################################################################"}};
  
         for(int i=0;i<24;++i)
         {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = win[i][c];
-                }
+            for(int c=0;c<71;++c)
+            {
+                level[i][c] = win[i][c];
+            }
         }
 }
-void playsound()
+void playwin()
 {
-		PlaySound(TEXT("win.wav"),NULL,SND_FILENAME|SND_ASYNC);
+	PlaySound(TEXT("win.wav"),NULL,SND_FILENAME|SND_ASYNC);
 }
-void stopsound()
+void stopwin()
 {
 	PlaySound(NULL,NULL,0);
 }
