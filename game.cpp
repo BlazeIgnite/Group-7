@@ -1,4 +1,4 @@
-	// This is the main file for the game logic and function
+// This is the main file for the game logic and function
 //
 //
 #include "game.h"
@@ -16,8 +16,9 @@ double deltaTime;
 bool keyPressed[K_COUNT];
 char level[26][71];
 char side[25][10];
-int next=0;
-char checker = 0;int data[10];
+short next=0;
+char checker = 0;
+short data;
 void menu();
 void help();
 void sidemenu();
@@ -32,7 +33,7 @@ void lose();
 void win();
 void storepoints();
 void printpoints();
-
+short data1[10];
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -133,110 +134,111 @@ void render()
  
 void moveCharacter()
 {
-        int X = charLocation.X;
-        int Y = charLocation.Y-1;
-        int a = charLocation2.X;
-        int b = charLocation2.Y-1;
+    int X = charLocation.X;
+    int Y = charLocation.Y-1;
+    int a = charLocation2.X;
+    int b = charLocation2.Y-1;
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-                if(level[Y-1][X]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation.Y--;
-                }
+        if(level[Y-1][X]!='#')
+        {
+            //Beep(1440, 30);
+            charLocation.Y--;
+        }
     }
     else if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-                if(level[Y][X-1]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation.X--;
-                }
+        if(level[Y][X-1]!='#')
+        {
+            //Beep(1440, 30);
+            charLocation.X--;
+        }
     }
     else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
     {
-                if(level[Y+1][X]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation.Y++;
-                }
+        if(level[Y+1][X]!='#')
+        {
+			//Beep(1440, 30);
+			charLocation.Y++;
+        }
     }
     else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
     {
-                if(level[Y][X+1]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation.X++;
-                }
+        if(level[Y][X+1]!='#')
+        {
+            //Beep(1440, 30);
+            charLocation.X++;
+        }
     }
         //2nd character
-         if (keyPressed[K_UP] && charLocation2.Y > 0)
-    {
-                if(level[b-1][a]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation2.Y--;
-                }
-    }
-    else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
-    {
-                if(level[b][a+1]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation2.X++;
-                }
-    }
-    else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
-    {
-                if(level[b+1][a]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation2.Y++;
-                }
-    }
-    else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
-    {
-                if(level[b][a-1]!='#')
-                {
-                        //Beep(1440, 30);
-                        charLocation2.X--;
-                }
-    }
-        if (level[b][a]=='@' && level[Y][X]=='@')
-        {
-                next++;
-                switch(next)
-                {
-                        case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-                        case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-                        case 4: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 21;break;
-                        case 5: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-                        case 6: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53	; charLocation2.Y = 13;break;
-                        case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-						case 21:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
-
-				}               
-		
+    if (keyPressed[K_UP] && charLocation2.Y > 0)
+	{
+		if(level[b-1][a]!='#')
+		{
+            //Beep(1440, 30);
+            charLocation2.Y--;
         }
+	}
+	else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
+	{
+        if(level[b][a+1]!='#')
+        {
+            //Beep(1440, 30);
+            charLocation2.X++;
+        }
+	}
+	else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
+	{
+        if(level[b+1][a]!='#')
+        {
+			//Beep(1440, 30);
+            charLocation2.Y++;
+        }
+	}
+	else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
+	{
+        if(level[b][a-1]!='#')
+		{
+            //Beep(1440, 30);
+            charLocation2.X--;
+        }
+	}
+    if (level[b][a]=='@' && level[Y][X]=='@')
+    {
+        next++;
+        switch(next)
+        {
+			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 4: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 21;break;
+			case 5: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
+			case 6: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53	; charLocation2.Y = 13;break;
+			case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 21:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
+		}               
+    }
     else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
     {
-                Beep(1440, 30);
+        Beep(1440, 30);
         next++;
         charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
     }
-		else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
-    {		
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+    {
+		Beep(1440,30);
         next=99;		
         charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;		
     }
 	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==21)))
 	{
+		Beep(1440,30);
 		next = 0;
 		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
 	}
 	else if ((keyPressed[K_SPACE]) && (next == 99))		
-	{		
+	{
+		Beep(1440,30);
 		next = 0;		
 	    charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;		
 	}
@@ -367,27 +369,48 @@ void storepoints()
 	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
-	fs <<1000 - a<<std::endl;
+	fs <<1000- a<<std::endl;
 	fs.close();
 	std::ifstream inData;
 	inData.open ("scoreboard.txt");
-	while ( (!inData.eof()) && (c < 10))
+	short var2 = 1001;
+	for(int a = 0 ;a<10;a++)
 	{
-		inData >> data[c];
-		c++;
+		data = 0;
+		short var1 = 0;
+		while (!inData.eof())
+		{
+			inData >> data;
+			if ((data > var1) && (data < var2))
+			{
+				var1 = data;
+			}
+		}
+		inData.clear();
+		inData.seekg(0, inData.beg);
+		var2 = var1;
+		data1[a] = var1;
 	}
 	inData.close();
-} 
+}
+
 void printpoints()
 {
 	std::ostringstream ss;
 	for(int a =0 ;a<10;a++)
 	{
+		if(data1[a] == 0)
+		{
+			console.writeToBuffer(4,4+a,"----");
+		}
 		// convert number (data[a]) into string
-		ss.str("");
-		ss << data[a];
-		// use void Console::writeToBuffer(SHORT x, SHORT y, std::string& s, WORD attribute)
-		console.writeToBuffer(4,4+a,ss.str());
+		else
+		{
+			ss.str("");
+			ss << data1[a];
+			// use void Console::writeToBuffer(SHORT x, SHORT y, std::string& s, WORD attribute)
+			console.writeToBuffer(4,4+a,ss.str());
+		}
 	}
 }
 void menu()
@@ -666,7 +689,7 @@ void level6()
         ,       {" #      # # #         # # ## #     #   # # # #             #   #     #"}
         ,       {" #      # # ########### # ## ## ######   # # ###############   #     #"}
         ,       {" #      #               # ## ## #  @     # #                   #     #"}
-        ,       {" #      # ############### ## ## #  #     # # ################# #     #"}
+        ,       {" #      # ############### ## ## #  ###   # # ################# #     #"}
         ,       {" #      #                 ## ## ## ###   # #                   #     #"}
         ,       {" #      #################### #     ####  # ########### #########     #"}
         ,       {" #                           #     #######             #             #"}
