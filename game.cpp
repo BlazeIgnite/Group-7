@@ -30,7 +30,7 @@ void printpoints();
 short data1[10];
 void win();
 void playwin();
-void stopwin();
+void stopsound();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -138,6 +138,7 @@ void moveCharacter()
     {
         if(level[Y-1][X]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.Y--;
         }
@@ -146,6 +147,7 @@ void moveCharacter()
     {
         if(level[Y][X-1]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.X--;
         }
@@ -154,6 +156,7 @@ void moveCharacter()
     {
         if(level[Y+1][X]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 			//Beep(1440, 30);
 			charLocation.Y++;
         }
@@ -162,6 +165,7 @@ void moveCharacter()
     {
         if(level[Y][X+1]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.X++;
         }
@@ -171,6 +175,7 @@ void moveCharacter()
 	{
 		if(level[b-1][a]!='#')
 		{
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.Y--;
         }
@@ -179,6 +184,7 @@ void moveCharacter()
 	{
         if(level[b][a+1]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.X++;
         }
@@ -187,6 +193,7 @@ void moveCharacter()
 	{
         if(level[b+1][a]!='#')
         {
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 			//Beep(1440, 30);
             charLocation2.Y++;
         }
@@ -195,12 +202,14 @@ void moveCharacter()
 	{
         if(level[b][a-1]!='#')
 		{
+			PlaySound(TEXT("step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.X--;
         }
 	}
     if (level[b][a]=='@' && level[Y][X]=='@')
     {
+		PlaySound(TEXT("success.wav"),NULL,SND_FILENAME|SND_ASYNC);
         next++;
         switch(next)
         {
@@ -229,7 +238,7 @@ void moveCharacter()
 	{
 		Beep(1440,30);
 		next = 0;
-		stopwin();
+		stopsound();
 		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
 	}
 	else if ((keyPressed[K_SPACE]) && (next == 99))		
@@ -385,9 +394,9 @@ void storepoints()
 			var1++;
 		}
 		short temp;
-		for(short a = 0;a<10;a++)
+		for(short a = 0;a<=10;a++)
 		{
-			for(short b = a;b<999-1;b++)
+			for(short b = a;b<999;b++)
 			{
 				if(bubble[a]<bubble[b+1])
 				{
@@ -399,7 +408,7 @@ void storepoints()
 		}
 		for(short a = 0;a<10;a++)
 		{
-			data1[a]=bubble[a];
+			data1[a]=bubble[a+1];
 		}
 }
 		
@@ -433,27 +442,27 @@ void win()
         char win[24][71]={
 			    {" #####################################################################"}
         ,       {" # ################################################################# #"}
-        ,       {" ##Top 10 scores:                                                   ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
+        ,       {" ##Top 10 scores:     Press space to continue...                    ##"}
 		,       {" ##                                                                 ##"}
-		,       {" ##                                                                 ##"}
-		,       {" ##            \\   //=====\\  |    |                                 ##"}
-		,       {" ##             \\ //       \\ |    |                                 ##"}
-		,       {" ##              | \\       / |    |                                 ##"}
-        ,       {" ##              |  \\_____/  \\____/                                 ##"}
+		,       {" ##            ***     ***     ********     **        **            ##"}
+		,       {" ##            ***     ***    **********    **        **            ##"}
+		,       {" ##            ***     ***   **        **   **        **            ##"}
+        ,       {" ##            ***     ***   **        **   **        **            ##"}
+        ,       {" ##              ***  **     **        **   **        **            ##"}
+        ,       {" ##              ***  **     **        **   **        **            ##"}
+		,       {" ##                ***       **        **   **        **            ##"}
+        ,       {" ##                ***       **        **   **        **            ##"}
+        ,       {" ##                ***        **********      ********              ##"}
+		,       {" ##                ***         ********       ********              ##"}
         ,       {" ##                                                                 ##"}
-        ,       {" ##                        \\          / =  |\\   |                   ##"}
-        ,       {" ##                         \\        /  |  | \\  |                   ##"}
-		,       {" ##                          \\  /\\  /   |  |  \\ |                   ##"}
-        ,       {" ##                           \\/  \\/    |  |   \\|                   ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##             press space to continue....                         ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" #####################################################################"}
+        ,       {" ##            **  **  **        ***       *****      **            ##"}
+        ,       {" ##            **  **  **        ***       *****      **            ##"}
+        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
+        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
+        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
+        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
+        ,       {" ##              **  **          ***       ***      ****            ##"}
+        ,       {" ##              **  **          ***       ***      ****            ##"}
 		,       {" #####################################################################"}};
  
         for(int i=0;i<24;++i)
@@ -468,7 +477,7 @@ void playwin()
 {
 	PlaySound(TEXT("win.wav"),NULL,SND_FILENAME|SND_ASYNC);
 }
-void stopwin()
+void stopsound()
 {
 	PlaySound(NULL,NULL,0);
 }
