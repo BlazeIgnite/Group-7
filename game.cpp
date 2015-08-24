@@ -42,9 +42,9 @@ void init()
     // Set precision for floating point output
     elapsedTime = 0.0;
  
-    charLocation.X = 24;
+    charLocation.X = 25;
     charLocation.Y = 9;
-    charLocation2.X = 24;
+    charLocation2.X = 25;
     charLocation2.Y = 9;
     // sets the width, height and the font name to use in the console
     console.setConsoleFont(0, 28, L"Consolas");
