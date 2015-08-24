@@ -4,7 +4,6 @@
 #include "game.h"
 #include "map.h"
 #include "Framework\console.h"
-#include "sound.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -30,6 +29,8 @@ void storepoints();
 void printpoints();
 short data1[10];
 void win();
+void playwin();
+void stopsound();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -125,7 +126,7 @@ void render()
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
-
+ 
 void moveCharacter()
 {
     int X = charLocation.X;
@@ -137,7 +138,7 @@ void moveCharacter()
     {
         if(level[Y-1][X]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.Y--;
         }
@@ -146,7 +147,7 @@ void moveCharacter()
     {
         if(level[Y][X-1]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.X--;
         }
@@ -155,7 +156,7 @@ void moveCharacter()
     {
         if(level[Y+1][X]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 			//Beep(1440, 30);
 			charLocation.Y++;
         }
@@ -164,7 +165,7 @@ void moveCharacter()
     {
         if(level[Y][X+1]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation.X++;
         }
@@ -174,7 +175,7 @@ void moveCharacter()
 	{
 		if(level[b-1][a]!='#')
 		{
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.Y--;
         }
@@ -183,7 +184,7 @@ void moveCharacter()
 	{
         if(level[b][a+1]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.X++;
         }
@@ -192,7 +193,7 @@ void moveCharacter()
 	{
         if(level[b+1][a]!='#')
         {
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 			//Beep(1440, 30);
             charLocation2.Y++;
         }
@@ -201,12 +202,12 @@ void moveCharacter()
 	{
         if(level[b][a-1]!='#')
 		{
-			step();
+			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
             //Beep(1440, 30);
             charLocation2.X--;
         }
 	}
-    if (level[b][a]=='@' && level[Y][X]=='@')
+	if ((level[b][a] == '@' && level[Y][X] == '@') || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
     {
 		PlaySound(TEXT("sounds/success.wav"),NULL,SND_FILENAME|SND_ASYNC);
         next++;
@@ -214,10 +215,18 @@ void moveCharacter()
         {
 			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-			case 4: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 22;break;
-			case 5: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-			case 6: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53	; charLocation2.Y = 13;break;
-			case 7: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+			case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 68; charLocation2.Y = 3;break;
+			case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 22;break;
+			case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67	; charLocation2.Y = 22;break;
+			case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 13;break;
+			case 8: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3; break;
+			case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
+			case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
+			case 11: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3; break;
+			case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
+			case 13: charLocation.X = 63; charLocation.Y = 20; charLocation2.X = 19; charLocation2.Y = 20; break;
+			case 14: charLocation.X = 31; charLocation.Y = 18; charLocation2.X = 39; charLocation2.Y = 18; break;
+			case 15: charLocation.X = 34; charLocation.Y = 23; charLocation2.X = 36; charLocation2.Y = 23; break;
 			case 16:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
 		}               
     }
@@ -255,10 +264,6 @@ void processUserInput()
     {
 	    g_quitGame = true;
     }
-	else if(keyPressed[K_LEFT] && keyPressed[K_RETURN])
-	{
-		next++;
-	}
 }
  
 void clearScreen()
@@ -472,4 +477,11 @@ void win()
             }
         }
 }
-
+void playwin()
+{
+	PlaySound(TEXT("sounds/win.wav"),NULL,SND_FILENAME|SND_ASYNC);
+}
+void stopsound()
+{
+	PlaySound(NULL,NULL,0);
+}
