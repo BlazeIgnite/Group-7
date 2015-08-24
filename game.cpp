@@ -238,13 +238,13 @@ void moveCharacter()
 
 		}               
     }
-    else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
+    else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
     {
         Beep(1440, 30);
         next++;
         charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
     }
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
     {
 		Beep(1440,30);
         next=99;		
@@ -255,13 +255,13 @@ void moveCharacter()
 		Beep(1440,30);
 		next = 0;
 		stopsound();
-		charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;
+		charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;
 	}
 	else if ((keyPressed[K_SPACE]) && (next == 99))		
 	{
 		Beep(1440,30);
 		next = 0;		
-	    charLocation.X = 24;charLocation.Y = 9;charLocation2.X = 24;charLocation2.Y = 9;		
+	    charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;		
 	}
 }
  
