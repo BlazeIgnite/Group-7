@@ -4,6 +4,7 @@
 #include "game.h"
 #include "map.h"
 #include "Framework\console.h"
+#include "sound.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -29,8 +30,6 @@ void storepoints();
 void printpoints();
 short data1[10];
 void win();
-void playwin();
-void stopsound();
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -42,10 +41,10 @@ void init()
     // Set precision for floating point output
     elapsedTime = 0.0;
  
-    charLocation.X = 25;
-    charLocation.Y = 9;
-    charLocation2.X = 25;
-    charLocation2.Y = 9;
+    charLocation.X = 24;
+    charLocation.Y = 10;
+    charLocation2.X = 24;
+    charLocation2.Y = 10;
     // sets the width, height and the font name to use in the console
     console.setConsoleFont(0, 28, L"Consolas");
 }
@@ -106,6 +105,14 @@ void update(double dt)
 		case 5:level5();break;
 		case 6:level6();break;
 		case 7:level7();break;
+		case 8:level8();break;
+		case 9:level9();break;
+		case 10:level10();break;
+		case 11:level11();break;
+		case 12:level12();break;
+		case 13:level13();break;
+		case 14:level14();break;
+		case 15:level15();break;
     }
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -126,7 +133,7 @@ void render()
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
- 
+
 void moveCharacter()
 {
     int X = charLocation.X;
@@ -138,7 +145,7 @@ void moveCharacter()
     {
         if(level[Y-1][X]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation.Y--;
         }
@@ -147,7 +154,7 @@ void moveCharacter()
     {
         if(level[Y][X-1]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation.X--;
         }
@@ -156,7 +163,7 @@ void moveCharacter()
     {
         if(level[Y+1][X]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
 			//Beep(1440, 30);
 			charLocation.Y++;
         }
@@ -165,7 +172,7 @@ void moveCharacter()
     {
         if(level[Y][X+1]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation.X++;
         }
@@ -175,7 +182,7 @@ void moveCharacter()
 	{
 		if(level[b-1][a]!='#')
 		{
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation2.Y--;
         }
@@ -184,7 +191,7 @@ void moveCharacter()
 	{
         if(level[b][a+1]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation2.X++;
         }
@@ -193,7 +200,7 @@ void moveCharacter()
 	{
         if(level[b+1][a]!='#')
         {
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
 			//Beep(1440, 30);
             charLocation2.Y++;
         }
@@ -202,12 +209,12 @@ void moveCharacter()
 	{
         if(level[b][a-1]!='#')
 		{
-			PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+			step();
             //Beep(1440, 30);
             charLocation2.X--;
         }
 	}
-	if ((level[b][a] == '@' && level[Y][X] == '@') || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
+    if (level[b][a]=='@' && level[Y][X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
     {
 		PlaySound(TEXT("sounds/success.wav"),NULL,SND_FILENAME|SND_ASYNC);
         next++;
@@ -215,19 +222,20 @@ void moveCharacter()
         {
 			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-			case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 68; charLocation2.Y = 3;break;
-			case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 66; charLocation2.Y = 22;break;
-			case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67	; charLocation2.Y = 22;break;
+			case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 66; charLocation2.Y = 2;break;
+			case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
+			case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 			case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 13;break;
-			case 8: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3; break;
+			case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
 			case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
 			case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
-			case 11: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3; break;
+			case 11: charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3; break;
 			case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
-			case 13: charLocation.X = 63; charLocation.Y = 20; charLocation2.X = 19; charLocation2.Y = 20; break;
-			case 14: charLocation.X = 31; charLocation.Y = 18; charLocation2.X = 39; charLocation2.Y = 18; break;
-			case 15: charLocation.X = 34; charLocation.Y = 23; charLocation2.X = 36; charLocation2.Y = 23; break;
+			case 13: charLocation.X = 63; charLocation.Y = 19; charLocation2.X = 19; charLocation2.Y = 20; break;
+			case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
+			case 15: charLocation.X = 34; charLocation.Y = 21; charLocation2.X = 36; charLocation2.Y = 21; break;
 			case 16:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
+
 		}               
     }
     else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 9))
@@ -264,6 +272,10 @@ void processUserInput()
     {
 	    g_quitGame = true;
     }
+	else if(keyPressed[K_LEFT] && keyPressed[K_RETURN])
+	{
+		next++;
+	}
 }
  
 void clearScreen()
@@ -476,12 +488,4 @@ void win()
                 level[i][c] = win[i][c];
             }
         }
-}
-void playwin()
-{
-	PlaySound(TEXT("sounds/win.wav"),NULL,SND_FILENAME|SND_ASYNC);
-}
-void stopsound()
-{
-	PlaySound(NULL,NULL,0);
 }
