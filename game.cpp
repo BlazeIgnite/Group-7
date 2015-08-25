@@ -1,4 +1,6 @@
 // This is the main file for the game logic and function
+//
+//
 #include "game.h"
 #include "map.h"
 #include "Framework\console.h"
@@ -26,8 +28,11 @@ short bubble[1000];
 
 void storepoints();
 void printpoints();
+void spawnpoints();
+void mapseq();
 short data1[10];
 void win();
+bool dooropen=0;
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -88,33 +93,14 @@ void update(double dt)
 	if(next!=0 && next!= 16 && next!=99)
 	{
 		elapsedTime += dt;
+		ambience();
 	}
+	mapseq();
     deltaTime = dt;
-    switch(next)
-    {
-		case 16:win();break;
-		case 99:help();break;
-		case 100:lose();elapsedTime=0;break;
-		case 0:menu();sidemenu();break;
-		case 1:level1();break;
-		case 2:level2();break;
-		case 3:level3();break;
-		case 4:level4();break;
-		case 5:level5();break;
-		case 6:level6();break;
-		case 7:level7();break;
-		case 8:level8();break;
-		case 9:level9();break;
-		case 10:level10();break;
-		case 11:level11();break;
-		case 12:level12();break;
-		case 13:level13();break;
-		case 14:level14();break;
-		case 15:level15();break;
-    }
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
     // sound can be played here too.
+	
 }
  
 /*
@@ -141,100 +127,102 @@ void moveCharacter()
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-        if(level[Y-1][X]!='#')
-        {
-			step();
-            //Beep(1440, 30);
+        if(level[Y-1][X]=='#');
+		else if((level[Y-1][X]=='$') &&(dooropen == 0));
+		else
+		{
             charLocation.Y--;
-        }
+		}
     }
     else if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-        if(level[Y][X-1]!='#')
-        {
-			step();
-            //Beep(1440, 30);
+        if(level[Y][X-1]=='#');
+		else if((level[Y][X-1]=='$') &&(dooropen == 0));
+		else
+		{
             charLocation.X--;
-        }
+		}
     }
     else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
     {
-        if(level[Y+1][X]!='#')
-        {
-			step();
-			//Beep(1440, 30);
+        if(level[Y+1][X]=='#');
+		else if((level[Y+1][X]=='$') &&(dooropen == 0));
+		else
+		{
 			charLocation.Y++;
-        }
+		}
+
     }
     else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
     {
-        if(level[Y][X+1]!='#')
-        {
-			step();
-            //Beep(1440, 30);
+        if(level[Y][X+1]=='#');
+		else if((level[Y][X+1]=='$') &&(dooropen == 0));
+		else
+		{
             charLocation.X++;
-        }
+		}
     }
         //2nd character
     if (keyPressed[K_UP] && charLocation2.Y > 0)
 	{
-		if(level[b-1][a]!='#')
+		if(level[b-1][a]=='#');
+		else if((level[b-1][a]=='$') &&(dooropen == 0));
+		else
 		{
-			step();
-            //Beep(1440, 30);
             charLocation2.Y--;
-        }
+		}
 	}
 	else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
 	{
-        if(level[b][a+1]!='#')
-        {
-			step();
-            //Beep(1440, 30);
+        if(level[b][a+1]=='#');
+		else if((level[b][a+1]=='$') &&(dooropen == 0));
+		else
+		{
             charLocation2.X++;
-        }
+		}
 	}
 	else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
 	{
-        if(level[b+1][a]!='#')
-        {
-			step();
-			//Beep(1440, 30);
+        if(level[b+1][a]=='#');
+		else if((level[b+1][a]=='$') &&(dooropen == 0));
+		else
+		{
             charLocation2.Y++;
-        }
+		}
 	}
 	else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
 	{
-        if(level[b][a-1]!='#')
+        if(level[b][a-1]=='#');
+		else if((level[b][a-1]=='$') &&(dooropen == 0));
+		else
 		{
-			step();
-            //Beep(1440, 30);
             charLocation2.X--;
-        }
+		}
+	}
+	if(level[b][a]=='%' || level[Y][X]=='%' )
+	{
+		dooropen = true;
 	}
     if (level[b][a]=='@' && level[Y][X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
     {
-		PlaySound(TEXT("sounds/success.wav"),NULL,SND_FILENAME|SND_ASYNC);
-        next++;
-        switch(next)
-        {
-			case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-			case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-			case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 66; charLocation2.Y = 2;break;
-			case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
-			case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-			case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 13;break;
-			case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
-			case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
-			case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
-			case 11: charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3; break;
-			case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
-			case 13: charLocation.X = 63; charLocation.Y = 19; charLocation2.X = 19; charLocation2.Y = 20; break;
-			case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
-			case 15: charLocation.X = 34; charLocation.Y = 21; charLocation2.X = 36; charLocation2.Y = 21; break;
-			case 16:charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
-
-		}               
+		if(next==5)
+		{
+			next=101;
+		}
+		else if (next==10)
+		{
+			next=102;
+		}
+		else if (next==15)
+		{
+			next=103;
+		}
+		else if (next<16)
+		{
+			Beep(1440,30);
+			next++;
+		}
+		spawnpoints();
     }
     else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
     {
@@ -247,6 +235,10 @@ void moveCharacter()
 		Beep(1440,30);
         next=99;		
         charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;		
+    }
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+    {
+		g_quitGame = true;
     }
 	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==16)))
 	{
@@ -271,10 +263,6 @@ void processUserInput()
     {
 	    g_quitGame = true;
     }
-	else if(keyPressed[K_LEFT] && keyPressed[K_RETURN])
-	{
-		next++;
-	}
 }
  
 void clearScreen()
@@ -287,9 +275,9 @@ void renderMap()
 {
     // Set up sample colours, and output shadings
     const WORD colors[] = {
-        0x07, 0x0F, 0x08, 0x02, 0x0B, 0x04,
-        0x05, 0x07, 0x0F, 0x08, 0x02, 0x0B,
-		0x0B, 0x04, 0x05,
+        0x07, 0x0F, 0x08, 0x02, 0x03, 0x04,
+        0x05, 0x07, 0x0F, 0x08, 0x02, 0x03,
+		0x03, 0x04, 0x05,
 		};
         for (unsigned int i=0;i<24;++i)
         {
@@ -311,9 +299,21 @@ void renderMap()
 				{                           
 					console.writeToBuffer(c,i+1,level[i][c]);
 				}
+				if(level[i][c] == '$')
+				{
+					if(dooropen==0)
+					{
+						level[i][c]= 209;
+					}
+					else
+					{
+						level[i][c] = 0;
+					}
+					console.writeToBuffer(c,i+1,level[i][c]);
+				}
 			}
 		}
-        if(next >0 && next != 100 && next != 16 && next!=99)
+        if(next >0 && next != 100 && next != 16 && next!=99 && next !=101 && next !=102 && next !=103)
         {
             for (unsigned int i=0;i<23;++i)
             {
@@ -355,7 +355,7 @@ void renderFramerate()
     console.writeToBuffer(c, ss.str());
 
 	//displays the current level
-	if (next!=0 && (next != 100) && next!= 16 && next!=99)
+	if (next!=0 && next != 100 && next!= 16 && next!=99 && next!=101 && next!=102 && next!=103)
 	{
 		ss.str("");
 		ss<<next;
@@ -489,4 +489,55 @@ void win()
                 level[i][c] = win[i][c];
             }
         }
+}
+
+void spawnpoints()
+{
+	switch(next)
+	{
+		case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
+		case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 66; charLocation2.Y = 2;break;
+		case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
+		case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
+		case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 13;break;
+		case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
+		case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
+		case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
+		case 11: charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3; break;
+		case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
+		case 13: charLocation.X = 63; charLocation.Y = 19; charLocation2.X = 19; charLocation2.Y = 19; break;
+		case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
+		case 15: charLocation.X = 34; charLocation.Y = 21; charLocation2.X = 36; charLocation2.Y = 21; break;
+		case 16: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2; break;
+	}
+}
+
+void mapseq()
+{
+	switch(next)
+	{
+		case 0:menu();sidemenu();break;
+		case 1:level1();break;
+		case 2:level2();break;
+		case 3:level3();break;
+		case 4:level4();break;
+		case 5:level5();break;
+		case 101:levelskip();break;
+		case 6:level6();break;
+		case 7:level7();break;
+		case 8:level8();break;
+		case 9:level9();break;
+		case 10:level10();break;
+		case 102:levelskip();break;
+		case 11:level11();break;
+		case 12:level12();break;
+		case 13:level13();break;
+		case 14:level14();break;
+		case 15:level15();break;
+		case 103:levelskip();break;
+		case 16:win();break;
+		case 99:help();break;
+		case 100:lose();elapsedTime=0;break;
+	}
 }
