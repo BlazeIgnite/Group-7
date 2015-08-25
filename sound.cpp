@@ -1,15 +1,36 @@
 #include "sound.h"
 #include "game.h"
 
+extern short next;
 
-void step()
+void ambience()
 {
-	PlaySound(TEXT("sounds/step.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+	if(next>=1 && next<=5)
+	{
+		PlaySound(TEXT("sounds/sound1.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+	}
+	else if (next>=6 && next<=10)
+	{
+		PlaySound(TEXT("sounds/sound2.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
+	}
+	else if(next>=11 && next<=15)
+	{
+		stopsound();
+	}
+
+	else if(next==16)
+	{
+		playwin();
+	}
+	else
+	{
+		stopsound();
+	}
 }
 
 void playwin()
 {
-	PlaySound(TEXT("sounds/win.wav"),NULL,SND_FILENAME|SND_ASYNC);
+	PlaySound(TEXT("sounds/win.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 }
 void stopsound()
 {
