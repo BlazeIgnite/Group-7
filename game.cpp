@@ -1,6 +1,4 @@
 // This is the main file for the game logic and function
-//
-//
 #include "game.h"
 #include "map.h"
 #include "Framework\console.h"
@@ -254,6 +252,7 @@ void moveCharacter()
 	{
 		Beep(1440,30);
 		next = 0;
+		elapsedTime=0;
 		stopsound();
 		charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;
 	}
@@ -387,45 +386,44 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     console.flushBufferToConsole();
 }
+
 void storepoints()
 {
-
 	int c=0;
 	playwin();
 	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
-	fs <<1000- a<<std::endl;
+	fs <<1000-a<<std::endl;
 	fs.close();
 	std::ifstream inData;
 	inData.open ("scoreboard.txt");
-	
-		data = 0;
-		short var1 = 0;
 
-		while (!inData.eof())
-		{
-			inData >> data;
-			bubble[var1] = data;
-			var1++;
-		}
-		short temp;
-		for(short a = 0;a<=10;a++)
-		{
-			for(short b = a;b<999;b++)
+	short var1 = 0;
+	while (!inData.eof())
+	{
+		inData >>bubble[var1];
+		var1++;
+	}
+	short temp;
+	for(short a = var1-1,b = var1;a>=0;a--,b--)
+	{
+			if(bubble[a]<bubble[b])
 			{
-				if(bubble[a]<bubble[b+1])
-				{
-					temp=bubble[a];
-				    bubble[a]=bubble[b+1];
-					bubble[b+1]=temp; 
-				}
+				temp=bubble[a];
+				bubble[a]=bubble[b];
+				bubble[b]=temp; 
 			}
-		}
-		for(short a = 0;a<10;a++)
-		{
-			data1[a]=bubble[a+1];
-		}
+	}
+	fs.open("scoreboard.txt", std::ofstream::out | std::ofstream::trunc);
+	fs.close();
+	fs.open ("scoreboard.txt",std::fstream::in | std::fstream::out);
+	for(short a = 0;a<10;a++)
+	{
+		data1[a]=bubble[a];
+		fs <<data1[a]<<std::endl;
+	}
+	fs.close();
 }
 		
 void printpoints()
@@ -446,6 +444,9 @@ void printpoints()
 			console.writeToBuffer(4,4+a,ss.str());
 		}
 	}
+	ss.str("");
+	ss<<1000-(int)elapsedTime;
+	console.writeToBuffer(37,2,ss.str());
 }
 
 void win()
@@ -457,7 +458,7 @@ void win()
 		}
         char win[24][71]={
 			    {" #####################################################################"}
-        ,       {" # ################################################################# #"}
+        ,       {" # #                  Your score is:                               # #"}
         ,       {" ##Top 10 scores:     Press space to continue...                    ##"}
 		,       {" ##                                                                 ##"}
 		,       {" ##            ***     ***     ********     **        **            ##"}
