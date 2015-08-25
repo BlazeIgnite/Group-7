@@ -21,5 +21,6 @@ void level13();
 void level14();
 void level15();
 void lose();
+void levelskip();
 
 #endif
