@@ -19,8 +19,8 @@ void menu()
 		,       {" #                     ###                                           #"}
         ,       {" #                     # # Start                                     #"}
         ,       {" #                     # # Instructions                              #"}
+		,       {" #                     # # Quit                                      #"}
 		,       {" #                     ###                                           #"}
-        ,       {" #                                                                   #"}
 		,       {" #      *****  *       *   ***    ****  *****                        #"}
 		,       {" #        *    **     **  *   *  *      *                            #"}
 		,       {" #        *    * *   * *  *****  *  **  ***                          #"}
@@ -217,8 +217,6 @@ void level4()
 			}
 		}
 }
-
-
 void level5()
 {
         char level5[24][71]={
@@ -363,7 +361,6 @@ void level8()
                 }
         }
 }//not yet
-
 void level9()
 {
 	char level9[24][71] = {
@@ -463,7 +460,6 @@ void level11()
 			}
 		}
 }
-
 void level12()
 {
 	char level12[24][71] = {
@@ -498,7 +494,6 @@ void level12()
 			}
 		}
 }
-
 void level13()
 {
 	char level13[24][71] = {
@@ -532,7 +527,6 @@ void level13()
 			}
 		}
 }
-
 void level14()
 {
 	char level14[24][71] = {
@@ -566,7 +560,6 @@ void level14()
 			}
 		}
 }
-
 void level15()
 {
 	char level15[24][71] = {
@@ -600,7 +593,6 @@ void level15()
 			}
 		}
 }
-
 
 void lose()
 {
@@ -641,7 +633,6 @@ void lose()
                 }
         }
 }
-
 void help() 		
 {		
 	char help[24][71]={		
@@ -678,4 +669,19 @@ void help()
                 }		
         }		
 		
+}
+void levelskip()
+{
+	if(next==101)
+	{
+		next=6;
+	}
+	else if(next==102)
+	{
+		next=11;
+	}
+	else if(next==103)
+	{
+		next=16;
+	}
 }
