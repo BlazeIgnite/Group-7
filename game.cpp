@@ -219,6 +219,7 @@ void moveCharacter()
 		else if (next==15)
 		{
 			next=103;
+			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
 		}
 		else if (next<16)
 		{
@@ -372,7 +373,7 @@ void renderFramerate()
     std::ostringstream ss;
     ss << std::fixed << std::setprecision(2);
     ss << 1.0 / deltaTime << "FPS";
-    c.X = console.getConsoleSize().X - 8;
+    c.X = console.getConsoleSize().X - 9;
     c.Y = 0;
     console.writeToBuffer(c, ss.str());
 
@@ -519,7 +520,7 @@ void spawnpoints()
 		case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 66; charLocation2.Y = 2;break;
 		case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
 		case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-		case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 13;break;
+		case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 12;break;
 		case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
 		case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
 		case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
