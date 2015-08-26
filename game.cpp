@@ -31,7 +31,7 @@ void printpoints();
 void spawnpoints();
 void mapseq();
 short data1[10];
-void win();
+void win();1
 bool dooropen=0;
 // Game specific variables here
 COORD charLocation;
@@ -49,7 +49,7 @@ void init()
     charLocation2.X = 24;
     charLocation2.Y = 10;
     // sets the width, height and the font name to use in the console
-    console.setConsoleFont(0, 28, L"Consolas");
+    console.setConsoleFont(10, 20, L"851403em");
 }
  
 // Do your clean up of memory here
@@ -120,15 +120,21 @@ void render()
 
 void moveCharacter()
 {
-    int X = charLocation.X;
-    int Y = charLocation.Y-1;
-    int a = charLocation2.X;
-    int b = charLocation2.Y-1;
+	struct move			//stuct for the movement of character
+	{
+		short X;
+		short Y;
+	}character1,character2;
+	//initilize value to xy for each character
+	character1.X = charLocation.X;
+    character1.Y = charLocation.Y-1;
+    character2.X = charLocation2.X;
+    character2.Y = charLocation2.Y-1;
     // Updating the location of the character based on the key press
     if (keyPressed[K_UP] && charLocation.Y > 0)
     {
-        if(level[Y-1][X]=='#');
-		else if((level[Y-1][X]=='$') &&(dooropen == 0));
+		if(level[character1.Y-1][character1.X]=='#');
+		else if((level[character1.Y-1][character1.X]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation.Y--;
@@ -136,8 +142,8 @@ void moveCharacter()
     }
     else if (keyPressed[K_LEFT] && charLocation.X > 0)
     {
-        if(level[Y][X-1]=='#');
-		else if((level[Y][X-1]=='$') &&(dooropen == 0));
+        if(level[character1.Y][character1.X-1]=='#');
+		else if((level[character1.Y][character1.X-1]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation.X--;
@@ -145,8 +151,8 @@ void moveCharacter()
     }
     else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
     {
-        if(level[Y+1][X]=='#');
-		else if((level[Y+1][X]=='$') &&(dooropen == 0));
+        if(level[character1.Y+1][character1.X]=='#');
+		else if((level[character1.Y+1][character1.X]=='$') &&(dooropen == 0));
 		else
 		{
 			charLocation.Y++;
@@ -155,8 +161,8 @@ void moveCharacter()
     }
     else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
     {
-        if(level[Y][X+1]=='#');
-		else if((level[Y][X+1]=='$') &&(dooropen == 0));
+        if(level[character1.Y][character1.X+1]=='#');
+		else if((level[character1.Y][character1.X+1]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation.X++;
@@ -165,8 +171,8 @@ void moveCharacter()
         //2nd character
     if (keyPressed[K_UP] && charLocation2.Y > 0)
 	{
-		if(level[b-1][a]=='#');
-		else if((level[b-1][a]=='$') &&(dooropen == 0));
+		if(level[character2.Y-1][character2.X]=='#');
+		else if((level[character2.Y-1][character2.X]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation2.Y--;
@@ -174,8 +180,8 @@ void moveCharacter()
 	}
 	else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
 	{
-        if(level[b][a+1]=='#');
-		else if((level[b][a+1]=='$') &&(dooropen == 0));
+        if(level[character2.Y][character2.X+1]=='#');
+		else if((level[character2.Y][character2.X+1]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation2.X++;
@@ -183,8 +189,8 @@ void moveCharacter()
 	}
 	else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
 	{
-        if(level[b+1][a]=='#');
-		else if((level[b+1][a]=='$') &&(dooropen == 0));
+        if(level[character2.Y+1][character2.X]=='#');
+		else if((level[character2.Y+1][character2.X]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation2.Y++;
@@ -192,18 +198,18 @@ void moveCharacter()
 	}
 	else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
 	{
-        if(level[b][a-1]=='#');
-		else if((level[b][a-1]=='$') &&(dooropen == 0));
+        if(level[character2.Y][character2.X-1]=='#');
+		else if((level[character2.Y][character2.X-1]=='$') &&(dooropen == 0));
 		else
 		{
             charLocation2.X--;
 		}
 	}
-	if(level[b][a]=='%' || level[Y][X]=='%' )
+	if(level[character2.Y][character2.X]=='%' || level[character1.Y][character1.X]=='%' )
 	{
 		dooropen = true;
 	}
-    if (level[b][a]=='@' && level[Y][X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
+    if (level[character2.Y][character2.X]=='@' && level[character1.Y][character1.X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
     {
 		if(next==5)
 		{
