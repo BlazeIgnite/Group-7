@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+
 // Console object
 Console console(79, 25, "SP1 Framework");
  
@@ -21,17 +22,18 @@ extern char checker;
 
 double elapsedTime;
 double deltaTime;
-bool keyPressed[K_COUNT];
 
 short data;
 short bubble[1000];
+short data1[10];
 
 void storepoints();
 void printpoints();
 void spawnpoints();
 void mapseq();
-short data1[10];
 void win();
+
+bool keyPressed[K_COUNT];
 bool dooropen=0;
 // Game specific variables here
 COORD charLocation;
@@ -77,8 +79,7 @@ void getInput()
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
     keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
-}
- 
+} 
 /*
         This is the update function
         double dt - This is the amount of time in seconds since the previous call was made
@@ -109,14 +110,7 @@ void update(double dt)
     Just draw it!
     To get an idea of the values for colours, look at console.h and the URL listed there
 */
-void render()
-{
-    clearScreen();      // clears the current screen and draw from scratch
-    renderMap();        // renders the map to the buffer first
-    renderCharacter();  // renders the character into the buffer
-    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
-    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-}
+
 
 void moveCharacter()
 {
@@ -262,7 +256,6 @@ void moveCharacter()
 	    charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;		
 	}
 }
- 
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -277,7 +270,15 @@ void clearScreen()
     // Clears the buffer with this colour attribute
     console.clearBuffer(0x0F);
 }
- 
+
+void render()
+{
+    clearScreen();      // clears the current screen and draw from scratch
+    renderMap();        // renders the map to the buffer first
+    renderCharacter();  // renders the character into the buffer
+    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
+    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+} 
 void renderMap()
 {
     // Set up sample colours, and output shadings
@@ -318,9 +319,21 @@ void renderMap()
 					}
 					console.writeToBuffer(c,i+1,level[i][c]);
 				}
+				if(level[i][c]=='%')
+				{
+					if(dooropen==0)
+					{
+						level[i][c]='%';
+					}
+					else
+					{
+						level[i][c]=0;
+					}
+					console.writeToBuffer(c,i+1,level[i][c]);
+				}
 			}
 		}
-        if(next >0 && next != 100 && next != 16 && next!=99 && next !=101 && next !=102 && next !=103)
+        if(next>0 && next<16)
         {
             for (unsigned int i=0;i<23;++i)
             {
@@ -430,8 +443,7 @@ void storepoints()
 		fs <<data1[a]<<std::endl;
 	}
 	fs.close();
-}
-		
+}	
 void printpoints()
 {
 	std::ostringstream ss;
@@ -496,7 +508,6 @@ void win()
             }
         }
 }
-
 void spawnpoints()
 {
 	switch(next)
@@ -519,7 +530,6 @@ void spawnpoints()
 		case 100: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
 	}
 }
-
 void mapseq()
 {
 	switch(next)
