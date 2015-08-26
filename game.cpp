@@ -209,10 +209,12 @@ void moveCharacter()
 		if(next==5)
 		{
 			next=101;
+			charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;
 		}
 		else if (next==10)
 		{
 			next=102;
+			charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;
 		}
 		else if (next==15)
 		{
