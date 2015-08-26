@@ -15,9 +15,8 @@ void ambience()
 	}
 	else if(next>=11 && next<=15)
 	{
-		stopsound();
+		PlaySound(TEXT("sounds/sound3.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 	}
-
 	else if(next==16)
 	{
 		playwin();
@@ -27,7 +26,6 @@ void ambience()
 		stopsound();
 	}
 }
-
 void playwin()
 {
 	PlaySound(TEXT("sounds/win.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
