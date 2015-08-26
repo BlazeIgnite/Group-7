@@ -11,10 +11,10 @@
 #include <sstream>
 #include <fstream>
 // Console object
-Console console(80, 25, "SP1 Framework");
+Console console(79, 25, "SP1 Framework");
  
 // extern from map.cpp
-extern char level[26][71];
+extern unsigned char level[26][71];
 extern char side[25][10];
 extern short next;
 extern char checker;
@@ -31,7 +31,7 @@ void printpoints();
 void spawnpoints();
 void mapseq();
 short data1[10];
-void win();1
+void win();
 bool dooropen=0;
 // Game specific variables here
 COORD charLocation;
@@ -49,7 +49,7 @@ void init()
     charLocation2.X = 24;
     charLocation2.Y = 10;
     // sets the width, height and the font name to use in the console
-    console.setConsoleFont(10, 20, L"851403em");
+    console.setConsoleFont(10, 20, L"8514oem");
 }
  
 // Do your clean up of memory here
@@ -211,6 +211,7 @@ void moveCharacter()
 	}
     if (level[character2.Y][character2.X]=='@' && level[character1.Y][character1.X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
     {
+		dooropen = false;
 		if(next==5)
 		{
 			next=101;
@@ -346,8 +347,8 @@ void renderMap()
 void renderCharacter()
 {
     // Draw the location of the character
+	console.writeToBuffer(charLocation2, (char)153, 0x0A);
     console.writeToBuffer(charLocation, (char)153, 0x0C);
-    console.writeToBuffer(charLocation2, (char)153, 0x0A);
 }
 void renderFramerate()
 {
@@ -361,7 +362,7 @@ void renderFramerate()
     console.writeToBuffer(c, ss.str());
 
 	//displays the current level
-	if (next!=0 && next != 100 && next!= 16 && next!=99 && next!=101 && next!=102 && next!=103)
+	if (next>0 && next<16)
 	{
 		ss.str("");
 		ss<<next;
@@ -379,8 +380,7 @@ void renderFramerate()
 		{
 			ss << "0s";
 			elapsedTime=1000;
-			next = 100;
-			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
+			next=100;
 		}
 		c.X = 71;
 		c.Y = 10;
@@ -516,6 +516,7 @@ void spawnpoints()
 		case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
 		case 15: charLocation.X = 34; charLocation.Y = 21; charLocation2.X = 36; charLocation2.Y = 21; break;
 		case 16: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2; break;
+		case 100: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
 	}
 }
 
