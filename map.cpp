@@ -678,7 +678,11 @@ void help()
 }
 void levelskip()
 {
-	if(next==101)
+	if(next==98)
+	{
+		next=1;
+	}
+	else if(next==101)
 	{
 		next=6;
 	}
