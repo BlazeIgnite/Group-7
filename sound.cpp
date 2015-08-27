@@ -5,7 +5,7 @@ extern short next;
 
 void ambience()
 {
-	if(next==0)
+	if (next == 0 || next ==99)
 	{
 		PlaySound(TEXT("sounds/menu.wav"),NULL,SND_FILENAME|SND_ASYNC|SND_NOSTOP);
 	}
