@@ -1,5 +1,5 @@
 # Input changes here
--Group Members:
+# Group Members:
 
 -Qingping
 
@@ -9,10 +9,14 @@
 
 -Teckling
 
-current documents available:
+# Current documents available:
 
 Report.docx
 
 Mirror Image.docx
 
 Proposal for SP1.docx
+
+#Link to sound files:
+
+#Link to full game file:
