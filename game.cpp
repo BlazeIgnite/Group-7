@@ -591,7 +591,7 @@ void warpspwan()
 	srand((unsigned int)time(NULL));
 	do
 	{
-		arandom = rand() % 60+2;
+		arandom = rand() % 70+2;
 		brandom = rand() % 20+2;
 	} while ((level[brandom][arandom] != ' ') && (arandom != charLocation.X));
 	contact = true;
