@@ -51,7 +51,7 @@ void init()
     charLocation2.X = 24;
     charLocation2.Y = 10;
     // sets the width, height and the font name to use in the console
-    console.setConsoleFont(10, 20, L"8514oem");
+    console.setConsoleFont(10, 18, L"Terminal");
 }
  
 // Do your clean up of memory here
@@ -94,8 +94,8 @@ void update(double dt)
 	if(next!=0 && next!= 16 && next!=99)
 	{
 		elapsedTime += dt;
-		ambience();
 	}
+	ambience();
 	mapseq();
     deltaTime = dt;
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -231,7 +231,7 @@ void moveCharacter()
     else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
     {
         Beep(1440, 30);
-        next++;
+        next=98;
         charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
     }
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
@@ -538,6 +538,7 @@ void mapseq()
 	switch(next)
 	{
 		case 0:menu();sidemenu();break;
+		case 98:levelskip();break;
 		case 1:level1();break;
 		case 2:level2();break;
 		case 3:level3();break;
