@@ -314,7 +314,7 @@ void renderMap()
 				{
 					if(dooropen==0)
 					{
-						level[i][c]= 209;
+						level[i][c]= 176;
 					}
 					else
 					{
@@ -326,7 +326,7 @@ void renderMap()
 				{
 					if(dooropen==0)
 					{
-						level[i][c]='%';
+						level[i][c]=233;
 					}
 					else
 					{
