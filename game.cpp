@@ -302,7 +302,7 @@ void renderMap()
 		0x03, 0x04, 0x05,
 		};
 	unsigned char a;
-	if (unsignedtime % 100 == 0 || nextlevel == true) //spwan traps and AI when next level is started
+	if ((unsignedtime % 100 == 0 || nextlevel == true) && (next>0 &&next<15)) //spwan traps and AI when next level is started
 	{
 		warpspwan();
 		nextlevel = false;
@@ -588,7 +588,7 @@ void mapseq()
 void warpspwan()
 {
 	mapseq();
-	srand(unsignedtime);
+	srand((unsigned int)time(NULL));
 	do
 	{
 		arandom = rand() % 60;
