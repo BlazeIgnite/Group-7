@@ -26,15 +26,27 @@ double deltaTime;
 short data;
 short bubble[1000];
 short data1[10];
+short arandom, brandom;
+short unsigned unsignedtime;
 
 void storepoints();
 void printpoints();
 void spawnpoints();
 void mapseq();
 void win();
+void warpspwan();
+void activewarp();
 
 bool keyPressed[K_COUNT];
 bool dooropen=0;
+bool contact = 0;
+bool warpprint = 0;
+bool nextlevel = 0;
+struct move			//stuct for the movement of character
+{
+	short X;
+	short Y;
+}character1, character2;
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -114,150 +126,150 @@ void update(double dt)
 
 void moveCharacter()
 {
-	struct move			//stuct for the movement of character
-	{
-		short X;
-		short Y;
-	}character1,character2;
+
 	//initilize value to xy for each character
 	character1.X = charLocation.X;
-    character1.Y = charLocation.Y-1;
-    character2.X = charLocation2.X;
-    character2.Y = charLocation2.Y-1;
-    // Updating the location of the character based on the key press
-    if (keyPressed[K_UP] && charLocation.Y > 0)
-    {
-		if(level[character1.Y-1][character1.X]=='#');
-		else if((level[character1.Y-1][character1.X]=='$') &&(dooropen == 0));
+	character1.Y = charLocation.Y - 1;
+	character2.X = charLocation2.X;
+	character2.Y = charLocation2.Y - 1;
+	// Updating the location of the character based on the key press
+	if (keyPressed[K_UP] && charLocation.Y > 0)
+	{
+		if (level[character1.Y - 1][character1.X] == '#');
+		else if ((level[character1.Y - 1][character1.X] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation.Y--;
+			charLocation.Y--;
 		}
-    }
-    else if (keyPressed[K_LEFT] && charLocation.X > 0)
-    {
-        if(level[character1.Y][character1.X-1]=='#');
-		else if((level[character1.Y][character1.X-1]=='$') &&(dooropen == 0));
+	}
+	else if (keyPressed[K_LEFT] && charLocation.X > 0)
+	{
+		if (level[character1.Y][character1.X - 1] == '#');
+		else if ((level[character1.Y][character1.X - 1] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation.X--;
+			charLocation.X--;
 		}
-    }
-    else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
-    {
-        if(level[character1.Y+1][character1.X]=='#');
-		else if((level[character1.Y+1][character1.X]=='$') &&(dooropen == 0));
+	}
+	else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
+	{
+		if (level[character1.Y + 1][character1.X] == '#');
+		else if ((level[character1.Y + 1][character1.X] == '$') && (dooropen == 0));
 		else
 		{
 			charLocation.Y++;
 		}
 
-    }
-    else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
-    {
-        if(level[character1.Y][character1.X+1]=='#');
-		else if((level[character1.Y][character1.X+1]=='$') &&(dooropen == 0));
-		else
-		{
-            charLocation.X++;
-		}
-    }
-        //2nd character
-    if (keyPressed[K_UP] && charLocation2.Y > 0)
+	}
+	else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
 	{
-		if(level[character2.Y-1][character2.X]=='#');
-		else if((level[character2.Y-1][character2.X]=='$') &&(dooropen == 0));
+		if (level[character1.Y][character1.X + 1] == '#');
+		else if ((level[character1.Y][character1.X + 1] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation2.Y--;
+			charLocation.X++;
+		}
+	}
+	//2nd character
+	if (keyPressed[K_UP] && charLocation2.Y > 0)
+	{
+		if (level[character2.Y - 1][character2.X] == '#');
+		else if ((level[character2.Y - 1][character2.X] == '$') && (dooropen == 0));
+		else
+		{
+			charLocation2.Y--;
 		}
 	}
 	else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
 	{
-        if(level[character2.Y][character2.X+1]=='#');
-		else if((level[character2.Y][character2.X+1]=='$') &&(dooropen == 0));
+		if (level[character2.Y][character2.X + 1] == '#');
+		else if ((level[character2.Y][character2.X + 1] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation2.X++;
+			charLocation2.X++;
 		}
 	}
 	else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
 	{
-        if(level[character2.Y+1][character2.X]=='#');
-		else if((level[character2.Y+1][character2.X]=='$') &&(dooropen == 0));
+		if (level[character2.Y + 1][character2.X] == '#');
+		else if ((level[character2.Y + 1][character2.X] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation2.Y++;
+			charLocation2.Y++;
 		}
 	}
 	else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
 	{
-        if(level[character2.Y][character2.X-1]=='#');
-		else if((level[character2.Y][character2.X-1]=='$') &&(dooropen == 0));
+		if (level[character2.Y][character2.X - 1] == '#');
+		else if ((level[character2.Y][character2.X - 1] == '$') && (dooropen == 0));
 		else
 		{
-            charLocation2.X--;
+			charLocation2.X--;
 		}
 	}
-	if(level[character2.Y][character2.X]=='%' || level[character1.Y][character1.X]=='%' )
+	if (level[character2.Y][character2.X] == '%' || level[character1.Y][character1.X] == '%')
 	{
 		dooropen = true;
+		Beep(1440, 30);
 	}
-    if (level[character2.Y][character2.X]=='@' && level[character1.Y][character1.X]=='@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
-    {
+	if (level[character2.Y][character2.X] == '@' && level[character1.Y][character1.X] == '@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
+	{
+		nextlevel = true;
 		dooropen = false;
-		if(next==5)
+		if (next == 5)
 		{
-			next=101;
+			next = 101;
 			charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;
 		}
-		else if (next==10)
+		else if (next == 10)
 		{
-			next=102;
-			charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;
+			next = 102;
+			charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;
 		}
-		else if (next==15)
+		else if (next == 15)
 		{
-			next=103;
-			charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
+			next = 103;
+			charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
 		}
 		else if (next<16)
 		{
-			Beep(1440,30);
+			Beep(1440, 30);
 			next++;
 		}
 		spawnpoints();
-    }
-    else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
-    {
-        Beep(1440, 30);
-        next=98;
-        charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;
-    }
+	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+	{
+		Beep(1440, 30);
+		next++;
+		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
+	}
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
-    {
-		Beep(1440,30);
-        next=99;		
-        charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;		
-    }
+	{
+		Beep(1440, 30);
+		next = 99;
+		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
+	}
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
-    {
+	{
 		g_quitGame = true;
-    }
-	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next==16)))
+	}
+	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
 	{
-		Beep(1440,30);
+		Beep(1440, 30);
 		next = 0;
-		elapsedTime=0;
+		elapsedTime = 0;
 		stopsound();
-		charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
 	}
-	else if ((keyPressed[K_SPACE]) && (next == 99))		
+	else if ((keyPressed[K_SPACE]) && (next == 99))
 	{
-		Beep(1440,30);
-		next = 0;		
-	    charLocation.X = 24;charLocation.Y = 10;charLocation2.X = 24;charLocation2.Y = 10;		
+		Beep(1440, 30);
+		next = 0;
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
 	}
+
+	activewarp();
 }
 void processUserInput()
 {
@@ -290,52 +302,62 @@ void renderMap()
         0x05, 0x07, 0x0F, 0x08, 0x02, 0x03,
 		0x03, 0x04, 0x05,
 		};
-        for (unsigned int i=0;i<24;++i)
-        {
-			for (unsigned int c=0;c<71;++c)
+	unsigned char a;
+	if (unsignedtime % 100 == 0 || nextlevel == true) //spwan traps and AI when next level is started
+	{
+		warpspwan();
+		nextlevel = false;
+	}
+	for (unsigned int i = 0; i<24; ++i)
+	{
+		for (unsigned int c = 0; c<71; ++c)
+		{
+			if (i == brandom && c == arandom && contact == true)
 			{
-				if(level[i][c] == '#')
+				level[i][c] = 142;
+			}
+			if (level[i][c] == '#')
+			{
+				a = 219;
+				if (next>0 && next<99 && next != 16)
 				{
-					unsigned char a = 219;
-					if(next>0 && next<99 && next!=16)
-					{
-					console.writeToBuffer(c,i+1,a,colors[next-1]);
-					}
-					else
-					{
-						console.writeToBuffer(c,i+1,a,0x00);
-					}
+					console.writeToBuffer(c, i + 1, a, colors[next - 1]);
 				}
 				else
-				{                           
-					console.writeToBuffer(c,i+1,level[i][c]);
-				}
-				if(level[i][c] == '$')
 				{
-					if(dooropen==0)
-					{
-						level[i][c]= 176;
-					}
-					else
-					{
-						level[i][c] = 0;
-					}
-					console.writeToBuffer(c,i+1,level[i][c]);
-				}
-				if(level[i][c]=='%')
-				{
-					if(dooropen==0)
-					{
-						level[i][c]=233;
-					}
-					else
-					{
-						level[i][c]=0;
-					}
-					console.writeToBuffer(c,i+1,level[i][c]);
+					console.writeToBuffer(c, i + 1, a, 0x00);
 				}
 			}
+			else
+			{
+				console.writeToBuffer(c, i + 1, level[i][c]);
+			}
+			if (level[i][c] == '$')
+			{
+				if (dooropen == 0)
+				{
+					level[i][c] = 176;
+				}
+				else
+				{
+					level[i][c] = 0;
+				}
+				console.writeToBuffer(c, i + 1, level[i][c]);
+			}
+			if (level[i][c] == '%')
+			{
+				if (dooropen == 0)
+				{
+					level[i][c] = 233;
+				}
+				else
+				{
+					level[i][c] = 0;
+				}
+				console.writeToBuffer(c, i + 1, level[i][c]);
+			}
 		}
+	}
         if(next>0 && next<16)
         {
             for (unsigned int i=0;i<23;++i)
@@ -376,6 +398,7 @@ void renderFramerate()
     c.X = console.getConsoleSize().X - 9;
     c.Y = 0;
     console.writeToBuffer(c, ss.str());
+	unsignedtime = static_cast<unsigned short>(elapsedTime * 10);
 
 	//displays the current level
 	if (next>0 && next<16)
@@ -560,5 +583,37 @@ void mapseq()
 		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
+	}
+}
+
+void warpspwan()
+{
+	mapseq();
+	srand(unsignedtime);
+	for (;;)
+	{
+		arandom = rand() % 60;
+		brandom = rand() % 20;
+		if (level[brandom][arandom] == ' ')
+		{
+			break;
+		}
+	}
+	contact = true;
+}
+
+void activewarp()
+{
+	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
+	{
+		do
+		{
+			arandom = rand() % 71;
+			brandom = rand() % 23;
+		} while ((level[brandom][arandom] != ' ') && (brandom != charLocation.X) && (arandom != charLocation.Y) && (arandom>0) && (brandom > 0));
+		short a = arandom, b = brandom;
+		charLocation.X = a;
+		charLocation.Y = b + 1;
+		contact = false;
 	}
 }
