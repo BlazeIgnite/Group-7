@@ -591,8 +591,8 @@ void warpspwan()
 	srand((unsigned int)time(NULL));
 	do
 	{
-		arandom = rand() % 60;
-		brandom = rand() % 20;
+		arandom = rand() % 60+2;
+		brandom = rand() % 20+2;
 	} while ((level[brandom][arandom] != ' ') && (arandom != charLocation.X));
 	contact = true;
 }
@@ -603,8 +603,8 @@ void activewarp()
 	{
 		do
 		{
-			arandom = rand() % 71;
-			brandom = rand() % 23;
+			arandom = rand() % 71+2;
+			brandom = rand() % 23+2;
 		} while ((level[brandom][arandom] != ' ') && (brandom != charLocation.X) && (arandom != charLocation.Y) && (arandom>0) && (brandom > 0));
 		short a = arandom, b = brandom;
 		charLocation.X = a;
