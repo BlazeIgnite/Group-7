@@ -20,4 +20,8 @@ Proposal for SP1.docx
 #Link to sound files:
 https://www.mediafire.com/?r46vf23a1x1q1mr
 #Link to full game file:
-http://www.mediafire.com/download/6odfaqpvp6u3cph/release.zip
+Release:
+http://www.mediafire.com/download/9kw0oo68q83w8jb/Mirror_Image.zip
+Full project files:
+https://www.mediafire.com/?c4v2ntfg95pjbgf
+
