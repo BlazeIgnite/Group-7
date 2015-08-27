@@ -590,15 +590,11 @@ void warpspwan()
 {
 	mapseq();
 	srand(unsignedtime);
-	for (;;)
+	do
 	{
 		arandom = rand() % 60;
 		brandom = rand() % 20;
-		if (level[brandom][arandom] == ' ')
-		{
-			break;
-		}
-	}
+	} while ((level[brandom][arandom] != ' ') && (arandom != charLocation.X));
 	contact = true;
 }
 
