@@ -1,13 +1,13 @@
 # Input changes here
 # Group Members:
 
--Qingping
+-Teck Ling
 
 -Jun Xiang
 
 -Tristan
 
--Teck Ling
+-Qingping
 
 # Current documents available:
 
