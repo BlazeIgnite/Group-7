@@ -3,11 +3,11 @@
 
 -Qingping
 
--Junxiang
+-Jun Xiang
 
 -Tristan
 
--Teckling
+-Teck Ling
 
 # Current documents available:
 
