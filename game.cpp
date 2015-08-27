@@ -240,7 +240,7 @@ void moveCharacter()
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
 	{
 		Beep(1440, 30);
-		next++;
+		next=98;
 		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
 	}
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
