@@ -77,7 +77,6 @@ void sidemenu()
                 }
         }
 }
-
 void level1()
 {
 	std::ifstream inData;
@@ -174,8 +173,6 @@ void level4()
 		}
 	}
 }
-
-
 void level5()
 {
 	std::ifstream inData;
@@ -272,7 +269,6 @@ void level8()
             }
     }
 }//not yet
-
 void level9()
 {
 	std::ifstream inData;
@@ -345,7 +341,6 @@ void level11()
 		}
 	}
 }
-
 void level12()
 {
 	std::ifstream inData;
@@ -370,7 +365,6 @@ void level12()
 		}
 	}
 }
-
 void level13()
 {
 	std::ifstream inData;
@@ -395,7 +389,6 @@ void level13()
 		}
 	}
 }
-
 void level14()
 {
 	std::ifstream inData;
@@ -420,7 +413,6 @@ void level14()
 		}
 	}
 }
-
 void level15()
 {
 	std::ifstream inData;
@@ -445,7 +437,6 @@ void level15()
 		}
 	}
 }
-
 void lose()
 {
         char lose[24][71]={
