@@ -237,37 +237,6 @@ void moveCharacter()
 		}
 		spawnpoints();
 	}
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
-	{
-		Beep(1440, 30);
-		next=98;
-		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
-	}
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
-	{
-		Beep(1440, 30);
-		next = 99;
-		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
-	}
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
-	{
-		g_quitGame = true;
-	}
-	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
-	{
-		Beep(1440, 30);
-		next = 0;
-		elapsedTime = 0;
-		stopsound();
-		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
-	else if ((keyPressed[K_SPACE]) && (next == 99))
-	{
-		Beep(1440, 30);
-		next = 0;
-		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
-
 	activewarp();
 }
 void processUserInput()
@@ -277,6 +246,42 @@ void processUserInput()
     {
 	    g_quitGame = true;
     }
+	//mainmenu options hard-code
+	//start
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+	{
+		Beep(1440, 30);
+		next=98;
+		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
+	}
+	//Howto play
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
+	{
+		Beep(1440, 30);
+		next = 99;
+		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
+	}
+	//Quit
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+	{
+		g_quitGame = true;
+	}
+	//return to mainmenu
+	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
+	{
+		Beep(1440, 30);
+		next = 0;
+		elapsedTime = 0;
+		stopsound();
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
+	}
+	//return to main after lose
+	else if ((keyPressed[K_SPACE]) && (next == 99))
+	{
+		Beep(1440, 30);
+		next = 0;
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
+	}
 }
  
 void clearScreen()
@@ -596,7 +601,6 @@ void warpspawn()
 	} while ((level[brandom][arandom] != ' ') && (arandom != charLocation.X));
 	contact = true;
 }
-
 void activewarp()
 {
 	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
