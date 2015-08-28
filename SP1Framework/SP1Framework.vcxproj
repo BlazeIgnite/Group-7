@@ -87,7 +87,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="sound.cpp" />
-    <ClCompile Include="Trap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h" />
@@ -95,7 +94,6 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="sound.h" />
-    <ClInclude Include="Trap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
