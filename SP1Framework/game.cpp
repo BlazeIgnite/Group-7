@@ -20,12 +20,14 @@ extern char side[25][10];
 extern short next;
 extern char checker;
 
+//doubles for time recording purposes.
 double elapsedTime;
 double deltaTime;
 
 short data;
-short bubble[12];
+short bubble[12];//array for scoring
 short data1[10];
+//shorts for RNG monster
 short arandom, brandom;
 short unsigned unsignedtime;
 
