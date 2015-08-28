@@ -600,7 +600,20 @@ void warpspawn()
 	{
 		arandom = rand() % 70+2;
 		brandom = rand() % 20+2;
-	} while ((level[brandom][arandom] != ' ') && (arandom != charLocation.X));
+		if(arandom == charLocation.X && brandom == charLocation.Y)
+		{
+			continue;
+		}
+		d=pow((double)(charLocation.X - arandom),(double)2) + pow((double)(charLocation.Y - brandom),(double)2);
+		if(d>400.0)
+		{
+			continue;
+		}
+		if( level[brandom][arandom] == ' ')
+		{
+			break;
+		}
+	}
 	contact = true;
 }
 void activewarp()
