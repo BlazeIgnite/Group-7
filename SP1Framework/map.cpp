@@ -84,18 +84,18 @@ void level1()
 	char level1[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while ( getline (inData,line)) //get map line by line into the var 'line'
+	while ( getline (inData,line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level1[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level1[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for(int i=0;i<24;++i)
 	{
-		for(int c=0;c<71;++c)
+		for(int c=0;c<70;++c)
 		{
 				level[i][c] = level1[i][c]; //send data to buffer
 		}
@@ -108,18 +108,18 @@ void level2()
 	char level2[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level2[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level2[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level2[i][c];
             }
@@ -132,18 +132,18 @@ void level3()
 	char level3[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level3[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level3[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level3[i][c];
             }
@@ -156,18 +156,18 @@ void level4()
 	char level4[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level4[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level4[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level4[i][c];
 		}
@@ -180,18 +180,18 @@ void level5()
 	char level5[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level5[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level5[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level5[i][c];
             }
@@ -204,18 +204,18 @@ void level6()
 	char level6[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level6[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level6[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level6[i][c];
             }
@@ -228,18 +228,18 @@ void level7()
 	char level7[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level7[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level7[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}   
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level7[i][c];
             }
@@ -252,18 +252,18 @@ void level8()
 	char level8[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level8[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level8[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
     for(int i=0;i<24;++i)
     {
-            for(int c=0;c<71;++c)
+            for(int c=0;c<70;++c)
             {
                     level[i][c] = level8[i][c];
             }
@@ -276,18 +276,18 @@ void level9()
 	char level9[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level9[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level9[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level9[i][c];
 		}
@@ -300,18 +300,18 @@ void level10()
 	char level10[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level10[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level10[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level10[i][c];
 		}
@@ -324,18 +324,18 @@ void level11()
 	char level11[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level11[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level11[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level11[i][c];
 		}
@@ -348,18 +348,18 @@ void level12()
 	char level12[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level12[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level12[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level12[i][c];
 		}
@@ -372,18 +372,18 @@ void level13()
 	char level13[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level13[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level13[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level13[i][c];
 		}
@@ -396,18 +396,18 @@ void level14()
 	char level14[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level14[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level14[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level14[i][c];
 		}
@@ -420,18 +420,18 @@ void level15()
 	char level15[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line)) //get map line by line into the var 'line'
+	while (getline(inData, line)) //get map line by line into the var line
 	{
 		unsigned int x = 0;
-		for (x; x < 71; x++)
+		for (x; x < 70; x++)
 		{
-			level15[y][x] = line[x]; //storing string 'line' into the char 2d array
+			level15[y][x] = line[x]; //storing string line into the char 2d array
 		}
 		y++;
 	}
 	for (int i = 0; i<24; ++i)
 	{
-		for (int c = 0; c<71; ++c)
+		for (int c = 0; c<70; ++c)
 		{
 			level[i][c] = level15[i][c];
 		}
