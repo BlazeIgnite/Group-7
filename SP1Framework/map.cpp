@@ -1,6 +1,6 @@
 #include "map.h"
-#include "fstream"
-#include "string"
+#include <fstream>
+#include <string>
 
 unsigned char level[26][71];
 char side[25][10];

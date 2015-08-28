@@ -539,7 +539,7 @@ void spawnpoints()
 	{
 		case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-		case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 66; charLocation2.Y = 2;break;
+		case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;break;
 		case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
 		case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 		case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 12;break;
