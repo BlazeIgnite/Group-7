@@ -608,7 +608,6 @@ void warpspawn()
 	}
 	contact = true;
 }
-
 void activewarp()
 {
 	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
