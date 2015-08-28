@@ -81,16 +81,16 @@ void sidemenu()
 void level1()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level1.txt");
-	char level1[24][71];
+	inData.open("MAPS/Level1.txt"); //Obtain map from text
+	char level1[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while ( getline (inData,line))
+	while ( getline (inData,line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level1[y][x] = line[x];
+			level1[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
@@ -98,361 +98,352 @@ void level1()
 	{
 		for(int c=0;c<71;++c)
 		{
-				level[i][c] = level1[i][c];
+				level[i][c] = level1[i][c]; //send data to buffer
 		}
 	}
 }
 void level2()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level2.txt");
-	char level2[24][71];
+	inData.open("MAPS/Level2.txt"); //Obtain map from text
+	char level2[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level2[y][x] = line[x];
+			level2[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
- 
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level2[i][c];
-                }
-        }
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level2[i][c];
+            }
+    }
 }
 void level3()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level3.txt");
-	char level3[24][71];
+	inData.open("MAPS/Level3.txt"); //Obtain map from text
+	char level3[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level3[y][x] = line[x];
+			level3[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-
- 
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level3[i][c];
-                }
-        }
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level3[i][c];
+            }
+    }
 }
 void level4()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level4.txt");
-	char level4[24][71];
+	inData.open("MAPS/Level4.txt"); //Obtain map from text
+	char level4[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level4[y][x] = line[x];
+			level4[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-
-
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level4[i][c];
-			}
+			level[i][c] = level4[i][c];
 		}
+	}
 }
 
 
 void level5()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level5.txt");
-	char level5[24][71];
+	inData.open("MAPS/Level5.txt"); //Obtain map from text
+	char level5[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level5[y][x] = line[x];
+			level5[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level5[i][c];
-                }
-        }
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level5[i][c];
+            }
+    }
 }//not yet
 void level6()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level6.txt");
-	char level6[24][71];
+	inData.open("MAPS/Level6.txt"); //Obtain map from text
+	char level6[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level6[y][x] = line[x];
+			level6[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-
- 
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level6[i][c];
-                }
-        }
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level6[i][c];
+            }
+    }
 }//not yet
 void level7()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level7.txt");
-	char level7[24][71];
+	inData.open("MAPS/Level7.txt"); //Obtain map from text
+	char level7[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level7[y][x] = line[x];
+			level7[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
-	}
-        
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level7[i][c];
-                }
-        }
+	}   
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level7[i][c];
+            }
+    }
 }//not yet
 void level8()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level8.txt");
-	char level8[24][71];
+	inData.open("MAPS/Level8.txt"); //Obtain map from text
+	char level8[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level8[y][x] = line[x];
+			level8[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-       
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = level8[i][c];
-                }
-        }
+    for(int i=0;i<24;++i)
+    {
+            for(int c=0;c<71;++c)
+            {
+                    level[i][c] = level8[i][c];
+            }
+    }
 }//not yet
 
 void level9()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level9.txt");
-	char level9[24][71];
+	inData.open("MAPS/Level9.txt"); //Obtain map from text
+	char level9[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level9[y][x] = line[x];
+			level9[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level9[i][c];
-			}
+			level[i][c] = level9[i][c];
 		}
+	}
 }
 void level10()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level10.txt");
-	char level10[24][71];
+	inData.open("MAPS/Level10.txt"); //Obtain map from text
+	char level10[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level10[y][x] = line[x];
+			level10[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level10[i][c];
-			}
+			level[i][c] = level10[i][c];
 		}
+	}
 }
 void level11()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level11.txt");
-	char level11[24][71];
+	inData.open("MAPS/Level11.txt"); //Obtain map from text
+	char level11[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level11[y][x] = line[x];
+			level11[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level11[i][c];
-			}
+			level[i][c] = level11[i][c];
 		}
+	}
 }
 
 void level12()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level12.txt");
-	char level12[24][71];
+	inData.open("MAPS/Level12.txt"); //Obtain map from text
+	char level12[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level12[y][x] = line[x];
+			level12[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level12[i][c];
-			}
+			level[i][c] = level12[i][c];
 		}
+	}
 }
 
 void level13()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level13.txt");
-	char level13[24][71];
+	inData.open("MAPS/Level13.txt"); //Obtain map from text
+	char level13[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level13[y][x] = line[x];
+			level13[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level13[i][c];
-			}
+			level[i][c] = level13[i][c];
 		}
+	}
 }
 
 void level14()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level14.txt");
-	char level14[24][71];
+	inData.open("MAPS/Level14.txt"); //Obtain map from text
+	char level14[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level14[y][x] = line[x];
+			level14[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level14[i][c];
-			}
+			level[i][c] = level14[i][c];
 		}
+	}
 }
 
 void level15()
 {
 	std::ifstream inData;
-	inData.open("MAPS/Level15.txt");
-	char level15[24][71];
+	inData.open("MAPS/Level15.txt"); //Obtain map from text
+	char level15[24][71];  //2d array to store map
 	std::string line;
 	unsigned int y = 0;
-	while (getline(inData, line))
+	while (getline(inData, line)) //get map line by line into the var 'line'
 	{
 		unsigned int x = 0;
 		for (x; x < 71; x++)
 		{
-			level15[y][x] = line[x];
+			level15[y][x] = line[x]; //storing string 'line' into the char 2d array
 		}
 		y++;
 	}
-		for (int i = 0; i<24; ++i)
+	for (int i = 0; i<24; ++i)
+	{
+		for (int c = 0; c<71; ++c)
 		{
-			for (int c = 0; c<71; ++c)
-			{
-				level[i][c] = level15[i][c];
-			}
+			level[i][c] = level15[i][c];
 		}
+	}
 }
 
 void lose()
