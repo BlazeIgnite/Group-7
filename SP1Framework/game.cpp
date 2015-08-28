@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <cmath>
 
 // Console object
 Console console(79, 25, "SP1 Framework");
@@ -29,6 +30,13 @@ short bubble[12];//array for scoring
 short data1[10];
 //shorts for RNG monster
 short arandom, brandom;
+bool dooropen=0;
+bool contact = 0;
+bool warpprint = 0;
+bool nextlevel = 0;
+
+
+
 short unsigned unsignedtime;
 
 void storepoints();
@@ -40,10 +48,7 @@ void warpspawn();
 void activewarp();
 
 bool keyPressed[K_COUNT];
-bool dooropen=0;
-bool contact = 0;
-bool warpprint = 0;
-bool nextlevel = 0;
+
 struct move			//stuct for the movement of character
 {
 	short X;
@@ -217,27 +222,48 @@ void moveCharacter()
 	{
 		nextlevel = true;
 		dooropen = false;
-		if (next == 5)
+		switch(next)
 		{
-			next = 101;
-			charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;
+		case 5:next = 101;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
+		case 10:next = 102;charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;break;
+		case 15:next = 103;charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;break;
 		}
-		else if (next == 10)
-		{
-			next = 102;
-			charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;
-		}
-		else if (next == 15)
-		{
-			next = 103;
-			charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
-		}
-		else if (next<16)
+		if (next<16)
 		{
 			Beep(1440, 30);
 			next++;
 		}
 		spawnpoints();
+	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
+	{
+		Beep(1440, 30);
+		next=98;
+		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
+	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
+	{
+		Beep(1440, 30);
+		next = 99;
+		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
+	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+	{
+		g_quitGame = true;
+	}
+	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
+	{
+		Beep(1440, 30);
+		next = 0;
+		elapsedTime = 0;
+		stopsound();
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
+	}
+	else if ((keyPressed[K_SPACE]) && (next == 99))
+	{
+		Beep(1440, 30);
+		next = 0;
+		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
 	}
 	activewarp();
 }
@@ -248,42 +274,6 @@ void processUserInput()
     {
 	    g_quitGame = true;
     }
-	//mainmenu options hard-code
-	//start
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
-	{
-		Beep(1440, 30);
-		next=98;
-		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
-	}
-	//Howto play
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
-	{
-		Beep(1440, 30);
-		next = 99;
-		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
-	}
-	//Quit
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
-	{
-		g_quitGame = true;
-	}
-	//return to mainmenu
-	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
-	{
-		Beep(1440, 30);
-		next = 0;
-		elapsedTime = 0;
-		stopsound();
-		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
-	//return to main after lose
-	else if ((keyPressed[K_SPACE]) && (next == 99))
-	{
-		Beep(1440, 30);
-		next = 0;
-		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
 }
  
 void clearScreen()
@@ -594,10 +584,12 @@ void mapseq()
 
 void warpspawn()
 {
+	double d;
 	mapseq();
 	srand((unsigned int)time(NULL));
-	do
+	while( 1 )
 	{
+		
 		arandom = rand() % 70+2;
 		brandom = rand() % 20+2;
 		if(arandom == charLocation.X && brandom == charLocation.Y)
@@ -616,6 +608,7 @@ void warpspawn()
 	}
 	contact = true;
 }
+
 void activewarp()
 {
 	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
