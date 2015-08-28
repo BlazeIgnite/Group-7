@@ -24,7 +24,7 @@ double elapsedTime;
 double deltaTime;
 
 short data;
-short bubble[1000];
+short bubble[12];
 short data1[10];
 short arandom, brandom;
 short unsigned unsignedtime;
