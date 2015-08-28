@@ -30,9 +30,12 @@ short bubble[12];//array for scoring
 short data1[10];
 //shorts for RNG monster
 short arandom, brandom;
+short spawnX, spawnY;
 bool dooropen=0;
 bool contact = 0;
+bool contact2 = 0;
 bool warpprint = 0;
+bool swapprint =0;
 bool nextlevel = 0;
 
 
@@ -46,6 +49,8 @@ void mapseq();
 void win();
 void warpspawn();
 void activewarp();
+void swapspawn();
+void activeswap();
 
 bool keyPressed[K_COUNT];
 
@@ -235,6 +240,14 @@ void moveCharacter()
 		}
 		spawnpoints();
 	}
+}
+void processUserInput()
+{
+    // quits the game if player hits the escape key
+    if (keyPressed[K_ESCAPE])
+    {
+	    g_quitGame = true;
+    }
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
 	{
 		Beep(1440, 30);
@@ -266,14 +279,7 @@ void moveCharacter()
 		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
 	}
 	activewarp();
-}
-void processUserInput()
-{
-    // quits the game if player hits the escape key
-    if (keyPressed[K_ESCAPE])
-    {
-	    g_quitGame = true;
-    }
+	activeswap();
 }
  
 void clearScreen()
@@ -302,6 +308,7 @@ void renderMap()
 	if ((unsignedtime % 100 == 0 || nextlevel == true) && (next>0 &&next<15)) //spwan traps and AI when next level is started
 	{
 		warpspawn();
+		swapspawn();
 		nextlevel = false;
 	}
 	for (unsigned int i = 0; i<24; ++i)
@@ -311,6 +318,10 @@ void renderMap()
 			if (i == brandom && c == arandom && contact == true)
 			{
 				level[i][c] = 142;
+			}
+			if (i == spawnY && c==spawnX && contact2 == true)
+			{
+				level[i][c]=154;
 			}
 			if (level[i][c] == '#')
 			{
@@ -622,4 +633,45 @@ void activewarp()
 		charLocation.Y = b + 1;
 		contact = false;
 	}
+}
+void swapspawn()
+{
+	double d;
+	mapseq();
+	srand((unsigned int)time(NULL));
+
+	while(1)
+	{
+		spawnX=rand()%70+2;
+		spawnY=rand()%20+2;
+
+		if(spawnX==charLocation2.X && spawnY==charLocation2.Y)
+		{
+			continue;
+		}
+		d=pow((double)(charLocation2.X - spawnX),(double)2) + pow((double)(charLocation2.Y - spawnY),(double)2);
+		if(d>400.0)
+		{
+			continue;
+		}
+		if(level[spawnY][spawnX] == ' ')
+		{
+			break;
+		}
+	}
+	contact2=true;
+}
+void activeswap()
+{
+	short tempx = charLocation2.X;
+	short tempy = charLocation2.Y;
+	if(((charLocation2.Y-1)==spawnY) && (charLocation2.X==spawnX))
+	{
+		charLocation2.X = charLocation.X;
+		charLocation2.Y = charLocation.Y;
+		charLocation.X=tempx;
+		charLocation.Y=tempy;
+		contact2=false;
+	}
+	
 }
