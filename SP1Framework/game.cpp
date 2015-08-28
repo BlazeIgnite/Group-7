@@ -34,7 +34,7 @@ void printpoints();
 void spawnpoints();
 void mapseq();
 void win();
-void warpspwan();
+void warpspawn();
 void activewarp();
 
 bool keyPressed[K_COUNT];
@@ -304,7 +304,7 @@ void renderMap()
 	unsigned char a;
 	if ((unsignedtime % 100 == 0 || nextlevel == true) && (next>0 &&next<15)) //spwan traps and AI when next level is started
 	{
-		warpspwan();
+		warpspawn();
 		nextlevel = false;
 	}
 	for (unsigned int i = 0; i<24; ++i)
@@ -585,7 +585,7 @@ void mapseq()
 	}
 }
 
-void warpspwan()
+void warpspawn()
 {
 	mapseq();
 	srand((unsigned int)time(NULL));
