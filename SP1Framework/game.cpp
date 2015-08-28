@@ -612,11 +612,19 @@ void activewarp()
 {
 	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
 	{
-		do
+		while( 1 )
 		{
-			arandom = rand() % 71+2;
-			brandom = rand() % 23+2;
-		} while ((level[brandom][arandom] != ' ') && (brandom != charLocation.X) && (arandom != charLocation.Y) && (arandom>0) && (brandom > 0));
+			arandom = rand() % 70+2;
+			brandom = rand() % 20+2;
+			if(arandom == charLocation.X && brandom == charLocation.Y)
+			{
+				continue;
+			}
+			if( level[brandom][arandom] == ' ')
+			{
+				break;
+			}
+		}
 		short a = arandom, b = brandom;
 		charLocation.X = a;
 		charLocation.Y = b + 1;
