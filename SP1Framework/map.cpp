@@ -1,4 +1,4 @@
-#include "map.h"
+﻿#include "map.h"
 #include <fstream>
 #include <string>
 
@@ -485,21 +485,21 @@ void help()
 	,	{" #                                                                   #"}		
 	,	{" #           Your shadow seems to be trolling you, and               #"}		
 	,	{" #           doesn't seem to follow you as it normally               #"}		
-	,	{" #           should. You hear there is a way to revert               #"}		
-	,	{" #           back to normal, but it involves going                   #"}		
-	,	{" #           through a ordeal of fifteen magical doors               #"}		
-	,	{" #           that only appear for a thousand seconds.                #"}		
-	,	{" #           Should you fail, you will never return to               #"}		
-	,	{" #           normal every again. Good Luck!                          #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
+	,	{" #           should. You must escape the 15 levels of                #"}		
+	,	{" #           the dungeon within 1000 seconds or fail!                #"}		
+	,	{" #                                                                   #"}				
 	,	{" #                            How to play                            #"}		
 	,	{" #                                                                   #"}		
 	,	{" #           Use the arrow keys to move and reach the                #"}		
 	,	{" #           goal, marked by @ to advance to the next                #"}		
 	,	{" #           stage. Your shadow has its left and                     #"}		
-	,	{" #           right controls reversed!                                #"}		
+	,	{" #           right controls reversed!                                #"}
+	,	{" #                                                                   #"}		
+	,	{" #             is a door.   is a portal. If your shadow              #"}		
+	,	{" #           touches  , you will swap places with yourself.          #"}		
+	,	{" #           If you touch Ä, you will be randomly teleported.        #"}		
+	,	{" #           When you touch  , you will open doors!                  #"}		
+	,	{" #                                                                   #"}
 	,	{" ##                                                                 ##"}		
 	,	{" # #             PRESS SPACE TO RETURN TO THE MENU                 # #"}		
 	,	{" #####################################################################"}};		
