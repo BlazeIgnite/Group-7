@@ -625,8 +625,8 @@ void activewarp()
 	{
 		do
 		{
-			arandom = rand() % 71+2;
-			brandom = rand() % 23+2;
+			arandom = rand() % 65+2;
+			brandom = rand() % 20+2;
 		} while ((level[brandom][arandom] != ' ') && (brandom != charLocation.X) && (arandom != charLocation.Y) && (arandom>0) && (brandom > 0));
 		short a = arandom, b = brandom;
 		charLocation.X = a;
