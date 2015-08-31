@@ -36,7 +36,7 @@ void menu()
  
         for(int i=0;i<24;++i)
         {
-                for(int c=0;c<71;++c)
+                for(int c=0;c<70;++c)
                 {
                         level[i][c] = menu[i][c];
                 }
@@ -470,7 +470,7 @@ void lose()
  
         for(int i=0;i<24;++i)
         {
-                for(int c=0;c<71;++c)
+                for(int c=0;c<70;++c)
                 {
                         level[i][c] = lose[i][c];
                 }
@@ -506,7 +506,7 @@ void help()
 		
         for(int i=0;i<24;++i)		
         {		
-                for(int c=0;c<71;++c)		
+                for(int c=0;c<70;++c)		
                 {		
                         level[i][c] = help[i][c];		
                 }		
