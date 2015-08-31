@@ -56,6 +56,7 @@ void swapspawn();
 void activeswap();
 
 bool keyPressed[K_COUNT];
+bool g_DkeyPressed[K_COUNT];
 
 struct move			//stuct for the movement of character
 {
@@ -98,7 +99,8 @@ void shutdown()
         For Alphanumeric keys, the values are their ascii values (uppercase).
 */
 void getInput()
-{    
+{   
+	g_DkeyPressed[K_RETURN] = !keyPressed[K_RETURN] && isKeyPressed(VK_RETURN);
     keyPressed[K_UP] = isKeyPressed(VK_UP);
     keyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
@@ -106,6 +108,7 @@ void getInput()
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
     keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
+	
 } 
 /*
         This is the update function
@@ -280,7 +283,7 @@ void processUserInput()
 		next = 99;
 		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
 	}//instructions
-	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+	else if ((g_DkeyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
 	{
 		if(ismute==false)
 		{
