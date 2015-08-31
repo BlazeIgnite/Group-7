@@ -332,13 +332,16 @@ void renderMap()
 	{
 		for (unsigned int c = 0; c<71; ++c)
 		{
-			if (i == brandom && c == arandom && contact == true && next != 101)
+			if(next>0 && next<16 && next!=101)
 			{
-				level[i][c] = 142;
-			}
-			if (i == spawnY && c==spawnX && contact2 == true && next != 101)
-			{
-				level[i][c]=154;
+				if (i == brandom && c == arandom && contact == true)
+				{
+					level[i][c] = 142;
+				}
+				if (i == spawnY && c==spawnX && contact2 == true)
+				{
+					level[i][c]=154;
+				}
 			}
 			if (level[i][c] == '#')
 			{
@@ -624,26 +627,29 @@ void warpspawn()
 	double d;
 	mapseq();
 	srand((unsigned int)time(NULL));
-	while( 1 )
+	if(next>0 && next<16)
 	{
+		while( 1 )
+		{
 		
-		arandom = rand() % 70+2;
-		brandom = rand() % 20+2;
-		if(arandom == charLocation.X && brandom == charLocation.Y)
-		{
-			continue;
+			arandom = rand() % 70+2;
+			brandom = rand() % 20+2;
+			if(arandom == charLocation.X && brandom == charLocation.Y)
+			{
+				continue;
+			}
+			d=pow((double)(charLocation.X - arandom),(double)2) + pow((double)(charLocation.Y - brandom),(double)2);
+			if(d>400.0)
+			{
+				continue;
+			}
+			if( level[brandom][arandom] == ' ')
+			{
+				break;
+			}
 		}
-		d=pow((double)(charLocation.X - arandom),(double)2) + pow((double)(charLocation.Y - brandom),(double)2);
-		if(d>400.0)
-		{
-			continue;
-		}
-		if( level[brandom][arandom] == ' ')
-		{
-			break;
-		}
+		contact = true;
 	}
-	contact = true;
 }
 void activewarp()
 {
@@ -665,27 +671,29 @@ void swapspawn()
 	double d;
 	mapseq();
 	srand((unsigned int)time(NULL)-10);
-
-	while(1)
+	if(next>0 && next<16)
 	{
-		spawnX=rand()%70+2;
-		spawnY=rand()%20+2;
+		while(1)
+		{
+			spawnX=rand()%70+2;
+			spawnY=rand()%20+2;
 
-		if(spawnX==charLocation2.X && spawnY==charLocation2.Y)
-		{
-			continue;
+			if(spawnX==charLocation2.X && spawnY==charLocation2.Y)
+			{
+				continue;
+			}
+			d=pow((double)(charLocation2.X - spawnX),(double)2) + pow((double)(charLocation2.Y - spawnY),(double)2);
+			if(d>400.0)
+			{
+				continue;
+			}
+			if(level[spawnY][spawnX] == ' ')
+			{
+				break;
+			}
 		}
-		d=pow((double)(charLocation2.X - spawnX),(double)2) + pow((double)(charLocation2.Y - spawnY),(double)2);
-		if(d>400.0)
-		{
-			continue;
-		}
-		if(level[spawnY][spawnX] == ' ')
-		{
-			break;
-		}
+		contact2=true;
 	}
-	contact2=true;
 }
 void activeswap()
 {
