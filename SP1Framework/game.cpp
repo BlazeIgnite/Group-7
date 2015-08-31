@@ -1,6 +1,6 @@
 // This is the main file for the game logic and function
-//
-//
+// Team members: Teck Ling, Junxiang, Tristan, Qingping.
+// SP1 Framework.
 #include "game.h"
 #include "map.h"
 #include "Framework\console.h"
