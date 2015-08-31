@@ -37,6 +37,7 @@ bool contact2 = 0;
 bool warpprint = 0;
 bool swapprint =0;
 bool nextlevel = 0;
+bool ismute=false;
 
 short levelcount = 0;// for the level 0, 5, 10 and 15 to be identified
 
@@ -120,7 +121,14 @@ void update(double dt)
 	{
 		elapsedTime += dt;
 	}
-	ambience();
+	if(ismute==false)
+	{
+		ambience();
+	}
+	else
+	{
+		stopsound();
+	}
 	mapseq();
     deltaTime = dt;
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -267,6 +275,17 @@ void processUserInput()
 		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
 	}
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+	{
+		if(ismute==false)
+		{
+			ismute=true;
+		}
+		else
+		{
+			ismute=false;
+		}
+	}
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 13))
 	{
 		g_quitGame = true;
 	}
@@ -588,7 +607,7 @@ void spawnpoints()
 		case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
 		case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
 		case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
-		case 11: charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3; break;
+		case 11: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3; break;
 		case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
 		case 13: charLocation.X = 63; charLocation.Y = 19; charLocation2.X = 19; charLocation2.Y = 19; break;
 		case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
