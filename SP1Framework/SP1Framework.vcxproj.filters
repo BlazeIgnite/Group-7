@@ -13,6 +13,7 @@
     <ClCompile Include="sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gamefunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
