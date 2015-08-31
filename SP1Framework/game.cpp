@@ -38,8 +38,6 @@ bool warpprint = 0;
 bool swapprint =0;
 bool nextlevel = 0;
 
-
-
 short unsigned unsignedtime;
 
 void storepoints();
