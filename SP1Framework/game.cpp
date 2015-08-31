@@ -131,7 +131,7 @@ void update(double dt)
 		stopsound();//if the game IS muted, don't play sound!
 	}
 	mapseq();//follows the order of mapping.
-    deltaTime = dt;
+    deltaTime = dt;//counts time for recording FPS
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
     // sound can be played here too.
@@ -172,7 +172,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.X--;
-			step++;
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)//down
@@ -182,7 +182,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.Y++;
-			step++;
+			step++;//counts the number of movement you made
 		}
 
 	}
@@ -193,7 +193,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.X++;
-			step++;
+			step++;//counts the number of movement you made
 		}
 	}
 	//2nd character
@@ -204,6 +204,7 @@ void moveCharacter()
 		else
 		{
 			charLocation2.Y--;
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (keyPressed[K_LEFT] && charLocation2.X < console.getConsoleSize().X - 1)
@@ -213,6 +214,7 @@ void moveCharacter()
 		else
 		{
 			charLocation2.X++;
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (keyPressed[K_DOWN] && charLocation2.Y < console.getConsoleSize().Y - 1)
@@ -222,6 +224,7 @@ void moveCharacter()
 		else
 		{
 			charLocation2.Y++;
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (keyPressed[K_RIGHT] && charLocation2.X > 0)
@@ -231,6 +234,7 @@ void moveCharacter()
 		else
 		{
 			charLocation2.X--;
+			step++;//counts the number of movement you made
 		}
 	}
 	if (level[character2.Y][character2.X] == '%' || level[character1.Y][character1.X] == '%')
@@ -252,9 +256,9 @@ void moveCharacter()
 			Beep(1440, 30);
 			next++;//beep when touch
 		}
-		nextlevel = true;
+		nextlevel = true;//go to next level
 		dooropen = false;//shut all open doors.
-		spawnpoints();
+		spawnpoints();//move the spawnpoints of the characters
 	}
 }
 void processUserInput()
