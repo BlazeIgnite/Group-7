@@ -532,7 +532,6 @@ void help()
 }
 void levelskip()
 {
-
 	if(levelcount==0)
 	{
 		next=1;
