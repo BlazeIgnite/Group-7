@@ -6,6 +6,8 @@ unsigned char level[26][71];
 char side[25][10];
 short next=0;//current level of map change to access other levels
 char checker = 0;
+
+extern short levelcount;
 void menu()
 {
 		checker = 0;
@@ -36,7 +38,7 @@ void menu()
  
         for(int i=0;i<24;++i)
         {
-                for(int c=0;c<70;++c)
+                for(int c=0;c<71;++c)
                 {
                         level[i][c] = menu[i][c];
                 }
@@ -470,7 +472,7 @@ void lose()
  
         for(int i=0;i<24;++i)
         {
-                for(int c=0;c<70;++c)
+                for(int c=0;c<71;++c)
                 {
                         level[i][c] = lose[i][c];
                 }
@@ -497,7 +499,7 @@ void help()
 	,	{" #                                                                   #"}		
 	,	{" #             is a door.   is a portal. If your shadow              #"}		
 	,	{" #           touches  , you will swap places with yourself.          #"}		
-	,	{" #           If you touch Ä, you will be randomly teleported.        #"}		
+	,	{" #           If you touch  , you will be randomly teleported.        #"}		
 	,	{" #           When you touch  , you will open doors!                  #"}		
 	,	{" #                                                                   #"}
 	,	{" ##                                                                 ##"}		
@@ -506,7 +508,7 @@ void help()
 		
         for(int i=0;i<24;++i)		
         {		
-                for(int c=0;c<70;++c)		
+                for(int c=0;c<71;++c)		
                 {		
                         level[i][c] = help[i][c];		
                 }		
@@ -515,20 +517,47 @@ void help()
 }
 void levelskip()
 {
-	if(next==98)
+
+	if(levelcount==0)
 	{
 		next=1;
 	}
-	else if(next==101)
-	{
-		next=6;
-	}
-	else if(next==102)
-	{
-		next=11;
-	}
-	else if(next==103)
+	if(levelcount==15)
 	{
 		next=16;
 	}
+	char help[24][71]={		
+		{" #####################################################################"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                    Number of steps :                              #"}		
+	,	{" #                         Time taken :                              #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}				
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}		
+	,	{" #                                                                   #"}
+	,	{" ##                                                                 ##"}		
+	,	{" # #                                                               # #"}		
+	,	{" #####################################################################"}};		
+		
+        for(int i=0;i<24;++i)		
+        {		
+                for(int c=0;c<71;++c)		
+                {		
+                        level[i][c] = help[i][c];		
+                }		
+        }
+
 }
