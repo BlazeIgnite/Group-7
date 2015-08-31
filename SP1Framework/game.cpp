@@ -13,7 +13,7 @@
 #include <cmath>
 
 // Console object
-Console console(79, 25, "SP1 Framework");
+Console console(79, 25, "Mirror Image");
  
 // extern from map.cpp
 extern unsigned char level[26][71];
@@ -43,7 +43,7 @@ short levelcount = 0;// for the level 0, 5, 10 and 15 to be identified
 
 int step = 0; // count the number of steps
 short unsigned unsignedtime;
-
+//run functions
 void storepoints();
 void printpoints();
 void spawnpoints();
@@ -119,17 +119,17 @@ void update(double dt)
     // get the delta time
 	if(next!=0 && next!= 16 && next!=99 && next != 101)
 	{
-		elapsedTime += dt;
+		elapsedTime += dt;//if levels 1 to 15 are running, the timer moves.
 	}
 	if(ismute==false)
 	{
-		ambience();
+		ambience();//if the game is not muted, play sound. DUH.
 	}
 	else
 	{
-		stopsound();
+		stopsound();//if the game IS muted, don't play sound!
 	}
-	mapseq();
+	mapseq();//follows the order of mapping.
     deltaTime = dt;
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -153,8 +153,8 @@ void moveCharacter()
 	character1.Y = charLocation.Y - 1;
 	character2.X = charLocation2.X;
 	character2.Y = charLocation2.Y - 1;
-	// Updating the location of the character based on the key press
-	if (keyPressed[K_UP] && charLocation.Y > 0)
+	// Updating the location of the 1st character based on the key press
+	if (keyPressed[K_UP] && charLocation.Y > 0)//up
 	{
 		if (level[character1.Y - 1][character1.X] == '#');
 		else if ((level[character1.Y - 1][character1.X] == '$') && (dooropen == 0));
@@ -164,7 +164,7 @@ void moveCharacter()
 			step++;//counts the number of movement you made
 		}
 	}
-	else if (keyPressed[K_LEFT] && charLocation.X > 0)
+	else if (keyPressed[K_LEFT] && charLocation.X > 0)//left
 	{
 		if (level[character1.Y][character1.X - 1] == '#');
 		else if ((level[character1.Y][character1.X - 1] == '$') && (dooropen == 0));
@@ -174,7 +174,7 @@ void moveCharacter()
 			step++;
 		}
 	}
-	else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
+	else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)//down
 	{
 		if (level[character1.Y + 1][character1.X] == '#');
 		else if ((level[character1.Y + 1][character1.X] == '$') && (dooropen == 0));
@@ -185,7 +185,7 @@ void moveCharacter()
 		}
 
 	}
-	else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)
+	else if (keyPressed[K_RIGHT] && charLocation.X < console.getConsoleSize().X - 1)//right
 	{
 		if (level[character1.Y][character1.X + 1] == '#');
 		else if ((level[character1.Y][character1.X + 1] == '$') && (dooropen == 0));
@@ -238,20 +238,21 @@ void moveCharacter()
 	}
 	if (level[character2.Y][character2.X] == '@' && level[character1.Y][character1.X] == '@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
 	{
-
+		//code for advancing thru checkpoints/admin hax XD.
 		switch(next)
 		{
 		case 5:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		case 10:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		case 15:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		}
+		//this switch is needed to force a change in soundtracks.
 		if (next<16)
 		{
 			Beep(1440, 30);
-			next++;
+			next++;//beep when touch
 		}
 		nextlevel = true;
-		dooropen = false;
+		dooropen = false;//shut all open doors.
 		spawnpoints();
 	}
 }
@@ -261,19 +262,19 @@ void processUserInput()
     if (keyPressed[K_ESCAPE])
     {
 	    g_quitGame = true;
-    }
+    }//quit when esc
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
 	{
 		Beep(1440, 30);
 		next=101;
 		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
-	}
+	}//startgame
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
 	{
 		Beep(1440, 30);
 		next = 99;
 		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
-	}
+	}//instructions
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
 	{
 		if(ismute==false)
@@ -284,11 +285,11 @@ void processUserInput()
 		{
 			ismute=false;
 		}
-	}
+	}//mute
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 13))
 	{
 		g_quitGame = true;
-	}
+	}//quit
 	else if ((keyPressed[K_SPACE]) && ((next == 100) || (next == 16)))
 	{
 		Beep(1440, 30);
@@ -298,14 +299,14 @@ void processUserInput()
 		elapsedTime = 0;
 		stopsound();
 		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
+	}//return to main menu
 	else if ((keyPressed[K_SPACE]) && (next == 99))
 	{
 		Beep(1440, 30);
 		next = 0;
 		step=0;
 		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
-	}
+	}//return to main menu AFTER losing
 
 	if ((keyPressed[K_SPACE]) && (next == 101))
 	{
@@ -314,7 +315,7 @@ void processUserInput()
 			case 5:next=6;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 			case 10:next=11;charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;break;
 		}
-	}
+	}//resume gameplay at checkpoint
 
 	activewarp();
 	activeswap();
@@ -349,9 +350,9 @@ void renderMap()
 		swapspawn();
 		nextlevel = false;
 	}
-	for (unsigned int i = 0; i<24; ++i)
+	for (unsigned int i = 0; i<24; ++i)//for the y axis
 	{
-		for (unsigned int c = 0; c<71; ++c)
+		for (unsigned int c = 0; c<71; ++c)//for the x axis
 		{
 			if(next>0 && next<16 && next!=101)
 			{
@@ -363,7 +364,7 @@ void renderMap()
 				{
 					level[i][c]=154;
 				}
-			}
+			}//spawns monsters
 			if (level[i][c] == '#')
 			{
 				a = 219;
@@ -375,7 +376,7 @@ void renderMap()
 				{
 					console.writeToBuffer(c, i + 1, a, 0x00);
 				}
-			}
+			}//paint the walls in a certain colour, anything else black
 			else
 			{
 				console.writeToBuffer(c, i + 1, level[i][c]);
@@ -391,7 +392,7 @@ void renderMap()
 					level[i][c] = 0;
 				}
 				console.writeToBuffer(c, i + 1, level[i][c]);
-			}
+			}//print doors
 			if (level[i][c] == '%')
 			{
 				if (dooropen == 0)
@@ -403,7 +404,7 @@ void renderMap()
 					level[i][c] = 0;
 				}
 				console.writeToBuffer(c, i + 1, level[i][c]);
-			}
+			}//print the key onto the map
 		}
 	}
         if(next>0 && next<16)
@@ -423,6 +424,7 @@ void renderMap()
                     }
                 }
             }
+			//run the side-menu for all the playable stages
         }
 	if(next == 101)// prints the stats for steps made and time taken
 	{
@@ -440,7 +442,7 @@ void renderMap()
 		walked<<"steps taken :"<< step<<" steps";
 		console.writeToBuffer(41,2,walked.str());
 		printpoints();
-	}
+	}//steps
 }
 void renderCharacter()
 {
@@ -459,6 +461,7 @@ void renderFramerate()
     c.Y = 0;
     console.writeToBuffer(c, ss.str());
 	unsignedtime = static_cast<unsigned short>(elapsedTime * 10);
+	short defaulttime = 800;//specifies time given for the game.
 
 	//displays the current level
 	if (next>0 && next<16)
@@ -471,14 +474,14 @@ void renderFramerate()
 		// displays the elapsed time
 
 		ss.str("");
-		if (1000-elapsedTime>0)
+		if (defaulttime-elapsedTime>0)
 		{
-		ss << 1000 - elapsedTime << "s";
+		ss << defaulttime - elapsedTime << "s";
 		}
 		else
 		{
 			ss << "0s";
-			elapsedTime=1000;
+			elapsedTime=defaulttime;
 			next=100;
 		}
 		c.X = 71;
@@ -499,15 +502,15 @@ void storepoints()
 	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
-	fs <<1000-a<<std::endl;
+	fs <<defaulttime-a<<std::endl;
 	fs.close();
 	std::ifstream inData;
-	inData.open ("scoreboard.txt");
+	inData.open ("scoreboard.txt");//open file
 
 	short var1 = 0;
 	while (!inData.eof())
 	{
-		inData >>bubble[var1];
+		inData >>bubble[var1];//read line by line
 		var1++;
 	}
 	short temp;
@@ -517,7 +520,7 @@ void storepoints()
 			{
 				temp=bubble[a];
 				bubble[a]=bubble[b];
-				bubble[b]=temp; 
+				bubble[b]=temp; //replaces top score with better score.
 			}
 	}
 	fs.open("scoreboard.txt", std::ofstream::out | std::ofstream::trunc);
@@ -555,6 +558,7 @@ void printpoints()
 
 void win()
 {
+	//screen for winning, if the player has a highscore.
 		if(checker == 0)
 		{
 			storepoints();
@@ -596,6 +600,7 @@ void win()
 }
 void spawnpoints()
 {
+	//all spawnpoints in the game.
 	switch(next)
 	{
 		case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
@@ -618,6 +623,7 @@ void spawnpoints()
 }
 void mapseq()
 {
+	//level sequence, and the reference "next" values
 	switch(next)
 	{
 		case 0:menu();sidemenu();break;
@@ -671,7 +677,7 @@ void warpspawn()
 		}
 		contact = true;
 	}
-}
+}//spawns monster that attacks red
 void activewarp()
 {
 	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
@@ -686,7 +692,7 @@ void activewarp()
 		charLocation.Y = b + 1;
 		contact = false;
 	}
-}
+}//collision function
 void swapspawn()
 {
 	double d;
@@ -715,7 +721,7 @@ void swapspawn()
 		}
 		contact2=true;
 	}
-}
+}//spawns monster that attacks green
 void activeswap()
 {
 	short tempx = charLocation2.X;
@@ -728,5 +734,5 @@ void activeswap()
 		charLocation.Y=tempy;
 		contact2=false;
 	}
-	
+	//collision event
 }
