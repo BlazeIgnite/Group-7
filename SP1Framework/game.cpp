@@ -28,6 +28,7 @@ double deltaTime;
 short data;
 short bubble[12];//array for scoring
 short data1[10];
+short defaulttime = 800;//specifies time given for the game.
 //shorts for RNG monster
 short arandom, brandom;
 short spawnX, spawnY;
@@ -461,7 +462,6 @@ void renderFramerate()
     c.Y = 0;
     console.writeToBuffer(c, ss.str());
 	unsignedtime = static_cast<unsigned short>(elapsedTime * 10);
-	short defaulttime = 800;//specifies time given for the game.
 
 	//displays the current level
 	if (next>0 && next<16)
@@ -656,7 +656,7 @@ void warpspawn()
 	srand((unsigned int)time(NULL));
 	if(next>0 && next<16)
 	{
-		while( 1 )
+		while( 1 )//infinite loop
 		{
 		
 			arandom = rand() % 70+2;
