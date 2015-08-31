@@ -19,6 +19,11 @@ enum Keys
 	K_SPACE,
     K_COUNT
 };
+struct move			//stuct for the movement of character
+{
+	short X;
+	short Y;
+};
 
 void init();                // initialize your variables, allocate memory, etc
 void getInput();            // get input from player
@@ -34,4 +39,17 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
+void win();
+void mapseq(double *elapsedTime);
+void spawnpoints(COORD *charLocation , COORD *charLocation2);
+
+//run functions
+void storepoints();
+void printpoints();
+
+
+void warpspawn(double *elapsedTime , COORD *charLocation , bool *contact);
+void activewarp(move * character1 , bool * contact, COORD *charLocation);
+void swapspawn(double *elapsedTime , COORD *charLocation2 , bool *contact2);
+void activeswap(COORD * charLocation2 ,COORD *charLocation, bool * contact2);
 #endif // _GAME_H

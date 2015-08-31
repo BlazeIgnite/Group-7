@@ -44,25 +44,11 @@ short levelcount = 0;// for the level 0, 5, 10 and 15 to be identified
 
 int step = 0; // count the number of steps
 short unsigned unsignedtime;
-//run functions
-void storepoints();
-void printpoints();
-void spawnpoints();
-void mapseq();
-void win();
-void warpspawn();
-void activewarp();
-void swapspawn();
-void activeswap();
+
 
 bool keyPressed[K_COUNT];
-bool g_DkeyPressed[K_COUNT];
 
-struct move			//stuct for the movement of character
-{
-	short X;
-	short Y;
-}character1, character2;
+move character1, character2;
 // Game specific variables here
 COORD charLocation;
 COORD charLocation2;
@@ -99,8 +85,7 @@ void shutdown()
         For Alphanumeric keys, the values are their ascii values (uppercase).
 */
 void getInput()
-{   
-	g_DkeyPressed[K_RETURN] = !keyPressed[K_RETURN] && isKeyPressed(VK_RETURN);
+{    
     keyPressed[K_UP] = isKeyPressed(VK_UP);
     keyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
     keyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
@@ -108,7 +93,6 @@ void getInput()
     keyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	keyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
     keyPressed[K_RETURN] = isKeyPressed(VK_RETURN);
-	
 } 
 /*
         This is the update function
@@ -133,7 +117,7 @@ void update(double dt)
 	{
 		stopsound();//if the game IS muted, don't play sound!
 	}
-	mapseq();//follows the order of mapping.
+	mapseq(&elapsedTime);//follows the order of mapping.
     deltaTime = dt;//counts time for recording FPS
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -261,7 +245,7 @@ void moveCharacter()
 		}
 		nextlevel = true;//go to next level
 		dooropen = false;//shut all open doors.
-		spawnpoints();//move the spawnpoints of the characters
+		spawnpoints(&charLocation, &charLocation2);//move the spawnpoints of the characters
 	}
 }
 void processUserInput()
@@ -283,7 +267,7 @@ void processUserInput()
 		next = 99;
 		charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;
 	}//instructions
-	else if ((g_DkeyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
+	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 12))
 	{
 		if(ismute==false)
 		{
@@ -325,8 +309,8 @@ void processUserInput()
 		}
 	}//resume gameplay at checkpoint
 
-	activewarp();
-	activeswap();
+	activewarp(&character1,&contact,&charLocation);
+	activeswap(&charLocation2 ,&charLocation ,&contact2);
 }
  
 void clearScreen()
@@ -354,8 +338,8 @@ void renderMap()
 	unsigned char a;
 	if ((unsignedtime % 100 == 0 || nextlevel == true) && (next>0 &&next<15)) //spwan traps and AI when next level is started
 	{
-		warpspawn();
-		swapspawn();
+		warpspawn(&elapsedTime,&charLocation,&contact);
+		swapspawn(&elapsedTime,&charLocation2 ,&contact2);
 		nextlevel = false;
 	}
 	for (unsigned int i = 0; i<24; ++i)//for the y axis
@@ -561,185 +545,4 @@ void printpoints()
 	ss.str("");
 	ss<<1000-(int)elapsedTime;
 	console.writeToBuffer(37,2,ss.str());
-}
-
-void win()
-{
-	//screen for winning, if the player has a highscore.
-		if(checker == 0)
-		{
-			storepoints();
-			checker++;
-		}
-        char win[24][71]={
-			    {" #####################################################################"}
-        ,       {" # #                  Your score is:                               # #"}
-        ,       {" ##Top 10 scores:     Press space to continue...                    ##"}
-		,       {" ##                                                                 ##"}
-		,       {" ##            ***     ***     ********     **        **            ##"}
-		,       {" ##            ***     ***    **********    **        **            ##"}
-		,       {" ##            ***     ***   **        **   **        **            ##"}
-        ,       {" ##            ***     ***   **        **   **        **            ##"}
-        ,       {" ##              ***  **     **        **   **        **            ##"}
-        ,       {" ##              ***  **     **        **   **        **            ##"}
-		,       {" ##                ***       **        **   **        **            ##"}
-        ,       {" ##                ***       **        **   **        **            ##"}
-        ,       {" ##                ***        **********      ********              ##"}
-		,       {" ##                ***         ********       ********              ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##            **  **  **        ***       *****      **            ##"}
-        ,       {" ##            **  **  **        ***       *****      **            ##"}
-        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
-        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
-        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
-        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
-		,       {" ###             **  **          ***       ***      ****           ###"}
-		,       {" ## #            **  **          ***       ***      ****          # ##"}
-		,       {" #####################################################################"}};
- 
-        for(int i=0;i<24;++i)
-        {
-            for(int c=0;c<71;++c)
-            {
-                level[i][c] = win[i][c];
-            }
-        }
-}
-void spawnpoints()
-{
-	//all spawnpoints in the game.
-	switch(next)
-	{
-		case 2: charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-		case 3: charLocation.X = 31; charLocation.Y = 4; charLocation2.X = 40; charLocation2.Y = 3;break;
-		case 4: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;break;
-		case 5: charLocation.X = 4; charLocation.Y = 5; charLocation2.X = 63; charLocation2.Y = 22;break;
-		case 6: charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-		case 7: charLocation.X = 17; charLocation.Y = 12; charLocation2.X = 53; charLocation2.Y = 12;break;
-		case 8: charLocation.X = 3; charLocation.Y = 21; charLocation2.X = 67; charLocation2.Y = 4; break;
-		case 9: charLocation.X = 2; charLocation.Y = 14; charLocation2.X = 68; charLocation2.Y = 13; break;
-		case 10: charLocation.X = 3; charLocation.Y = 4; charLocation2.X = 37; charLocation2.Y = 4; break;
-		case 11: charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3; break;
-		case 12: charLocation.X = 4; charLocation.Y = 12; charLocation2.X = 67; charLocation2.Y = 21; break;
-		case 13: charLocation.X = 63; charLocation.Y = 19; charLocation2.X = 19; charLocation2.Y = 19; break;
-		case 14: charLocation.X = 31; charLocation.Y = 17; charLocation2.X = 39; charLocation2.Y = 17; break;
-		case 15: charLocation.X = 34; charLocation.Y = 21; charLocation2.X = 36; charLocation2.Y = 21; break;
-		case 16: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2; break;
-		case 100: charLocation.X = 2;charLocation.Y = 2;charLocation2.X = 68;charLocation2.Y = 2;break;
-	}
-}
-void mapseq()
-{
-	//level sequence, and the reference "next" values
-	switch(next)
-	{
-		case 0:menu();sidemenu();break;
-		case 1:level1();break;
-		case 2:level2();break;
-		case 3:level3();break;
-		case 4:level4();break;
-		case 5:level5();break;
-		case 6:level6();break;
-		case 7:level7();break;
-		case 8:level8();break;
-		case 9:level9();break;
-		case 10:level10();break;
-		case 11:level11();break;
-		case 12:level12();break;
-		case 13:level13();break;
-		case 14:level14();break;
-		case 15:level15();break;
-		case 16:win();break;
-		case 99:help();break;
-		case 100:lose();elapsedTime=0;break;
-		case 101:levelskip();break;
-	}
-}
-
-void warpspawn()
-{
-	double d;
-	mapseq();
-	srand((unsigned int)time(NULL));
-	if(next>0 && next<16)
-	{
-		while( 1 )//infinite loop
-		{
-		
-			arandom = rand() % 70+2;
-			brandom = rand() % 20+2;
-			if(arandom == charLocation.X && brandom == charLocation.Y)
-			{
-				continue;
-			}
-			d=pow((double)(charLocation.X - arandom),(double)2) + pow((double)(charLocation.Y - brandom),(double)2);
-			if(d>400.0)
-			{
-				continue;
-			}
-			if( level[brandom][arandom] == ' ')
-			{
-				break;
-			}
-		}
-		contact = true;
-	}
-}//spawns monster that attacks red
-void activewarp()
-{
-	if ((brandom == character1.Y) && (arandom == character1.X) && (contact == true))
-	{
-		do
-		{
-			arandom = rand() % 65+2;
-			brandom = rand() % 20+2;
-		} while ((level[brandom][arandom] != ' ') && (brandom != charLocation.X) && (arandom != charLocation.Y) && (arandom>0) && (brandom > 0));
-		short a = arandom, b = brandom;
-		charLocation.X = a;
-		charLocation.Y = b + 1;
-		contact = false;
-	}
-}//collision function
-void swapspawn()
-{
-	double d;
-	mapseq();
-	srand((unsigned int)time(NULL)-10);
-	if(next>0 && next<16)
-	{
-		while(1)
-		{
-			spawnX=rand()%70+2;
-			spawnY=rand()%20+2;
-
-			if(spawnX==charLocation2.X && spawnY==charLocation2.Y)
-			{
-				continue;
-			}
-			d=pow((double)(charLocation2.X - spawnX),(double)2) + pow((double)(charLocation2.Y - spawnY),(double)2);
-			if(d>400.0)
-			{
-				continue;
-			}
-			if(level[spawnY][spawnX] == ' ')
-			{
-				break;
-			}
-		}
-		contact2=true;
-	}
-}//spawns monster that attacks green
-void activeswap()
-{
-	short tempx = charLocation2.X;
-	short tempy = charLocation2.Y;
-	if(((charLocation2.Y-1)==spawnY) && (charLocation2.X==spawnX))
-	{
-		charLocation2.X = charLocation.X;
-		charLocation2.Y = charLocation.Y;
-		charLocation.X=tempx;
-		charLocation.Y=tempy;
-		contact2=false;
-	}
-	//collision event
 }

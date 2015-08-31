@@ -1,4 +1,5 @@
 ﻿#include "map.h"
+#include "game.h"
 #include <fstream>
 #include <string>
 
@@ -574,4 +575,97 @@ void levelskip()
                 }		
         }
 
+}
+
+void win()
+{
+	//screen for winning, if the player has a highscore.
+		if(checker == 0)
+		{
+			storepoints();
+			checker++;
+		}
+        char win[24][71]={
+			    {" #####################################################################"}
+        ,       {" # #                  Your score is:                               # #"}
+        ,       {" ##Top 10 scores:     Press space to continue...                    ##"}
+		,       {" ##                                                                 ##"}
+		,       {" ##            ***     ***     ********     **        **            ##"}
+		,       {" ##            ***     ***    **********    **        **            ##"}
+		,       {" ##            ***     ***   **        **   **        **            ##"}
+        ,       {" ##            ***     ***   **        **   **        **            ##"}
+        ,       {" ##              ***  **     **        **   **        **            ##"}
+        ,       {" ##              ***  **     **        **   **        **            ##"}
+		,       {" ##                ***       **        **   **        **            ##"}
+        ,       {" ##                ***       **        **   **        **            ##"}
+        ,       {" ##                ***        **********      ********              ##"}
+		,       {" ##                ***         ********       ********              ##"}
+        ,       {" ##                                                                 ##"}
+        ,       {" ##            **  **  **        ***       *****      **            ##"}
+        ,       {" ##            **  **  **        ***       *****      **            ##"}
+        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
+        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
+        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
+        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
+		,       {" ###             **  **          ***       ***      ****           ###"}
+		,       {" ## #            **  **          ***       ***      ****          # ##"}
+		,       {" #####################################################################"}};
+ 
+        for(int i=0;i<24;++i)
+        {
+            for(int c=0;c<71;++c)
+            {
+                level[i][c] = win[i][c];
+            }
+        }
+}
+void spawnpoints(COORD *charLocation , COORD *charLocation2)
+{
+	//all spawnpoints in the game.
+	switch(next)
+	{
+		case 2: charLocation->X = 2; charLocation->Y = 23; charLocation2->X = 68; charLocation2->Y = 23;break;
+		case 3: charLocation->X = 31; charLocation->Y = 4; charLocation2->X = 40; charLocation2->Y = 3;break;
+		case 4: charLocation->X = 2; charLocation->Y = 3; charLocation2->X = 67; charLocation2->Y = 3;break;
+		case 5: charLocation->X = 4; charLocation->Y = 5; charLocation2->X = 63; charLocation2->Y = 22;break;
+		case 6: charLocation->X = 7; charLocation->Y = 3; charLocation2->X = 67; charLocation2->Y = 22;break;
+		case 7: charLocation->X = 17; charLocation->Y = 12; charLocation2->X = 53; charLocation2->Y = 12;break;
+		case 8: charLocation->X = 3; charLocation->Y = 21; charLocation2->X = 67; charLocation2->Y = 4; break;
+		case 9: charLocation->X = 2; charLocation->Y = 14; charLocation2->X = 68; charLocation2->Y = 13; break;
+		case 10: charLocation->X = 3; charLocation->Y = 4; charLocation2->X = 37; charLocation2->Y = 4; break;
+		case 11: charLocation->X = 2; charLocation->Y = 3; charLocation2->X = 67; charLocation2->Y = 3; break;
+		case 12: charLocation->X = 4; charLocation->Y = 12; charLocation2->X = 67; charLocation2->Y = 21; break;
+		case 13: charLocation->X = 63; charLocation->Y = 19; charLocation2->X = 19; charLocation2->Y = 19; break;
+		case 14: charLocation->X = 31; charLocation->Y = 17; charLocation2->X = 39; charLocation2->Y = 17; break;
+		case 15: charLocation->X = 34; charLocation->Y = 21; charLocation2->X = 36; charLocation2->Y = 21; break;
+		case 16: charLocation->X = 2;charLocation->Y = 2;charLocation2->X = 68;charLocation2->Y = 2; break;
+		case 100: charLocation->X = 2;charLocation->Y = 2;charLocation2->X = 68;charLocation2->Y = 2;break;
+	}
+}
+void mapseq(double *elapsedTime)
+{
+	//level sequence, and the reference "next" values
+	switch(next)
+	{
+		case 0:menu();sidemenu();break;
+		case 1:level1();break;
+		case 2:level2();break;
+		case 3:level3();break;
+		case 4:level4();break;
+		case 5:level5();break;
+		case 6:level6();break;
+		case 7:level7();break;
+		case 8:level8();break;
+		case 9:level9();break;
+		case 10:level10();break;
+		case 11:level11();break;
+		case 12:level12();break;
+		case 13:level13();break;
+		case 14:level14();break;
+		case 15:level15();break;
+		case 16:win();break;
+		case 99:help();break;
+		case 100:lose();elapsedTime=0;break;
+		case 101:levelskip();break;
+	}
 }
