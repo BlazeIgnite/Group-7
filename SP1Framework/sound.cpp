@@ -36,5 +36,5 @@ void playwin()
 }
 void stopsound()
 {
-	PlaySound(NULL,NULL,0);
+	PlaySound(NULL,NULL,SND_ASYNC);
 }
