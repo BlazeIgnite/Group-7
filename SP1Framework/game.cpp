@@ -38,6 +38,9 @@ bool warpprint = 0;
 bool swapprint =0;
 bool nextlevel = 0;
 
+short levelcount = 0;// for the level 0, 5, 10 and 15 to be identified
+
+int step = 0; // count the number of steps
 short unsigned unsignedtime;
 
 void storepoints();
@@ -113,7 +116,7 @@ void getInput()
 void update(double dt)
 {
     // get the delta time
-	if(next!=0 && next!= 16 && next!=99)
+	if(next!=0 && next!= 16 && next!=99 && next != 101)
 	{
 		elapsedTime += dt;
 	}
@@ -150,6 +153,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.Y--;
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (keyPressed[K_LEFT] && charLocation.X > 0)
@@ -159,6 +163,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.X--;
+			step++;
 		}
 	}
 	else if (keyPressed[K_DOWN] && charLocation.Y < console.getConsoleSize().Y - 1)
@@ -168,6 +173,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.Y++;
+			step++;
 		}
 
 	}
@@ -178,6 +184,7 @@ void moveCharacter()
 		else
 		{
 			charLocation.X++;
+			step++;
 		}
 	}
 	//2nd character
@@ -223,19 +230,20 @@ void moveCharacter()
 	}
 	if (level[character2.Y][character2.X] == '@' && level[character1.Y][character1.X] == '@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
 	{
-		nextlevel = true;
-		dooropen = false;
+
 		switch(next)
 		{
-		case 5:next = 101;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
-		case 10:next = 102;charLocation.X = 2; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 3;break;
-		case 15:next = 103;charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;break;
+		case 5:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 10:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 15:levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		}
 		if (next<16)
 		{
 			Beep(1440, 30);
 			next++;
 		}
+		nextlevel = true;
+		dooropen = false;
 		spawnpoints();
 	}
 }
@@ -249,7 +257,7 @@ void processUserInput()
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 10))
 	{
 		Beep(1440, 30);
-		next=98;
+		next=101;
 		charLocation.X = 2; charLocation.Y = 2; charLocation2.X = 68; charLocation2.Y = 2;
 	}
 	else if ((keyPressed[K_RETURN]) && (next == 0) && (charLocation2.X == 24) && (charLocation2.Y == 11))
@@ -266,6 +274,7 @@ void processUserInput()
 	{
 		Beep(1440, 30);
 		next = 0;
+		levelcount = 0;
 		elapsedTime = 0;
 		stopsound();
 		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
@@ -276,6 +285,16 @@ void processUserInput()
 		next = 0;
 		charLocation.X = 24; charLocation.Y = 10; charLocation2.X = 24; charLocation2.Y = 10;
 	}
+
+	if ((keyPressed[K_SPACE]) && (next == 101))
+	{
+		switch(levelcount)
+		{
+			case 5:next=6;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
+			case 10:next=11;charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;break;
+		}
+	}
+
 	activewarp();
 	activeswap();
 }
@@ -313,11 +332,11 @@ void renderMap()
 	{
 		for (unsigned int c = 0; c<71; ++c)
 		{
-			if (i == brandom && c == arandom && contact == true)
+			if (i == brandom && c == arandom && contact == true && next != 101)
 			{
 				level[i][c] = 142;
 			}
-			if (i == spawnY && c==spawnX && contact2 == true)
+			if (i == spawnY && c==spawnX && contact2 == true && next != 101)
 			{
 				level[i][c]=154;
 			}
@@ -381,9 +400,21 @@ void renderMap()
                 }
             }
         }
+	if(next == 101)// prints the stats for steps made and time taken
+	{
+		std::ostringstream ss;
+		std::ostringstream walked;
+		walked<< step<<" steps";
+		ss<< elapsedTime<<" Seconds";
+		console.writeToBuffer(40,6,walked.str());
+		console.writeToBuffer(40,7,ss.str());
+	}
 
 	if(next == 16)
 	{
+		std::ostringstream walked;
+		walked<<"steps taken :"<< step<<" steps";
+		console.writeToBuffer(41,2,walked.str());
 		printpoints();
 	}
 }
@@ -566,28 +597,25 @@ void mapseq()
 	switch(next)
 	{
 		case 0:menu();sidemenu();break;
-		case 98:levelskip();break;
 		case 1:level1();break;
 		case 2:level2();break;
 		case 3:level3();break;
 		case 4:level4();break;
 		case 5:level5();break;
-		case 101:levelskip();break;
 		case 6:level6();break;
 		case 7:level7();break;
 		case 8:level8();break;
 		case 9:level9();break;
 		case 10:level10();break;
-		case 102:levelskip();break;
 		case 11:level11();break;
 		case 12:level12();break;
 		case 13:level13();break;
 		case 14:level14();break;
 		case 15:level15();break;
-		case 103:levelskip();break;
 		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
+		case 101:levelskip();break;
 	}
 }
 
