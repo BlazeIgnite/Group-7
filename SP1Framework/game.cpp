@@ -239,7 +239,7 @@ void moveCharacter()
 	}
 	if (level[character2.Y][character2.X] == '%' || level[character1.Y][character1.X] == '%')
 	{
-		dooropen = true;
+		dooropen = true;//opens door if player touches the key
 	}
 	if (level[character2.Y][character2.X] == '@' && level[character1.Y][character1.X] == '@' || (keyPressed[K_LEFT] && keyPressed[K_RETURN]))
 	{
