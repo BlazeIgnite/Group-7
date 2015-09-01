@@ -31,7 +31,8 @@ void update(double dt);     // update the game and the state of the game
 void render();              // renders the current state of the game to the console
 void shutdown();            // do clean up, free memory
 
-void moveCharacter();       // moves the character, collision detection, physics, etc
+void moveCharacter(int *step ,move *character1,move*character2,bool *nextlevel,short*next,short*levelcount);
+// moves the character, collision detection, physics, etc
 void processUserInput();    // checks if you should change states or do something else with the game, e.g. pause, exit
 void clearScreen();         // clears the current screen and draw from scratch 
 void renderMap();           // renders the map to the buffer first
