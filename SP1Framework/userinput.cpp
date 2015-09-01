@@ -1,6 +1,3 @@
-
-
-
 #include "Framework\console.h"
 #include "game.h"
 extern Console console;
