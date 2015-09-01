@@ -8,7 +8,8 @@ extern unsigned char level[26][71];
 extern bool dooropen;
 extern COORD charLocation;
 extern COORD charLocation2;
-void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,short*next,short*levelcount)
+extern short next;
+void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,short*levelcount)
 {
 
 	//initilize value to xy for each character
@@ -106,14 +107,14 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 	if (level[character2->Y][character2->X] == '@' && level[character1->Y][character1->X] == '@' || (isKeyPressed(VK_LEFT) && isKeyPressed(VK_RETURN)))
 	{
 		//code for advancing thru checkpoints/admin hax XD.
-		switch(*next)
+		switch(next)
 		{
-		case 5: levelcount = next;*next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-		case 10:levelcount = next;*next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-		case 15:levelcount = next;*next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 5: *levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 10:*levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 15:*levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		}
 		//this switch is needed to force a change in soundtracks.
-		if (*next<16)
+		if (next<16)
 		{
 			Beep(1440, 30);
 			next++;//beep when touch
