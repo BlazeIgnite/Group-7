@@ -540,6 +540,7 @@ void levelskip()
 	if(levelcount==15)
 	{
 		next=16;
+		charLocation->X = 2;charLocation->Y = 23;charLocation2->X = 68;charLocation2->Y = 23;
 	}
 	char help[24][71]={		
 		{" #####################################################################"}		
