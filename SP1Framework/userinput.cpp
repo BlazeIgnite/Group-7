@@ -9,7 +9,8 @@ extern bool dooropen;
 extern COORD charLocation;
 extern COORD charLocation2;
 extern short next;
-void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,short*levelcount)
+extern int step;
+void moveCharacter(move *character1, move*character2,bool *nextlevel,short*levelcount)
 {
 
 	//initilize value to xy for each character
@@ -25,7 +26,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation.Y--;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (isKeyPressed(VK_LEFT) && charLocation.X > 0)//left
@@ -35,7 +36,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation.X--;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (isKeyPressed(VK_DOWN) && charLocation.Y < console.getConsoleSize().Y - 1)//down
@@ -45,7 +46,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation.Y++;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 
 	}
@@ -56,7 +57,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation.X++;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	//2nd character
@@ -67,7 +68,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation2.Y--;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (isKeyPressed(VK_LEFT) && charLocation2.X < console.getConsoleSize().X - 1)
@@ -77,7 +78,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation2.X++;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (isKeyPressed(VK_DOWN) && charLocation2.Y < console.getConsoleSize().Y - 1)
@@ -87,7 +88,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation2.Y++;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	else if (isKeyPressed(VK_RIGHT) && charLocation2.X > 0)
@@ -97,7 +98,7 @@ void moveCharacter(int *step ,move *character1, move*character2,bool *nextlevel,
 		else
 		{
 			charLocation2.X--;
-			*step++;//counts the number of movement you made
+			step++;//counts the number of movement you made
 		}
 	}
 	if (level[character2->Y][character2->X] == '%' || level[character1->Y][character1->X] == '%')

@@ -120,7 +120,7 @@ void update(double dt)
 	mapseq(&elapsedTime);//follows the order of mapping.
     deltaTime = dt;//counts time for recording FPS
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter(&step ,&character1,&character2,&nextlevel,&next,&levelcount);
+    moveCharacter(&character1,&character2,&nextlevel,&levelcount);
 		// moves the character, collision detection, physics, etc
     // sound can be played here too.
 	
