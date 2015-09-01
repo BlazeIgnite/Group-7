@@ -193,6 +193,7 @@ void processUserInput()
 		{
 			case 5:next=6;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 			case 10:next=11;charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;break;
+			case 15:next=16;charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;break;
 		}
 	}//resume gameplay at checkpoint
 
@@ -430,6 +431,6 @@ void printpoints()
 		}
 	}
 	ss.str("");
-	ss<<1000-(int)elapsedTime;
+	ss<<defaulttime-(int)elapsedTime;
 	console.writeToBuffer(37,2,ss.str());
 }
