@@ -531,7 +531,7 @@ void help()
         }		
 		
 }
-void levelskip()
+void levelskip(COORD *charLocation , COORD *charLocation2)
 {
 	if(levelcount==0)
 	{
@@ -645,6 +645,8 @@ void spawnpoints(COORD *charLocation , COORD *charLocation2)
 }
 void mapseq(double *elapsedTime)
 {
+	COORD charLocation1, charLocation2;
+
 	//level sequence, and the reference "next" values
 	switch(next)
 	{
@@ -667,6 +669,6 @@ void mapseq(double *elapsedTime)
 		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
-		case 101:levelskip();break;
+		case 101:levelskip(&charLocation1,&charLocation2);break;
 	}
 }

@@ -376,12 +376,10 @@ void renderToScreen()
 
 void storepoints()
 {
-	int c=0;
 	playwin();
-	int a =static_cast<int>(elapsedTime);
 	std::fstream fs;
 	fs.open ("scoreboard.txt", std::fstream::in | std::fstream::out | std::fstream::app);
-	fs <<defaulttime-a<<std::endl;
+	fs <<static_cast<int>(defaulttime-elapsedTime)<<std::endl;
 	fs.close();
 	std::ifstream inData;
 	inData.open ("scoreboard.txt");//open file

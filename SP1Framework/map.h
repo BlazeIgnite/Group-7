@@ -1,6 +1,6 @@
 #ifndef _MAP_H
 #define _MAP_H
-
+#include "game.h"
 
 void menu();
 void help();
@@ -21,11 +21,6 @@ void level13();
 void level14();
 void level15();
 void lose();
-void levelskip();
-
-
-
-
-
+void levelskip(COORD *charLocation , COORD *charLocation2);
 
 #endif
