@@ -15,7 +15,6 @@ void levelPreloader()
 {
 	std::ifstream inData;
 	inData.open("MAPS/Levels.txt");
-	char map[24][70];
 	std::string line;
 	unsigned int x = 0;
 	unsigned int y = 0;
