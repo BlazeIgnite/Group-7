@@ -513,10 +513,10 @@ void help()
 	,	{" #           stage. Your shadow has its left and                     #"}		
 	,	{" #           right controls reversed!                                #"}
 	,	{" #                                                                   #"}		
-	,	{" #             is a door.   is a portal. If your shadow              #"}		
-	,	{" #           touches  , you will swap places with yourself.          #"}		
-	,	{" #           If you touch  , you will be randomly teleported.        #"}		
-	,	{" #           When you touch  , you will open doors!                  #"}		
+	,	{" #           \260  is a door. \100 is a portal. If your shadow       #"}		
+	,	{" #           touches  \232, you will swap places with yourself.      #"}		
+	,	{" #           If you touch \216 , you will be randomly teleported     #"}		
+	,	{" #           When you touch \351 , you will open doors!              #"}		
 	,	{" #                                                                   #"}
 	,	{" ##                                                                 ##"}		
 	,	{" # #             PRESS SPACE TO RETURN TO THE MENU                 # #"}		
