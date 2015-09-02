@@ -22,5 +22,8 @@ void level14();
 void level15();
 void lose();
 void levelskip(COORD *charLocation , COORD *charLocation2);
-
+void levelPreloader();
+void levelloader(int a);
+void levelloader(char a, char b);
+void levelselect(char a, char b);
 #endif
