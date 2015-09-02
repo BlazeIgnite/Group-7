@@ -109,7 +109,7 @@ void moveCharacter(move *character1, move*character2,bool *nextlevel,short*level
 		{
 		case 5: *levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
 		case 10:*levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
-		case 15:*levelcount = next;next = 101;charLocation.X = 2; charLocation.Y = 23; charLocation2.X = 68; charLocation2.Y = 23;break;
+		case 15:*levelcount = next;next = 101;charLocation.X = 3; charLocation.Y = 23; charLocation2.X = 67; charLocation2.Y = 23;break;
 		}
 		//this switch is needed to force a change in soundtracks.
 		if (next<16)
