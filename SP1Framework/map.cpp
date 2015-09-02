@@ -7,43 +7,118 @@ unsigned char level[26][71];
 char side[25][10];
 short next=0;//current level of map change to access other levels
 char checker = 0;
+char maps[20][24][70];
 
 extern short levelcount;
+
+void levelPreloader()
+{
+	std::ifstream inData;
+	inData.open("MAPS/Levels.txt");
+	char map[24][70];
+	std::string line;
+	unsigned int x = 0;
+	unsigned int y = 0;
+	unsigned int z = 0;
+	while (getline (inData,line))
+	{
+		if (line[0] == '[')
+		{
+			while ( getline (inData,line)) //get map line by line into the var line
+			{
+				if (line[0] == ']' || y == 24)
+				{
+					break;
+				}
+				x = 0;
+				for (x; x < 70; x++)
+				{
+					maps[z][y][x] = line[x]; //storing string line into the char array
+				}
+				y++;
+			}
+			
+		}
+		z++;
+		y = 0;
+		if (line[0] == '!')
+		{
+			break;
+		}
+	}
+	inData.close();
+}
+
+void levelloader(int a)
+{
+	unsigned int y = 0;
+	unsigned int x = 0;
+	char levels[24][70];
+	for (y = 0; y < 24; y++)
+	{
+		for (x = 0; x < 70; x++)
+		{
+			levels[y][x] = maps[a][y][x];
+		}
+	}
+	for(int i=0;i<24;++i)
+	{
+		for(int c=0;c<70;++c)
+		{
+			level[i][c] = levels[i][c]; //send data to buffer
+		}
+	}
+}
+
+void levelloader(char a, char b)
+{
+	if (a == '0')
+	{
+		switch (b)
+		{
+			case '1':levelloader(0);break;
+			case '2':levelloader(1);break;
+			case '3':levelloader(2);break;
+			case '4':levelloader(3);break;
+			case '5':levelloader(4);break;
+			case '6':levelloader(5);break;
+			case '7':levelloader(6);break;
+			case '8':levelloader(7);break;
+			case '9':levelloader(8);break;
+		}
+	}
+	if (a == '1')
+	{
+		switch (b)
+		{
+			case '0':levelloader(9);break;
+			case '1':levelloader(10);break;
+			case '2':levelloader(11);break;
+			case '3':levelloader(12);break;
+			case '4':levelloader(13);break;
+			case '5':levelloader(14);break;
+		}
+	}
+}
+
+
+void levelselect(char a, char b)
+{
+	switch (a)
+	{
+		case '0':levelloader('0', b);break;
+		case '1':levelloader('1', b);break;
+		case 'M':levelloader(15);break;
+		case 'W':levelloader(16);break;
+		case 'L':levelloader(17);break;
+		case 'H':levelloader(18);break;
+		case 'P':levelloader(19);break;
+	}
+}
+
 void menu()
 {
-		checker = 0;
-        char menu[24][71]={
-                {" #####################################################################"}
-        ,       {" #                                                                   #"}
-		,       {" #      *       * ***** ****  ****   ***  ****                       #"}
-		,       {" #      **     **   *   *   * *   * *   * *   *                      #"}
-		,       {" #      * *   * *   *   ****  ****  *   * ****                       #"}
-		,       {" #      *  * *  *   *   *  *  *  *  *   * *  *                       #"}
-		,       {" #      *   *   * ***** *   * *   *  ***  *   *                      #"}
-        ,       {" #                                                                   #"}
-		,       {" #                     ###                                           #"}
-        ,       {" #                     # # Start                                     #"}
-        ,       {" #                     # # Instructions                              #"}
-		,       {" #                     # # Mute                                      #"}
-		,       {" #                     # # Quit                                      #"}
-		,       {" #                     ###                                           #"}
-		,       {" #      *****  *       *   ***    ****  *****                        #"}
-		,       {" #        *    **     **  *   *  *      *                            #"}
-		,       {" #        *    * *   * *  *****  *  **  ***                          #"}
-		,       {" #        *    *  * *  *  *   *  *   *  *                            #"}
-		,       {" #      *****  *   *   *  *   *   ****  *****                        #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #                                                                   #"}
-        ,       {" #####################################################################"}};
- 
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = menu[i][c];
-                }
-        }
+	levelselect('M','N');
 }
 void sidemenu()
 {
@@ -82,454 +157,71 @@ void sidemenu()
 }
 void level1()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level1.txt"); //Obtain map from text
-	char level1[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while ( getline (inData,line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level1[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for(int i=0;i<24;++i)
-	{
-		for(int c=0;c<70;++c)
-		{
-				level[i][c] = level1[i][c]; //send data to buffer
-		}
-	}
+	levelselect('0','1');
 }
 void level2()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level2.txt"); //Obtain map from text
-	char level2[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level2[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level2[i][c];
-            }
-    }
+	levelselect('0','2');
 }
 void level3()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level3.txt"); //Obtain map from text
-	char level3[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level3[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level3[i][c];
-            }
-    }
+	levelselect('0','3');
 }
 void level4()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level4.txt"); //Obtain map from text
-	char level4[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level4[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level4[i][c];
-		}
-	}
+	levelselect('0','4');
 }
 void level5()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level5.txt"); //Obtain map from text
-	char level5[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level5[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level5[i][c];
-            }
-    }
+	levelselect('0','5');
 }//not yet
 void level6()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level6.txt"); //Obtain map from text
-	char level6[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level6[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level6[i][c];
-            }
-    }
+	levelselect('0','6');
 }//not yet
 void level7()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level7.txt"); //Obtain map from text
-	char level7[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level7[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}   
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level7[i][c];
-            }
-    }
+	levelselect('0','7');
 }//not yet
 void level8()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level8.txt"); //Obtain map from text
-	char level8[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level8[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-    for(int i=0;i<24;++i)
-    {
-            for(int c=0;c<70;++c)
-            {
-                    level[i][c] = level8[i][c];
-            }
-    }
+	levelselect('0','8');
 }//not yet
 void level9()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level9.txt"); //Obtain map from text
-	char level9[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level9[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level9[i][c];
-		}
-	}
+	levelselect('0','9');
 }
 void level10()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level10.txt"); //Obtain map from text
-	char level10[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level10[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level10[i][c];
-		}
-	}
+	levelselect('1','0');
 }
 void level11()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level11.txt"); //Obtain map from text
-	char level11[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level11[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level11[i][c];
-		}
-	}
+	levelselect('1','1');
 }
 void level12()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level12.txt"); //Obtain map from text
-	char level12[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level12[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level12[i][c];
-		}
-	}
+	levelselect('1','2');
 }
 void level13()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level13.txt"); //Obtain map from text
-	char level13[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level13[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level13[i][c];
-		}
-	}
+	levelselect('1','3');
 }
 void level14()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level14.txt"); //Obtain map from text
-	char level14[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level14[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level14[i][c];
-		}
-	}
+	levelselect('1','4');
 }
 void level15()
 {
-	std::ifstream inData;
-	inData.open("MAPS/Level15.txt"); //Obtain map from text
-	char level15[24][71];  //2d array to store map
-	std::string line;
-	unsigned int y = 0;
-	unsigned int x = 0;
-	while (getline(inData, line)) //get map line by line into the var line
-	{
-		x = 0;
-		for (x; x < 70; x++)
-		{
-			level15[y][x] = line[x]; //storing string line into the char 2d array
-		}
-		y++;
-	}
-	for (int i = 0; i<24; ++i)
-	{
-		for (int c = 0; c<70; ++c)
-		{
-			level[i][c] = level15[i][c];
-		}
-	}
+	levelselect('1','5');
 }
 void lose()
 {
-        char lose[24][71]={
-			    {" #####################################################################"}
-        ,       {" # ################################################################# #"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-		,       {" ##                                                                 ##"}
-		,       {" ##                                                                 ##"}
-		,       {" ##            ***     ***     ********     **        **            ##"}
-		,       {" ##            ***     ***     ********     **        **            ##"}
-		,       {" ##            ***     ***  ***        **   **        **            ##"}
-        ,       {" ##            ***     ***  ***        **   **        **            ##"}
-        ,       {" ##              ***  **    ***        **   **        **            ##"}
-        ,       {" ##              ***  **    ***        **   **        **            ##"}
-		,       {" ##                ***      ***        **   **        **            ##"}
-        ,       {" ##                ***      ***        **   **        **            ##"}
-        ,       {" ##                ***         ********       ********              ##"}
-		,       {" ##                ***         ********       ********              ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                     Lost.                       ##"}
-        ,       {" ##             press space to continue....                         ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" #####################################################################"}
-
-       
-        };
- 
-        for(int i=0;i<24;++i)
-        {
-                for(int c=0;c<71;++c)
-                {
-                        level[i][c] = lose[i][c];
-                }
-        }
+	levelselect('L','S');
 }
 void help() 		
 {		
-	char help[24][71]={		
-		{" #####################################################################"}		
-	,	{" #                                                                   #"}		
-	,	{" #                               Story                               #"}		
-	,	{" #                                                                   #"}		
-	,	{" #           Your shadow seems to be trolling you, and               #"}		
-	,	{" #           doesn't seem to follow you as it normally               #"}		
-	,	{" #           should. You must escape the 15 levels of                #"}		
-	,	{" #           the dungeon within 1000 seconds or fail!                #"}		
-	,	{" #                                                                   #"}				
-	,	{" #                            How to play                            #"}		
-	,	{" #                                                                   #"}		
-	,	{" #           Use the arrow keys to move and reach the                #"}		
-	,	{" #           goal, marked by @ to advance to the next                #"}		
-	,	{" #           stage. Your shadow has its left and                     #"}		
-	,	{" #           right controls reversed!                                #"}
-	,	{" #                                                                   #"}		
-	,	{" #           \260  is a door. \100 is a portal. If your shadow       #"}		
-	,	{" #           touches  \232, you will swap places with yourself.      #"}		
-	,	{" #           If you touch \216 , you will be randomly teleported     #"}		
-	,	{" #           When you touch \351 , you will open doors!              #"}		
-	,	{" #                                                                   #"}
-	,	{" ##                                                                 ##"}		
-	,	{" # #             PRESS SPACE TO RETURN TO THE MENU                 # #"}		
-	,	{" #####################################################################"}};		
-		
-        for(int i=0;i<24;++i)		
-        {		
-                for(int c=0;c<71;++c)		
-                {		
-                        level[i][c] = help[i][c];		
-                }		
-        }		
-		
+	levelselect('H','P');
 }
 void levelskip(COORD *charLocation , COORD *charLocation2)
 {
@@ -542,40 +234,7 @@ void levelskip(COORD *charLocation , COORD *charLocation2)
 		next=16;
 		charLocation->X = 2;charLocation->Y = 23;charLocation2->X = 68;charLocation2->Y = 23;
 	}
-	char help[24][71]={		
-		{" #####################################################################"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                    Number of steps :                              #"}		
-	,	{" #                         Time taken :                              #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}				
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}		
-	,	{" #                                                                   #"}
-	,	{" ##                                                                 ##"}		
-	,	{" # #                   PRESS SPACE TO CONTINUE                     # #"}		
-	,	{" #####################################################################"}};		
-		
-        for(int i=0;i<24;++i)		
-        {		
-                for(int c=0;c<71;++c)		
-                {		
-                        level[i][c] = help[i][c];		
-                }		
-        }
-
+	levelselect('P','S');
 }
 
 void win()
@@ -586,39 +245,7 @@ void win()
 			storepoints();
 			checker++;
 		}
-        char win[24][71]={
-			    {" #####################################################################"}
-        ,       {" # #                  Your score is:                               # #"}
-        ,       {" ##Top 10 scores:     Press space to continue...                    ##"}
-		,       {" ##                                                                 ##"}
-		,       {" ##            ***     ***     ********     **        **            ##"}
-		,       {" ##            ***     ***    **********    **        **            ##"}
-		,       {" ##            ***     ***   **        **   **        **            ##"}
-        ,       {" ##            ***     ***   **        **   **        **            ##"}
-        ,       {" ##              ***  **     **        **   **        **            ##"}
-        ,       {" ##              ***  **     **        **   **        **            ##"}
-		,       {" ##                ***       **        **   **        **            ##"}
-        ,       {" ##                ***       **        **   **        **            ##"}
-        ,       {" ##                ***        **********      ********              ##"}
-		,       {" ##                ***         ********       ********              ##"}
-        ,       {" ##                                                                 ##"}
-        ,       {" ##            **  **  **        ***       *****      **            ##"}
-        ,       {" ##            **  **  **        ***       *****      **            ##"}
-        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
-        ,       {" ##            **  **  **        ***       ***  **    **            ##"}
-        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
-        ,       {" ##            **  **  **        ***       ***    **  **            ##"}
-		,       {" ###             **  **          ***       ***      ****           ###"}
-		,       {" ## #            **  **          ***       ***      ****          # ##"}
-		,       {" #####################################################################"}};
- 
-        for(int i=0;i<24;++i)
-        {
-            for(int c=0;c<71;++c)
-            {
-                level[i][c] = win[i][c];
-            }
-        }
+        levelselect('W','N');
 }
 void spawnpoints(COORD *charLocation , COORD *charLocation2)
 {

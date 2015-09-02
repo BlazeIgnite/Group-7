@@ -2,6 +2,7 @@
 
 #include "Framework\timer.h"
 #include "game.h"
+#include "map.h"
 
 
 StopWatch g_timer;            // Timer function to keep track of time and the frame rate
@@ -16,6 +17,7 @@ void mainLoop();
 
 int main()
 {
+	levelPreloader(); //
 	init();      // initialize your variables
     mainLoop();  // main loop
     shutdown();  // do clean up, if any. free memory.

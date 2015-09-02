@@ -284,6 +284,30 @@ void renderMap()
 				}
 				console.writeToBuffer(c, i + 1, level[i][c]);
 			}//print the key onto the map
+			if (level[i][c] == '~')
+			{
+				if (dooropen == 0)
+				{
+					level[i][c] = 142;
+				}
+				else
+				{
+					level[i][c] = 0;
+				}
+				console.writeToBuffer(c, i + 1, level[i][c]);
+			}//print teleporters
+			if (level[i][c] == '^')
+			{
+				if (dooropen == 0)
+				{
+					level[i][c] = 154;
+				}
+				else
+				{
+					level[i][c] = 0;
+				}
+				console.writeToBuffer(c, i + 1, level[i][c]);
+			}//print teleport
 		}
 	}
         if(next>0 && next<16)
@@ -401,6 +425,7 @@ void storepoints()
 				bubble[b]=temp; //replaces top score with better score.
 			}
 	}
+	inData.close();
 	fs.open("scoreboard.txt", std::ofstream::out | std::ofstream::trunc);
 	fs.close();
 	fs.open ("scoreboard.txt",std::fstream::in | std::fstream::out);
