@@ -193,7 +193,6 @@ void processUserInput()
 		{
 			case 5:next=6;charLocation.X = 7; charLocation.Y = 3; charLocation2.X = 67; charLocation2.Y = 22;break;
 			case 10:next=11;charLocation.X = 2; charLocation.Y =  3; charLocation2.X = 67; charLocation2.Y = 3;break;
-			case 15:next=16;charLocation.X = 2;charLocation.Y = 23;charLocation2.X = 68;charLocation2.Y = 23;break;
 		}
 	}//resume gameplay at checkpoint
 
@@ -391,6 +390,8 @@ void storepoints()
 		var1++;
 	}
 	short temp;
+	if( 11 < var1 )
+		var1 = 11;
 	for(short a = var1-1,b = var1;a>=0;a--,b--)
 	{
 			if(bubble[a]<bubble[b])
