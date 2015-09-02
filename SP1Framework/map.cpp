@@ -639,14 +639,13 @@ void spawnpoints(COORD *charLocation , COORD *charLocation2)
 		case 13: charLocation->X = 63; charLocation->Y = 19; charLocation2->X = 19; charLocation2->Y = 19; break;
 		case 14: charLocation->X = 31; charLocation->Y = 17; charLocation2->X = 39; charLocation2->Y = 17; break;
 		case 15: charLocation->X = 34; charLocation->Y = 21; charLocation2->X = 36; charLocation2->Y = 21; break;
-		case 16: charLocation->X = 2;charLocation->Y = 23;charLocation2->X = 68;charLocation2->Y = 23; break;
+		case 16: charLocation->X = 3;charLocation->Y = 23;charLocation2->X = 67;charLocation2->Y = 23; break;
 		case 100: charLocation->X = 2;charLocation->Y = 2;charLocation2->X = 68;charLocation2->Y = 2;break;
 	}
 }
 void mapseq(double *elapsedTime)
 {
-	COORD charLocation1, charLocation2;
-
+	COORD charLoc1, charLoc2;
 	//level sequence, and the reference "next" values
 	switch(next)
 	{
@@ -669,6 +668,6 @@ void mapseq(double *elapsedTime)
 		case 16:win();break;
 		case 99:help();break;
 		case 100:lose();elapsedTime=0;break;
-		case 101:levelskip(&charLocation1,&charLocation2);break;
+		case 101:levelskip(&charLoc1,&charLoc2);break;
 	}
 }
